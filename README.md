@@ -22,3 +22,4 @@ The following resources where used for pieces of code or more general idea's
 
 * <https://github.com/Parth/dotfiles>: Used for the idea of the deployment script
 * <https://github.com/LukeSmithxyz/voidrice>: For various vim related settings
+* <https://github.com/samoshkin/tmux-config>: For most of the tmux related configuration

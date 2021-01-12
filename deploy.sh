@@ -101,3 +101,5 @@ printf "source-file $HOME/dotfiles/tmux/tmux.conf" > ~/.tmux.conf
 
 echo
 echo "Please log out and log back in for default shell to be initialized."
+
+# TODO: Iets doen

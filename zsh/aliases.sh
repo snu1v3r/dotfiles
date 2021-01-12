@@ -1,6 +1,7 @@
 alias saveclip='xclip -selection clipboard -t image/png -o > '
 alias mount_shares='sudo vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other'
 alias mc="mc --nosubshell"
+alias ls='ls --color'
 alias ll='ls -l'
 alias la='ls -A'
 alias lc='ls -CF'
