@@ -17,7 +17,7 @@ I created an optimized configuration that generates a prompt with the following 
 ┌─[hacker㉿kali]─[21:15:01]─[✔]─(main|✔)─[~/dotfiles]
 $ 
 ```
-
+The `git` part in the prompt is only shown when you are in a git repository.
 ## Tmux
 
 ## Vim
