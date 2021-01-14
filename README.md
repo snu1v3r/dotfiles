@@ -13,10 +13,9 @@ $ ~/dotfiles/deploy
 This script is used to deploy the various files to the server. It first checks if *Tmux*, *Vim* and *Zsh* are installed and if *Zsh* is selected as the default shell. If the various programs are not installed, then they will first be installed. Next *Zsh* will be selected as the default shell. After that the various existing dotfiles are saved and new dotfiles are created that actually only source the relevant dotfiles in the repository directory. Benefit of this is that all changes can remain the repository without copying or moving files around.
 ## Zsh
 I created an optimized configuration that generates a prompt with the following layout
-```default
-┌─[hacker㉿kali]─[21:15:01]─[✔]─(main|✔)─[~/dotfiles]
-$ 
-```
+
+![](prompt_example.png)
+
 The `git` part in the prompt is only shown when you are in a git repository.
 ## Tmux
 
