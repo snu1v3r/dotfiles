@@ -10,7 +10,8 @@ $ ~/dotfiles/deploy
 # Short description of functionality
 
 ## Deployment script
-This script is used to deploy the various files to the server. It first checks if *Tmux*, *Vim* and *Zsh* are installed and if *Zsh* is selected as the default shell. If the various programs are not installed, then they will first be installed. Next *Zsh* will be selected as the default shell. After that the various existing dotfiles are saved and new dotfiles are created that actually only source the relevant dotfiles in the repository directory. Benefit of this is that all changes can remain the repository without copying or moving files around.
+This script is used to deploy the various files to the server. It first checks if *Tmux*, *Vim* and *Zsh* are installed and if *Zsh* is selected as the default shell. If the various programs a
+re not installed, then they will first be installed. Next *Zsh* will be selected as the default shell. After that the various existing dotfiles are saved and new dotfiles are created that actually only source the relevant dotfiles in the repository directory. Benefit of this is that all changes can remain the repository without copying or moving files around.
 ## Zsh
 I created an optimized configuration that generates a prompt with the following layout
 
@@ -18,6 +19,9 @@ I created an optimized configuration that generates a prompt with the following 
 
 The `git` part in the prompt is only shown when you are in a git repository.
 ## Tmux
+The most important changes are:
+* `\`` is used as prefix
+* The index of the panes will start at `0` 
 
 ## Vim
 
@@ -25,5 +29,6 @@ The `git` part in the prompt is only shown when you are in a git repository.
 The following resources where used for pieces of code or more general idea's
 
 * <https://github.com/Parth/dotfiles>: Used for the idea of the deployment script
-* <https://github.com/LukeSmithxyz/voidrice>: For various vim related settings
-* <https://github.com/samoshkin/tmux-config>: For most of the tmux related configuration
+* <https://github.com/LukeSmithxyz/voidrice>: For various *Vim* related settings
+* <https://github.com/samoshkin/tmux-config>: For most of the *Tmux* related configuration
+* <https://github.com/olivierverdier/zsh-git-prompt>: For the *Git* prompt idea's
