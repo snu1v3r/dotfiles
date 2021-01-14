@@ -20,7 +20,7 @@ I created an optimized configuration that generates a prompt with the following 
 The `git` part in the prompt is only shown when you are in a git repository.
 ## Tmux
 The most important changes are:
-* `\`` is used as prefix
+* The prefix is changed to ` ` `
 * The index of the panes will start at `0` 
 
 ## Vim
