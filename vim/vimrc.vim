@@ -3,6 +3,10 @@ let &t_SI = "\<esc>[5 q"
 let &t_SR = "\<esc>[5 q"
 let &t_EI = "\<esc>[1 q"
 
+" Decrease timeout for faster response to <ESC>
+set timeoutlen=10
+set ttimeoutlen=10
+
 " Enable filetype based syntax highlighting and other behaviour
 syntax on
 filetype plugin on
