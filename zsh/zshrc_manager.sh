@@ -13,7 +13,12 @@ if command -v tmux>/dev/null; then
 	else
         if [[ -z "$TMUX" ]]; then
 		    if [[ "$TERM_PROGRAM" != "vscode" ]]; then
-                tmux new-session -A -s main
+                if [ `tmux ls 2>&1 | wc -l` -gt 1 ]; then
+                    tmux choose-session
+                    tmux attach
+                else
+                    tmux new-session -A -s main
+                fi
             fi
         fi
     fi
