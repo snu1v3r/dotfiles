@@ -21,7 +21,12 @@ The `git` part in the prompt is only shown when you are in a git repository.
 ## Tmux
 The most important changes are:
 * The prefix is changed to `` ` ``
-* The index of the panes will start at `0` 
+* The index of the panes will start at `1` 
+* The index of the windows will start at `1`
+* With `PREFIX-C` a new window will be created in the current directory where the command is given
+* With `PREFIX-S` a new session will be created in the current directory where the command is given
+
+The code supports nested *Tmux* windows for local and remote. If the remote windows is started from remote, it will have a yellow on orange theme. The main theme is orange on yellow.
 
 ## Vim
 
