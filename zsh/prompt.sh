@@ -1,37 +1,40 @@
+# This file is used to include git status in the prompt
+# We start with this file, in order to be able to override stuff
+source ~/dotfiles/zsh/utils/git_prompt.sh
+
 # First we define several color code macro's
 
-ZSH_THEME_COLOR_GREEN="%F{green}"
-ZSH_THEME_COLOR_RED="%F{red}"
-ZSH_THEME_COLOR_BLUE="%F{blue}"
-ZSH_THEME_COLOR_ORANGE="%F{208%}"
-ZSH_THEME_COLOR_WHITE="%F{white}"
-ZSH_THEME_BOLD="%B"
-ZSH_THEME_NORMAL="%b"
-ZSH_USER_AT=㉿
-ZSH_ROOT_AT=💀
-ZSH_NO_ERROR=✗
-ZSH_ERROR=✔
-ZSH_PROMPT_ICON="$"
-ZSH_NEW_LINE=$'\n'
+THEME_COLOR_GREEN="%F{green}"
+THEME_COLOR_RED="%F{red}"
+THEME_COLOR_BLUE="%F{blue}"
+THEME_COLOR_ORANGE="%F{208%}"
+THEME_COLOR_WHITE="%F{white}"
+THEME_BOLD="%B"
+THEME_NORMAL="%b"
+USER_AT=㉿
+ROOT_AT=💀
+ERROR=✗
+NO_ERROR=✔
+PROMPT_ICON="$"
+NEW_LINE=$'\n'
 
 # Select the various color's for the various items
-ZSH_COLOR_LINES="$ZSH_THEME_NORMAL%(#.$ZSH_THEME_COLOR_BLUE.$ZSH_THEME_COLOR_GREEN)" # Line color changes for root
-ZSH_COLOR_USER="$ZSH_THEME_BOLD%(#.$ZSH_THEME_COLOR_RED.$ZSH_THEME_COLOR_BLUE)" # User prompt color changer for root
-ZSH_COLOR_TIME="$ZSH_THEME_NORMAL$ZSH_THEME_COLOR_ORANGE"
-ZSH_COLOR_NORMAL="$ZSH_THEME_COLOR_WHITE"
-ZSH_NORMAL="$ZSH_THEME_NORMAL$ZSH_COLOR_NORMAL"
+COLOR_LINES="$THEME_NORMAL%(#.$THEME_COLOR_BLUE.$THEME_COLOR_GREEN)" # Line color changes for root
+COLOR_USER="$THEME_BOLD%(#.$THEME_COLOR_RED.$THEME_COLOR_BLUE)" # User prompt color changer for root
+COLOR_TIME="$THEME_NORMAL$THEME_COLOR_ORANGE"
+COLOR_NORMAL="$THEME_COLOR_WHITE"
+NORMAL="$THEME_NORMAL$COLOR_NORMAL"
 
 
-# This file is used to include git status in the prompt
-source ~/dotfiles/zsh/utils/git_prompt.sh
+
 
 # Create the various context dependent prompt parts
 
-ZSH_USER_AT_HOST="$ZSH_COLOR_USER%n%(#.$ZSH_ROOT_AT.$ZSH_USER_AT)%m$ZSH_COLOR_LINES"
-ZSH_TIME="$ZSH_COLOR_TIME%D{%T}$ZSH_COLOR_LINES"
-ZSH_EXIT="%(?.$ZSH_THEME_BOLD$ZSH_THEME_COLOR_GREEN✔.$ZSH_THEME_BOLD$ZSH_THEME_COLOR_RED✗:%?)$ZSH_COLOR_LINES"
-ZSH_GIT='$(git_super_status)'$ZSH_COLOR_LINES
-ZSH_PATH="$ZSH_THEME_BOLD$ZSH_COLOR_NORMAL%(6~.%-1~/…/%4~.%5~)$ZSH_COLOR_LINES"
+USER_AT_HOST="$COLOR_USER%n%(#.$ROOT_AT.$USER_AT)%m$COLOR_LINES"
+TIME="$ZSH_COLOR_TIME%D{%T}$COLOR_LINES"
+EXIT="%(?.$THEME_BOLD$THEME_COLOR_GREEN$NO_ERROR.$THEME_BOLD$THEME_COLOR_RED$ERROR:%?)$COLOR_LINES"
+GIT_PROMPT='$(git_super_status)'$COLOR_LINES
+FORMATTED_PATH="$THEME_BOLD$COLOR_NORMAL%(6~.%-1~/…/%4~.%5~)$COLOR_LINES"
 
 # Create the final prompt
-PROMPT="$ZSH_COLOR_LINES┌─[$ZSH_USER_AT_HOST]─[$ZSH_TIME]─[$ZSH_EXIT]─$ZSH_GIT─[$ZSH_PATH]$ZSH_NEW_LINE$ZSH_PROMPT_ICON$ZSH_NORMAL "
+PROMPT="$COLOR_LINES┌─[$USER_AT_HOST]─[$TIME]─[$EXIT]─$GIT_PROMPT─[$FORMATTED_PATH]$NEW_LINE$PROMPT_ICON$NORMAL "
