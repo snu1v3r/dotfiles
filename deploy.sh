@@ -69,9 +69,6 @@ else
 	exit 0
 fi
 
-# This line is deactivated, since I don't know what it does
-# git submodule update --init --recursive
-
 check_for_software zsh
 echo 
 check_for_software vim
