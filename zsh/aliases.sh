@@ -11,3 +11,6 @@ alias vi='vim'
 alias history="history 0" # force zsh to show the complete history
 
 alias grep='grep -nH --color=auto' # Changes the grep command to enable colors and print linenumbers and filenames for the hits
+
+alias force_dvorak='setxkbmap dvorak' # Changes keyboard setcting in X to dvorak. Needed to make VS code aware of layout
+alias force_us='setxkbmap us' # Changes keyboard layout in X to US-International. Needed to make VS code aware of layout
