@@ -16,3 +16,11 @@ alias force_dvorak='setxkbmap dvorak' # Changes keyboard setting in X to dvorak.
 alias force_us='setxkbmap us' # Changes keyboard layout in X to US-International. Needed to make VS code aware of layout
 
 alias toggle_keyboard='test_keyboard=`setxkbmap -print | grep dvorak` ; if [[ $test_keyboard ]]; then setxkbmap us; else setxkbmap dvorak; fi' # This can be used to toggle the keyboard setting
+
+# This function enables a tail for a file with a specific search string. Time is printed when the string is found
+# Usage:    follow <file name to follow> <string to search for>
+myfunction() {
+	tail -f $1 | grep --colour --line-buffered $2 | awk '{print strftime("%c") " " $0}'
+	}
+
+alias follow=myfunction
