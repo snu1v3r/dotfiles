@@ -19,6 +19,7 @@ zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' # case insensitive tab
 bindkey -v
 export KEYTIMEOUT=1
 
+
 # Change cursor based on the mode 
 function zle-keymap-select {
     if [[ ${KEYMAP} == vicmd ]]; then
