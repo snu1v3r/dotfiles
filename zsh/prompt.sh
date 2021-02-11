@@ -33,5 +33,15 @@ EXIT="%(?.$THEME_BOLD$THEME_COLOR_GREEN$NO_ERROR.$THEME_BOLD$THEME_COLOR_RED$ERR
 GIT_PROMPT='$(git_super_status)'$COLOR_LINES
 FORMATTED_PATH="$THEME_BOLD$COLOR_NORMAL%(6~.%-1~/…/%4~.%5~)$COLOR_LINES"
 
+# Disable standard virtual env in prompt and put in custom
+
+venv_status () {
+    if [ ! -z $VIRTUAL_ENV ]
+    then 
+        echo -n '<'; basename -z $VIRTUAL_ENV; echo -n '>'
+    fi
+}
+export VIRTUAL_ENV_DISABLE_PROMPT=true
+VENV=$COLOR_NORMAL'$(venv_status)'$COLOR_LINES
 # Create the final prompt
-PROMPT="$COLOR_LINES┌─[$USER_AT_HOST]─[$TIME]─[$EXIT]─$GIT_PROMPT─[$FORMATTED_PATH]$NEW_LINE$PROMPT_ICON$NORMAL "
+PROMPT="$COLOR_LINES┌─[$USER_AT_HOST]─[$TIME]─[$EXIT]─$GIT_PROMPT$VENV─[$FORMATTED_PATH]$NEW_LINE$PROMPT_ICON$NORMAL "
