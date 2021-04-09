@@ -41,7 +41,6 @@ else
 fi
 # Disable standard virtual env in prompt and put in custom
 
-
 venv_status () {
     if [ ! -z $VIRTUAL_ENV ]
     then 
@@ -51,4 +50,6 @@ venv_status () {
 export VIRTUAL_ENV_DISABLE_PROMPT=true
 VENV=$COLOR_NORMAL'$(venv_status)'$COLOR_LINES
 # Create the final prompt
+
 PROMPT="$COLOR_LINES┌─[$USER_AT_HOST]─[$TIME]─[$EXIT]─$TUN0$GIT_PROMPT$VENV─[$FORMATTED_PATH]$NEW_LINE$PROMPT_ICON$NORMAL "
+
