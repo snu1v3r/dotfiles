@@ -22,6 +22,7 @@ NEW_LINE=$'\n'
 COLOR_LINES="$THEME_NORMAL%(#.$THEME_COLOR_BLUE.$THEME_COLOR_GREEN)" # Line color changes for root
 COLOR_USER="$THEME_BOLD%(#.$THEME_COLOR_RED.$THEME_COLOR_BLUE)" # User prompt color changer for root
 COLOR_TIME="$THEME_NORMAL$THEME_COLOR_ORANGE"
+COLOR_VPN="$THEME_NORMAL$THEME_COLOR_ORANGE"
 COLOR_NORMAL="$THEME_COLOR_WHITE"
 NORMAL="$THEME_NORMAL$COLOR_NORMAL"
 
@@ -32,6 +33,13 @@ TIME="$ZSH_COLOR_TIME%D{%T}$COLOR_LINES"
 EXIT="%(?.$THEME_BOLD$THEME_COLOR_GREEN$NO_ERROR.$THEME_BOLD$THEME_COLOR_RED$ERROR:%?)$COLOR_LINES"
 GIT_PROMPT='$(git_super_status)'$COLOR_LINES
 FORMATTED_PATH="$THEME_BOLD$COLOR_NORMAL%(6~.%-1~/…/%4~.%5~)$COLOR_LINES"
+if [[ ! -z $(ip a show tun0 up 2>/dev/null) ]]
+then
+    TUN0=[$COLOR_VPN'$(ip addr show dev tun0 2>/dev/null | /usr/bin/grep -oP "inet [^/]+" | cut -d" " -f2)'$COLOR_LINES]
+else
+    TUN0=''
+fi
+# Disable standard virtual env in prompt and put in custom
 
 # Disable standard virtual env in prompt and put in custom
 
@@ -45,3 +53,4 @@ export VIRTUAL_ENV_DISABLE_PROMPT=true
 VENV=$COLOR_NORMAL'$(venv_status)'$COLOR_LINES
 # Create the final prompt
 PROMPT="$COLOR_LINES┌─[$USER_AT_HOST]─[$TIME]─[$EXIT]─$GIT_PROMPT$VENV─[$FORMATTED_PATH]$NEW_LINE$PROMPT_ICON$NORMAL "
+PROMPT="$COLOR_LINES┌─[$USER_AT_HOST]─[$TIME]─[$EXIT]─$TUN0$GIT_PROMPT$VENV─[$FORMATTED_PATH]$NEW_LINE$PROMPT_ICON$NORMAL "
