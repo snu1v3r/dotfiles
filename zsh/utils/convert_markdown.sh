@@ -43,10 +43,11 @@ join () {
 
 create_meta () {
     # First check if there is a meta.md in the source directory. If so, we have to include that file
-    echo $full_path
+    echo "[i] Processing directory : $full_path"
     if [ -f "$full_path/meta.md" ] 
     then
         cat $full_path/meta.md > $tmp_file
+        echo '[i] Found meta.md, using for page layout'
     else
         echo '---' > $tmp_file
         echo 'date: \today' >> $tmp_file
@@ -72,7 +73,7 @@ create_meta () {
     if [[ ! -z $TITLE ]]
     then
         sed -i "s/^title[ ]*:.*$/title: \"$TITLE\"/" $tmp_file
-        echo "title is provided"
+        echo "[i] \"$TITLE\" is used as title"
     fi
 }
 
@@ -82,6 +83,7 @@ spider_dir () {
     then
         DEPTH=1
     fi
+    echo "[i] Spidering to create the output file with a spider depth of : $DEPTH"
     files=`find $POSITIONAL -maxdepth $DEPTH -iname '*.md'`
 
     # This needs a part where the keywords are expanded to include the raw filenames of the files included
@@ -94,7 +96,8 @@ spider_dir () {
     for md_file in $files; do
         if [[ ! $md_file == *"meta.md" ]]
         then
-            dir_part=`echo $md_file | cut -d'/' -f2`
+            dir_part=`echo $md_file | cut -d'/' -f1`
+            echo "[i] adding file and converting paths for loot and screenshots : $md_file"
             cat $md_file | sed "s/(loot/($dir_part\/loot/g" | sed "s/(screen/($dir_part\/screen/g" >> $tmp_file
         fi
     done
@@ -218,7 +221,7 @@ else
     TEMPLATE="--template $template"
 fi
 
-echo $tmp_file
-echo $short_name
+echo "[i] Filename of temporary file : $tmp_file"
+echo "[*] Filename of output .pdf file : $short_name"
 cd /tmp
 pandoc $tmp_file -o "$full_path/$short_name" --resource-path="$full_path" --from markdown+yaml_metadata_block+raw_html --pdf-engine=xelatex --pdf-engine-opt=-output-directory=/tmp $TEMPLATE $HIGHLIGHT --table-of-contents --toc-depth 6 --number-sections --top-level-division=chapter && rm $tmp_file
