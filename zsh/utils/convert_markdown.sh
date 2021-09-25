@@ -96,9 +96,9 @@ spider_dir () {
     for md_file in $files; do
         if [[ ! $md_file == *"meta.md" ]]
         then
-            dir_part=`echo $md_file | cut -d'/' -f1`
+            dir_part=`dirname $md_file`
             echo "[i] adding file and converting paths for loot and screenshots : $md_file"
-            cat $md_file | sed "s/(loot/($dir_part\/loot/g" | sed "s/(screen/($dir_part\/screen/g" >> $tmp_file
+            cat $md_file | sed "s#(loot#($dir_part/loot#g" | sed "s#(screen#($dir_part/screen#g" >> $tmp_file
         fi
     done
 }
