@@ -224,4 +224,4 @@ fi
 echo "[i] Filename of temporary file : $tmp_file"
 echo "[*] Filename of output .pdf file : $short_name"
 cd /tmp
-pandoc $tmp_file -o "$full_path/$short_name" --resource-path="$full_path" --from markdown+yaml_metadata_block+raw_html --pdf-engine=xelatex --pdf-engine-opt=-output-directory=/tmp $TEMPLATE $HIGHLIGHT --table-of-contents --toc-depth 6 --number-sections --top-level-division=chapter && rm $tmp_file
+pandoc $tmp_file -o "$full_path/$short_name" --resource-path="$full_path" --from markdown+yaml_metadata_block+raw_html --pdf-engine=xelatex --pdf-engine-opt=-output-directory=/tmp $TEMPLATE $HIGHLIGHT --table-of-contents --toc-depth 4 --number-sections --top-level-division=chapter && rm $tmp_file

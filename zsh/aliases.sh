@@ -24,3 +24,7 @@ myfunction() {
 	}
 
 alias follow=myfunction
+
+alias clean_codes='sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"'
+
+alias convert-markdown='~/dotfiles/zsh/utils/convert_markdown.sh'
