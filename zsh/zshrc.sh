@@ -20,6 +20,11 @@ bindkey -v
 export KEYTIMEOUT=1
 
 
+# Set VIM as the default console editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
+
+
 # Change cursor based on the mode 
 function zle-keymap-select {
     if [[ ${KEYMAP} == vicmd ]]; then
