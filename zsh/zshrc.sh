@@ -41,6 +41,7 @@ zle-line-init() {
 zle -N zle-line-init
 echo -ne '\e[5 q'
 preexec() { echo -ne '\e[5 q' ;}
+bindkey "^R" history-incremental-search-backward
 
 
 

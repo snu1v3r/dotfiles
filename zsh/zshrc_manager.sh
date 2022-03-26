@@ -6,6 +6,7 @@
 
 
 # export DISABLE_TMUX=true
+export LANG=en_US.UTF-8
 
 if command -v tmux>/dev/null; then
 	if [ "$DISABLE_TMUX" = "true" ]; then
