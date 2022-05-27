@@ -31,3 +31,4 @@ source ~/dotfiles/zsh/zshrc.sh
 source ~/dotfiles/zsh/syntax.sh
 source ~/dotfiles/zsh/prompt.sh
 source ~/dotfiles/zsh/aliases.sh
+source ~/dotfiles/zsh/utils/zsh-vi-mode.plugin.zsh
