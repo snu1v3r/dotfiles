@@ -84,7 +84,7 @@ spider_dir () {
         DEPTH=1
     fi
     echo "[i] Spidering to create the output file with a spider depth of : $DEPTH"
-    files=`find $POSITIONAL -maxdepth $DEPTH -iname '*.md'`
+    files=`find $POSITIONAL -maxdepth $DEPTH -iname '*.md' | sort`
 
     # This needs a part where the keywords are expanded to include the raw filenames of the files included
     #  if [ ! -f $full_path/meta.md ] 
