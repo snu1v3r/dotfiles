@@ -7,8 +7,8 @@
 # Move templates to the tools directory and make it work
 # clean up code
 
-highlight='/mnt/hgfs/Hackerbot/templates/custom_highlight.theme'
-template='/mnt/hgfs/Hackerbot/templates/eisvogel.latex'
+highlight=`realpath ~/dotfiles/zsh/utils/custom_highlight.theme`
+template=`realpath ~/dotfiles/zsh/utils/eisvogel.latex`
 print_install() {
 echo "General installation instructions:
     1. Install pandoc from the pandoc website
