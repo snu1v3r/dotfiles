@@ -183,7 +183,13 @@ full_name=`realpath $POSITIONAL`
 if [[ -d $full_name ]]
 then
     full_path=$full_name
-    short_name=`echo $full_name | sed -n "s/^.*\/\([^\/].*\)$/\1/p"`.pdf
+    if [[ -z $OUTPUT ]]
+    then
+        short_name=`echo $full_name | sed -n "s/^.*\/\([^\/].*\)$/\1/p"`.pdf
+    else
+        short_name=$OUTPUT.pdf
+    fi
+    echo $short_name
 else
     full_path=`echo $full_name | sed -n "s/^\(.*\/\)\([^\/].*\)\.md.*$/\1/p"`
     if [[ -z $OUTPUT ]]
