@@ -85,11 +85,15 @@ def process_arguments():
                                             description = 'This program converts a single markdown file or a directory tree with multiple markdown files into a single .pdf')
     parser.add_argument('filename', nargs='?', help = 'Path (spider mode) or filename (single mode) to convert')
     parser.add_argument('-v', '--verbose', action = 'store_true', help = 'Generate more verbose output')
-    parser.add_argument('-s', '--spider', action = 'store_true', help = 'Spider the directory tree for markdown files upto --depth [default = 1]')
-    parser.add_argument('-d', '--depth', type = int, default = 1, help = 'Maximum depth for spidering' )
+    parser.add_argument('-s', '--spider', action = 'store_true', help = 'Spider the directory tree for markdown files upto --depth')
+    parser.add_argument('-d', '--depth', type = int, default = 1, help = 'Maximum depth for spidering (default: %(default)s)' )
+    parser.add_argument('--toc', type = int, default = 4, help = 'Levels for the table of contents (default: %(default)s)')
     parser.add_argument('-i', '--install', help = 'Print instructions for setting-up the Pandoc/Latex environment', action = 'store_true')
     parser.add_argument('-o', '--output', help = 'Custom filename for the output file (.pdf will be appended automatically)')
     parser.add_argument('--sort', default = 'name', choices =['name', 'date'], help = 'Sort the files either by name or by date (default: %(default)s)')
+    parser.add_argument('--engine', default = 'xelatex', choices = ['xelatex','pdflatex'], help = 'Engine to use for the conversion to PDF (default: %(default)s)')
+    parser.add_argument('--template', default = default_template, help = 'Full path to optional template (default: %(default)s)')
+    parser.add_argument('--highlight', default = default_highlight, help = 'Full path to optional highlight (default: %(default)s)')
     return parser.parse_args()
 
 def parse_line(line, md_file):
@@ -107,22 +111,41 @@ def parse_markdown_files(tmp_file, md_files):
                     tmp_file.write(parse_line(line, md_file))
                 #tmp_file.write('\n') # This ensures that there is always an empty line between two markdown files ensuring proper chapters.
 
-def execute_command(tmp_filename):
+def execute_command(args):
+    tmp_files = os.listdir('/tmp')
+    for tmp_file in tmp_files:
+        if tmp_file.startswith('input.'):
+            if os.path.isfile('/tmp/'+tmp_file):
+                os.remove('/tmp/' + tmp_file)
+                logger.info('Cleaning input file: /tmp/%s', tmp_file)
+    if args.output:
+        output_file = args.output + '.pdf'
+    else:
+        output_file = args.full_path.split('/')[-1]+'.pdf'
+    logger.info('Creating output file with filename : %s', output_file)
     cmdline= ['pandoc',
-        tmp_filename,
-        '-o', '/home/user/test.pdf',
-        '--resource-path='+'',
+        args.tmp_filename,
+        '-o', args.full_path + '/' + output_file,
+        '--resource-path='+args.full_path,
         '--from', 'markdown+yaml_metadata_block+raw_html',
-        '--pdf-engine='+'xelatex',
+        '--pdf-engine='+args.engine,
         '--pdf-engine-opt=' + '-output-directory=/tmp',
-        '--template', default_template,
-        '--highlight-style='+default_highlight,
+        '--template', args.template,
+        '--highlight-style='+args.highlight,
         '--table-of-contents',
-        '--toc-depth','4',
+        '--toc-depth','%d' % args.toc,
         '--number-sections',
         '--top-level-division=' + 'chapter'
         ]
-    subprocess.run(cmdline)
+    completed = subprocess.run(cmdline)
+    if completed.returncode == 0:
+        logger.info("Succesfully created pdf with filename : %s", output_file)
+        logger.info("Removing temporary file: %s", args.tmp_filename)
+        os.remove(args.tmp_filename)
+        exit(completed.returncode)
+    else:
+        logger.info("There was an error. Leaving temporary file: %s", args.tmp_filename)
+        exit(completed.returncode)
 
 def main():
     args = process_arguments()
@@ -136,22 +159,22 @@ def main():
         exit()
     
     if args.filename:
-        full_path = os.path.abspath(args.filename)
-        logger.info(full_path)
+        args.full_path = os.path.abspath(args.filename)
+        logger.info(args.full_path)
         if args.spider:
-            markdown_files = spider(full_path,0,args.depth,args.sort)
+            markdown_files = spider(args.full_path,0,args.depth,args.sort)
             logger.debug("Spidering resulted in the following files : %s", markdown_files)
-        tmp_filename = '/tmp/' + ''.join(random.choices(string.ascii_letters + string.digits, k = 7)) + '.md'
-        logger.info(tmp_filename)
+        args.tmp_filename = '/tmp/' + ''.join(random.choices(string.ascii_letters + string.digits, k = 7)) + '.md'
+        logger.info("Using temporary file: %s", args.tmp_filename)
 
-        if os.path.exists(full_path + '/meta.md'):
+        if os.path.exists(args.full_path + '/meta.md'):
             logger.info('Meta.md file is found at the root of the tree. This is used.')
-            parse_markdown_files(tmp_filename, [full_path+'/meta.md'])
+            parse_markdown_files(args.tmp_filename, [args.full_path+'/meta.md'])
         else:
             logger.debug('No meta.md file found. Therefore including the default')
-            create_meta(tmp_filename)
-        parse_markdown_files(tmp_filename, markdown_files)
-        execute_command(tmp_filename)
+            create_meta(args.tmp_filename)
+        parse_markdown_files(args.tmp_filename, markdown_files)
+        execute_command(args)
 
     else:
         logger.critical("No filename was provided. No other actions detected. Exiting")
