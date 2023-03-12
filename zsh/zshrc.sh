@@ -57,12 +57,6 @@ preexec() { echo -ne '\e[5 q' ;}
 bindkey "^R" history-incremental-search-backward
 
 
-# Include command suggestions in the prompt
-if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
-    . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-    # change suggestion color
-    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
-fi
 
 
 # enable color support of ls, less and man, and also add handy aliases

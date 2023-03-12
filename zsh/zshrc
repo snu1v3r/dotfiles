@@ -8,6 +8,14 @@
 # export DISABLE_TMUX=true
 export LANG=en_US.UTF-8
 
+source ~/dotfiles/powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/dotfiles/zsh/p10k.zsh ]] || source ~/dotfiles/zsh/p10k.zsh
+#source '/home/user/dotfiles/zsh/zshrc_manager.sh'
+
+
+
 if command -v tmux>/dev/null; then
 	if [ "$DISABLE_TMUX" = "true" ]; then
 		echo "TMUX is disabled through the environment"
@@ -29,6 +37,13 @@ fi
 
 source ~/dotfiles/zsh/zshrc.sh
 source ~/dotfiles/zsh/syntax.sh
+source ~/dotfiles/zsh/autosuggestions.sh
 source ~/dotfiles/zsh/prompt.sh
 source ~/dotfiles/zsh/aliases.sh
 #source ~/dotfiles/zsh/utils/zsh-vi-mode.plugin.zsh
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
