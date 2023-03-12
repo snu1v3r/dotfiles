@@ -52,7 +52,7 @@ check_default_shell() {
 
 echo "We're going to do the following:"
 echo "1. Grab dependencies"
-echo "2. Check to make sure you have zsh, vim, and tmux installed"
+echo "2. Check to make sure you have zsh, neovim, and tmux installed"
 echo "3. We'll help you install them if you don't"
 echo "4. We're going to check to see if your default shell is zsh"
 echo "5. We'll try to change it if it's not" 
@@ -71,12 +71,13 @@ fi
 
 check_for_software zsh
 echo 
-check_for_software vim
+check_for_software neovim
 echo
 check_for_software tmux
 echo
 
 check_default_shell
+
 
 echo
 echo -n "Would you like to backup your current dotfiles? (y/n) "
@@ -92,8 +93,8 @@ else
 	echo -e "\nNot backing up old dotfiles."
 fi
 
-printf "source '$HOME/dotfiles/zsh/zshrc_manager.sh'" > ~/.zshrc
-printf "so $HOME/dotfiles/vim/vimrc.vim" > ~/.vimrc
+ln -s $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
+ln -s $HOME/dotfiles/vim/vimrc.vim $HOME/.config/nvim/init.vim
 printf "source-file $HOME/dotfiles/tmux/tmux.conf" > ~/.tmux.conf
 
 echo
