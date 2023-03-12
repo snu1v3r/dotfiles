@@ -1,5 +1,5 @@
-if [ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-    . /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+if [ -f $HOME/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+    . $HOME/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
     ZSH_HIGHLIGHT_STYLES[default]=none
     ZSH_HIGHLIGHT_STYLES[unknown-token]=fg=red,bold
