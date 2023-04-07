@@ -5,7 +5,7 @@ alias ls='ls --color'
 alias ll='ls -l'
 alias la='ls -A'
 alias lc='ls -CF'
-alias vim="echo -ne '\e[1 q' ;vim" # Ensures that the cursor is a block cursor when intering vim (given the normal mode in which you enter vim)
+alias vim="echo -ne '\e[1 q' ;nvim" # Ensures that the cursor is a block cursor when intering vim (given the normal mode in which you enter vim)
 alias vi='vim'
 
 alias history="history 0" # force zsh to show the complete history
