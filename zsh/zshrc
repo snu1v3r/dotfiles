@@ -7,6 +7,7 @@
 
 # export DISABLE_TMUX=true
 export LANG=en_US.UTF-8
+export LC_ALL="C.UTF-8"
 
 source ~/dotfiles/powerlevel10k/powerlevel10k.zsh-theme
 
