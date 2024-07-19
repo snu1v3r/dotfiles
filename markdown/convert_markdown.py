@@ -134,8 +134,11 @@ def execute_command(args):
         '--number-sections',
         '--top-level-division=' + 'chapter'
         ]
-    completed = subprocess.run(cmdline)
+    completed = subprocess.run(cmdline, capture_output = True)
     if completed.returncode == 0:
+        if b'Rerun' in completed.stderr:
+            logger.info("Pandoc is rerun to ensure proper references")
+            completed = subprocess.run(cmdline)
         logger.info("Succesfully created pdf with filename : %s", output_file)
         logger.info("Removing temporary file: %s", args.tmp_filename)
         os.remove(args.tmp_filename)
