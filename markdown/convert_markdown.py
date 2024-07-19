@@ -78,7 +78,7 @@ def spider(path, depth, max_depth,sort):
     return markdown_files
 
 def process_arguments():
-    parser = argparse.ArgumentParser(prog = 'Convert Markdown to pdf',
+    parser = argparse.ArgumentParser(prog = 'convert-markdown',
                                             description = 'This program converts a single markdown file or a directory tree with multiple markdown files into a single .pdf')
     parser.add_argument('filename', nargs='?', help = 'Path (spider mode) or filename (single mode) to convert')
     parser.add_argument('-v', '--verbose', action = 'store_true', help = 'Generate more verbose output')
