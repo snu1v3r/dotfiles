@@ -1,7 +1,6 @@
 import argparse
 import os
 import logging
-from colorlog import ColoredFormatter
 import random
 import string
 import subprocess
@@ -52,7 +51,11 @@ def init_logger(has_verbose):
         handler.setLevel(logging.DEBUG)
     else:
         handler.setLevel(logging.INFO)
-    formatter = ColoredFormatter('%(asctime)-23s - %(levelname)-8s - %(message)s')
+    try:
+        from colorlog import ColoredFormatter
+        formatter = ColoredFormatter('%(asctime)-23s - %(log_color)s%(levelname)-8s%(reset)s - %(message)s')
+    except ModuleNotFoundError:
+        formatter = logging.Formatter('%(asctime)-23s - %(levelname)-8s - %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     return logger
