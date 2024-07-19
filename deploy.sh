@@ -105,6 +105,8 @@ else
 	echo -e "\nNot backing up old dotfiles."
 fi
 
+echo Cloning the tmux setup
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 echo Cloning the NvChad repo for neovim
 git clone https://github.com/NvChad/starter /tmp/nvchad
@@ -113,7 +115,9 @@ cp -R /tmp/nvchad/* ~/.config/nvim
 rm -rf /tmp/nvchad
 
 
+
 ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
+ln -sf $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf 
 #ln -s $HOME/dotfiles/vim/vimrc.vim $HOME/.config/nvim/init.vim
 printf "source-file $HOME/dotfiles/tmux/tmux.conf" > ~/.tmux.conf
 
@@ -121,6 +125,7 @@ echo Using stow for configurations
 stow -t ~ -d ~/dotfiles/stowed_files .
 
 echo
+echo "For correct display of the fonts ensure that 'MesloLGS NF Regular' is selected."
 echo "Please log out and log back in for default shell to be initialized."
 
 # TODO: Iets doen
