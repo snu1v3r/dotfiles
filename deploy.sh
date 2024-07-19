@@ -6,7 +6,11 @@ prompt_install() {
 	stty $old_stty_cfg && echo
 	if echo "$answer" | grep -iq "^y" ;then
 		# This could def use community support
-		if [ -x "$(command -v apt-get)" ]; then
+		if [ "$1" = "neovim" ]; then
+			wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O /tmp/nvim
+			sudo chmod +x /tmp/nvim
+			sudo mv -f /tmp/nvim /usr/bin/nvim
+		elif [ -x "$(command -v apt-get)" ]; then
 			sudo apt-get install $1 -y
 
 		elif [ -x "$(command -v brew)" ]; then
@@ -70,8 +74,9 @@ else
 fi
 
 check_for_software zsh
-echo 
-check_for_software neovim
+echo
+echo neovim is always reinstalled to make sure it is current 
+prompt_install neovim
 echo
 check_for_software tmux
 echo
