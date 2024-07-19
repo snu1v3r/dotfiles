@@ -6,7 +6,11 @@ prompt_install() {
 	stty $old_stty_cfg && echo
 	if echo "$answer" | grep -iq "^y" ;then
 		# This could def use community support
-		if [ -x "$(command -v apt-get)" ]; then
+		if [ "$1" = "neovim" ]; then
+			wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O /tmp/nvim
+			sudo chmod +x /tmp/nvim
+			sudo mv -f /tmp/nvim /usr/bin/nvim
+		elif [ -x "$(command -v apt-get)" ]; then
 			sudo apt-get install $1 -y
 
 		elif [ -x "$(command -v brew)" ]; then
@@ -43,7 +47,7 @@ check_default_shell() {
 		answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
 		stty $old_stty_cfg && echo
 		if echo "$answer" | grep -iq "^y" ;then
-			chsh -s $(which zsh)
+			sudo chsh -s $(which zsh) $USER
 		else
 			echo "Warning: Your configuration won't work properly. If you exec zsh, it'll exec tmux which will exec your default shell which isn't zsh."
 		fi
@@ -70,11 +74,13 @@ else
 fi
 
 check_for_software zsh
-echo 
-check_for_software neovim
+echo
+echo neovim is always reinstalled to make sure it is current 
+prompt_install neovim
 echo
 check_for_software tmux
 echo
+check_for_software stow
 
 check_default_shell
 
@@ -86,18 +92,40 @@ stty raw -echo
 answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
 stty $old_stty_cfg
 if echo "$answer" | grep -iq "^y" ;then
-	mv ~/.zshrc ~/.zshrc.old
-	mv ~/.tmux.conf ~/.tmux.conf.old
-	mv ~/.vimrc ~/.vimrc.old
+	if [ -f "~/.zshrc" ]; then
+		mv ~/.zshrc ~/.zshrc.old
+	fi
+	if [ -f "~/.tmux.conf" ]; then
+		mv ~/.tmux.conf ~/.tmux.conf.old
+	fi
+	if [ -f "~/.vimrc" ]; then
+		mv ~/.vimrc ~/.vimrc.old
+	fi
 else
 	echo -e "\nNot backing up old dotfiles."
 fi
 
-ln -s $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
-ln -s $HOME/dotfiles/vim/vimrc.vim $HOME/.config/nvim/init.vim
-printf "source-file $HOME/dotfiles/tmux/tmux.conf" > ~/.tmux.conf
+echo Cloning the tmux setup
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+echo Cloning the NvChad repo for neovim
+git clone https://github.com/NvChad/starter /tmp/nvchad
+mkdir -p ~/.config/nvim
+cp -R /tmp/nvchad/* ~/.config/nvim
+rm -rf /tmp/nvchad
+
+
+
+ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
+ln -sf $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf 
+#ln -s $HOME/dotfiles/vim/vimrc.vim $HOME/.config/nvim/init.vim
+#printf "source-file $HOME/dotfiles/tmux/tmux.conf" > ~/.tmux.conf
+
+echo Using stow for configurations
+stow -t ~ -d ~/dotfiles/stowed_files .
 
 echo
+echo "For correct display of the fonts ensure that 'MesloLGS NF Regular' is selected."
 echo "Please log out and log back in for default shell to be initialized."
 
 # TODO: Iets doen
