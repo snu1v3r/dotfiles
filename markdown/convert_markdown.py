@@ -1,6 +1,7 @@
 import argparse
 import os
 import logging
+from colorlog import ColoredFormatter
 import random
 import string
 import subprocess
@@ -51,7 +52,7 @@ def init_logger(has_verbose):
         handler.setLevel(logging.DEBUG)
     else:
         handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('%(asctime)-23s - %(levelname)-8s - %(message)s')
+    formatter = ColoredFormatter('%(asctime)-23s - %(levelname)-8s - %(message)s')
     handler.setFormatter(formatter)
     logger.addHandler(handler)
     return logger
@@ -65,8 +66,10 @@ def spider(path, depth, max_depth,sort):
     items = os.listdir(path)
     # Depending on the sort argument the files files are sorted by name or time
     if sort == 'date':
+        logger.debug("Files are sorted by date")
         items.sort(key=lambda s: os.path.getmtime(os.path.join(path, s)))
     else:
+        logger.debug("Files are sorted by name")
         items.sort()
     
     for item in items:
@@ -150,6 +153,8 @@ def execute_command(args):
 def main():
     args = process_arguments()
     logger = init_logger(args.verbose)
+    logger.info("Started convert-markdown script that can convert markdown files into pdf")
+    logger.info("========================================================================")
     logger.debug("Arguments from cli are loaded")
     if args.install:
         output_install()
