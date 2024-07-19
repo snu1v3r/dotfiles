@@ -9,11 +9,12 @@ install_instructions = """
 General installation instructions:
     1. Install pandoc
     2. Install texlive-latex-extra texlive-lang-european texlive-xetex texlive-fonts-extra
-    3. sudo apt install texlive-latex-extra texlive-lang-european texlive-xetex texlive-fonts-extra
+    3. sudo apt install pandoc texlive-latex-extra texlive-lang-european texlive-xetex texlive-fonts-extra
 """
 
-default_template = os.curdir+'/eisvogel.latex'
-default_highlight = os.curdir+'/custom_highlight.theme'
+dotfiles_dir = os.getenv('DOTFILES')
+default_template = f'{dotfiles_dir}/markdown/eisvogel.latex'
+default_highlight = f'{dotfiles_dir}/markdown/custom_highlight.theme'
 
 default_title = """titlepage: true
 titlepage: true
