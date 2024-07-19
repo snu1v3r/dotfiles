@@ -8,12 +8,8 @@ import subprocess
 install_instructions = """
 General installation instructions:
     1. Install pandoc from the pandoc website
-    2. Install texlive-latex-extra
+    2. Install texlive-latex-extra texlive-lang-european texlive-xetex texlive-fonts-extra
     3. sudo apt install texlive-latex-extra texlive-lang-european texlive-xetex
-    4. Add several necessary packages
-    5. updmap -user
-    6. tlmgr init-usertree
-    7. tlmgr install adjustbox babel-german background bidi collectbox csquotes everypage filehook footmisc footnotebackref framed fvextra letltxmacro ly1 mdframed mweights needspace pagecolor sourcecodepro sourcesanspro titling ucharcat ulem unicode-math upquote xecjk xurl zref
 """
 
 default_template = os.curdir+'/eisvogel.latex'
