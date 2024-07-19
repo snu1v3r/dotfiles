@@ -872,13 +872,14 @@ $if(beamer)$
 $else$
 $if(disable-header-and-footer)$
 $else$
-\usepackage[headsepline,footsepline]{scrlayer-scrpage}
+\usepackage[headsepline,plainfootsepline,footsepline]{scrlayer-scrpage}
 
 \newpairofpagestyles{eisvogel-header-footer}{
   \clearpairofpagestyles
-  \ihead*{$if(header-left)$$header-left$$else$$title$$endif$}
-  \chead*{$if(header-center)$$header-center$$else$$endif$}
-  \ohead*{$if(header-right)$$header-right$$else$$date$$endif$}
+  % Removing the * in the next three lines ensures that the first page of a chapter has an empty header
+  \ihead{$if(header-left)$$header-left$$else$$title$$endif$}
+  \chead{$if(header-center)$$header-center$$else$$endif$}
+  \ohead{$if(header-right)$$header-right$$else$$date$$endif$}
   \ifoot*{$if(footer-left)$$footer-left$$else$$for(author)$$author$$sep$, $endfor$$endif$}
   \cfoot*{$if(footer-center)$$footer-center$$else$$endif$}
   \ofoot*{$if(footer-right)$$footer-right$$else$\thepage$endif$}
@@ -888,7 +889,8 @@ $else$
 
 $if(book)$
 \deftripstyle{ChapterStyle}{}{}{}{}{\pagemark}{}
-\renewcommand*{\chapterpagestyle}{ChapterStyle}
+% commenting out this line prevents the redefinition of the first page chapter header and footer
+% \renewcommand*{\chapterpagestyle}{ChapterStyle}
 $endif$
 
 $if(page-background)$
