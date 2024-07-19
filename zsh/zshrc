@@ -9,6 +9,8 @@
 export LANG=en_US.UTF-8
 export LC_ALL="C.UTF-8"
 
+export DOTFILES=~/dotfiles
+
 source ~/dotfiles/powerlevel10k/powerlevel10k.zsh-theme
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
