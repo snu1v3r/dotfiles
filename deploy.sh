@@ -43,7 +43,7 @@ check_default_shell() {
 		answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
 		stty $old_stty_cfg && echo
 		if echo "$answer" | grep -iq "^y" ;then
-			chsh -s $(which zsh)
+			sudo chsh -s $(which zsh) $USER
 		else
 			echo "Warning: Your configuration won't work properly. If you exec zsh, it'll exec tmux which will exec your default shell which isn't zsh."
 		fi
@@ -75,6 +75,7 @@ check_for_software neovim
 echo
 check_for_software tmux
 echo
+check_for_software stow
 
 check_default_shell
 
@@ -86,9 +87,15 @@ stty raw -echo
 answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
 stty $old_stty_cfg
 if echo "$answer" | grep -iq "^y" ;then
-	mv ~/.zshrc ~/.zshrc.old
-	mv ~/.tmux.conf ~/.tmux.conf.old
-	mv ~/.vimrc ~/.vimrc.old
+	if [ -f "~/.zshrc" ]; then
+		mv ~/.zshrc ~/.zshrc.old
+	fi
+	if [ -f "~/.tmux.conf" ]; then
+		mv ~/.tmux.conf ~/.tmux.conf.old
+	fi
+	if [ -f "~/.vimrc" ]; then
+		mv ~/.vimrc ~/.vimrc.old
+	fi
 else
 	echo -e "\nNot backing up old dotfiles."
 fi
