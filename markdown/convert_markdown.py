@@ -7,9 +7,9 @@ import subprocess
 
 install_instructions = """
 General installation instructions:
-    1. Install pandoc from the pandoc website
+    1. Install pandoc
     2. Install texlive-latex-extra texlive-lang-european texlive-xetex texlive-fonts-extra
-    3. sudo apt install texlive-latex-extra texlive-lang-european texlive-xetex
+    3. sudo apt install texlive-latex-extra texlive-lang-european texlive-xetex texlive-fonts-extra
 """
 
 default_template = os.curdir+'/eisvogel.latex'
