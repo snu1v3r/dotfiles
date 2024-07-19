@@ -151,9 +151,6 @@ def main():
     args = process_arguments()
     logger = init_logger(args.verbose)
     logger.debug("Arguments from cli are loaded")
-    if args.spider:
-        logger.debug("Spider switch is detected")
-        logger.debug("Spidering will be done to a depth of %d", args.depth)
     if args.install:
         output_install()
         exit()
@@ -162,6 +159,8 @@ def main():
         args.full_path = os.path.abspath(args.filename)
         logger.info(args.full_path)
         if args.spider:
+            logger.debug("Spider switch is detected")
+            logger.debug("Spidering will be done to a depth of %d", args.depth)
             markdown_files = spider(args.full_path,0,args.depth,args.sort)
             logger.debug("Spidering resulted in the following files : %s", markdown_files)
         args.tmp_filename = '/tmp/' + ''.join(random.choices(string.ascii_letters + string.digits, k = 7)) + '.md'
