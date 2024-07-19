@@ -4,8 +4,8 @@ This repository contains my custom dotfiles for *Zsh*, *Vim* and *Tmux*. Initial
 # Installation
 Installation is very easy. It only contains two steps:
 ```default
-$ git clone https://github.com/snu1v3r/dotfiles.git
-$ ~/dotfiles/deploy
+git clone https://github.com/snu1v3r/dotfiles.git
+~/dotfiles/deploy
 ```
 # Short description of functionality
 
