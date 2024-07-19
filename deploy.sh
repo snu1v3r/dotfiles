@@ -105,9 +105,15 @@ else
 	echo -e "\nNot backing up old dotfiles."
 fi
 
-ln -s $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
-ln -s $HOME/dotfiles/vim/vimrc.vim $HOME/.config/nvim/init.vim
-printf "source-file $HOME/dotfiles/tmux/tmux.conf" > ~/.tmux.conf
+echo Using stow for configurations
+stow -t ~ -d ~/dotfiles/stowed_files .
+
+echo Cloning the NvChad repo for neovim
+git clone https://github.com/NvChad/starter ~/.config/nvim
+
+#ln -s $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
+#ln -s $HOME/dotfiles/vim/vimrc.vim $HOME/.config/nvim/init.vim
+#printf "source-file $HOME/dotfiles/tmux/tmux.conf" > ~/.tmux.conf
 
 echo
 echo "Please log out and log back in for default shell to be initialized."
