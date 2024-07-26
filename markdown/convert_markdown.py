@@ -1,5 +1,6 @@
 import argparse
 import os
+import shutil
 import logging
 import random
 import string
@@ -108,7 +109,8 @@ def parse_line(line, md_file):
 
 def parse_markdown_files(tmp_file, md_files):
     with open(tmp_file, 'a') as tmp_file:
-        for md_file in md_files:
+        for md_file in [ md_file for md_file in md_files if not md_file.endswith('meta.md')]:
+            logger.info(f'Adding : {md_file}')
             with open(md_file, 'r') as f:
                 for line in f.readlines():
                     tmp_file.write(parse_line(line, md_file))
@@ -176,7 +178,7 @@ def main():
 
         if os.path.exists(args.full_path + '/meta.md'):
             logger.info('Meta.md file is found at the root of the tree. This is used.')
-            parse_markdown_files(args.tmp_filename, [args.full_path+'/meta.md'])
+            shutil.copyfile(args.full_path + '/meta.md', args.tmp_filename)
         else:
             logger.debug('No meta.md file found. Therefore including the default')
             create_meta(args.tmp_filename)
