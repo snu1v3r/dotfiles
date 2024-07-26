@@ -108,7 +108,6 @@ def parse_line(line, md_file):
     return line
 
 def parse_markdown_files(tmp_file, md_files):
-    md_files = [ md_file for md_file in md_files if md_file.ends_with('meta.md')]
     with open(tmp_file, 'a') as tmp_file:
         for md_file in [ md_file for md_file in md_files if not md_file.endswith('meta.md')]:
             logger.info(md_file)
