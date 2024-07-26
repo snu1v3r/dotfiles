@@ -25,6 +25,9 @@ prompt_install() {
 		else
 			echo "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again. Tests for package managers are in the deploy script you just ran starting at line 13. Feel free to make a pull request at https://github.com/parth/dotfiles :)" 
 		fi 
+		if [ "$1" = "zsh" ]; then
+			curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+		fi
 	fi
 }
 
