@@ -114,7 +114,7 @@ def parse_markdown_files(tmp_file, md_files):
             with open(md_file, 'r') as f:
                 for line in f.readlines():
                     tmp_file.write(parse_line(line, md_file))
-                if len(line) > 0 & line[:-1] != '\n':
+                if (len(line) > 0) & (line[:-1] != '\n'):
                     logger.error(f'File {md_file} has no newline at the end and is not an empty line') #tmp_file.write('\n') # This ensures that there is always an empty line between two markdown files ensuring proper chapters.
 
 def execute_command(args):
