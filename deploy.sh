@@ -120,7 +120,7 @@ ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -sf $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf 
 
 echo Using stow for configurations
-stow -t ~ -d ~/dotfiles/stowed_files .
+stow --dotfiles -t ~ -d ~/dotfiles/stowed_files .
 
 echo
 echo "For correct display of the fonts ensure that 'MesloLGS NF Regular' is selected."
