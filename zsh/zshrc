@@ -4,6 +4,9 @@
 # Last check that we are not a vscode terminal
 # Otherwise attach to existing tmux session
 
+if [ -d "$HOME/.local/bin" ] ; then
+    PATH="$HOME/.local/bin:$PATH"
+fi
 
 # export DISABLE_TMUX=true
 export LANG=en_US.UTF-8
