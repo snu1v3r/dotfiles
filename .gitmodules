@@ -1,6 +1,6 @@
 [submodule "powerlevel10k"]
 	path = powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
-[submodule "stowed_files/dot-tmux/plugins/tpm"]
-	path = stowed_files/dot-tmux/plugins/tpm
+[submodule "stowed_files/.tmux/plugins/tpm"]
+	path = stowed_files/.tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git

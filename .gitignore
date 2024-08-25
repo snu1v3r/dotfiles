@@ -1,5 +1,5 @@
 # Directories added, because these plugins get installed from github repo's and are not modified
-stowed_files/dot-tmux/plugins/catppuccin_tmux
-stowed_files/dot-tmux/plugins/tmux-sensible/
-stowed_files/dot-tmux/plugins/tmux-yank/
-stowed_files/dot-tmux/plugins/vim-tmux-navigator/
+stowed_files/.tmux/plugins/catppuccin_tmux
+stowed_files/.tmux/plugins/tmux-sensible/
+stowed_files/.tmux/plugins/tmux-yank/
+stowed_files/.tmux/plugins/vim-tmux-navigator/
