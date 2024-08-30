@@ -54,6 +54,11 @@ source ~/dotfiles/zsh/aliases.sh
 # Added for support of zoxide
 
 export PATH=$PATH:~/.local/bin/
+
+# Set bat as the manpager when it is installed
+if type "bat" > /dev/null; then
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+fi
 eval "$(zoxide init --cmd cd zsh)"
 #source ~/dotfiles/zsh/utils/zsh-vi-mode.plugin.zsh
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
