@@ -53,7 +53,7 @@ source ~/dotfiles/zsh/aliases.sh
 
 # Added for support of zoxide
 
-export PATH=$PATH:~/.local/bin/
+export PATH=$PATH:'~/.local/bin/'
 
 # Set bat as the manpager when it is installed
 if type "bat" > /dev/null; then
@@ -63,7 +63,7 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Modification to include sbin directories
 
-export PATH=$PATH:/sbin/:/usr/sbin:/~/.local/sbin/
+export PATH=$PATH:/sbin/:/usr/sbin:'~/.local/sbin/'
 
 #source ~/dotfiles/zsh/utils/zsh-vi-mode.plugin.zsh
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
