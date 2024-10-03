@@ -30,13 +30,17 @@ if command -v tmux>/dev/null; then
 	if [ "$DISABLE_TMUX" = "true" ]; then
 		echo "TMUX is disabled through the environment"
 	else
-        if [[ -z "$TMUX" ]]; then
-		    if [[ "$TERM_PROGRAM" != "vscode" ]]; then
-                if [ `tmux ls 2>&1 | wc -l` -gt 1 ]; then
-                    tmux choose-session
-                    tmux attach
-                else
-                    tmux new-session -A -s main
+        if [ "$EUID" -eq 0 ]; then
+            echo "TMUX is disabled for root"
+        else
+            if [[ -z "$TMUX" ]]; then
+                if [[ "$TERM_PROGRAM" != "vscode" ]]; then
+                    if [ `tmux ls 2>&1 | wc -l` -gt 1 ]; then
+                        tmux choose-session
+                        tmux attach
+                    else
+                        tmux new-session -A -s main
+                    fi
                 fi
             fi
         fi
