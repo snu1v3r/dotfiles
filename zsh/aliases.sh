@@ -7,7 +7,7 @@ alias la='ls -A'
 alias lc='ls -CF'
 alias vim="echo -ne '\e[1 q' ;nvim" # Ensures that the cursor is a block cursor when intering vim (given the normal mode in which you enter vim)
 alias vi='vim'
-
+alias sudo='sudo '
 alias history="history 0" # force zsh to show the complete history
 
 alias grep='grep -nH --color=auto' # Changes the grep command to enable colors and print linenumbers and filenames for the hits
