@@ -153,7 +153,8 @@ def execute_command(args):
         os.remove(args.tmp_filename)
         exit(completed.returncode)
     else:
-        logger.info("There was an error. Leaving temporary file: %s", args.tmp_filename)
+        logger.error("There was an error. Leaving temporary file: %s", args.tmp_filename)
+        logger.errro(completed.stderr)
         exit(completed.returncode)
 
 def main():
