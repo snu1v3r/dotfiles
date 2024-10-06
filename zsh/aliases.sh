@@ -7,6 +7,7 @@ alias la='ls -A'
 alias lc='ls -CF'
 alias vi='nvim'
 alias vim='nvim'
+alias svi='sudoedit'
 alias history="history 0" # force zsh to show the complete history
 
 alias grep='grep -nH --color=auto' # Changes the grep command to enable colors and print linenumbers and filenames for the hits
