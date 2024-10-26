@@ -1,10 +1,13 @@
 alias saveclip='xclip -selection clipboard -t image/png -o > '
 alias mount_shares='sudo vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other'
+alias fzp="fzf --preview 'bat --style=numbers --colors=always --line-range :500 {}'"
+alias fzv="fzf --print0 | xargs -0 -o nvim"
 alias mc="mc --nosubshell"
-alias ls='ls --color'
-alias ll='ls -l'
-alias la='ls -A'
-alias lc='ls -CF'
+alias la="eza -a"
+alias ll="eza --long --icons=always --git"
+alias ls="eza --icons=always"
+alias lt="eza --tree --icons=always"
+alias llt="eza --long --tree --icons=always --git"
 alias vi='nvim'
 alias vim='nvim'
 alias svi='sudoedit'
