@@ -141,7 +141,7 @@ def execute_command(args):
         '--table-of-contents',
         '--toc-depth','%d' % args.toc,
         '--number-sections',
-        '--top-level-division=' + 'chapter'
+        '--top-level-division=' + 'chapter',
         ]
     completed = subprocess.run(cmdline, capture_output = True)
     if completed.returncode == 0:
@@ -154,7 +154,7 @@ def execute_command(args):
         exit(completed.returncode)
     else:
         logger.error("There was an error. Leaving temporary file: %s", args.tmp_filename)
-        logger.errro(completed.stderr)
+        logger.error(completed.stderr)
         exit(completed.returncode)
 
 def main():
