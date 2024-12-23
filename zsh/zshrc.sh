@@ -34,7 +34,7 @@ export KEYTIMEOUT=1
 
 
 # Set VIM as the default console editor
-export VISUAL=vim
+export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 
