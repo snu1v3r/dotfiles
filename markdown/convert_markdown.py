@@ -141,6 +141,7 @@ def execute_command(args):
         '--table-of-contents',
         '--toc-depth','%d' % args.toc,
         '--number-sections',
+        '--listings',
         '--top-level-division=' + 'chapter',
         ]
     completed = subprocess.run(cmdline, capture_output = True)
