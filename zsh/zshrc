@@ -67,7 +67,10 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Modification to include sbin directories
 
-export PATH=$PATH:/sbin/:/usr/sbin:'~/.local/sbin/'
+export PATH=$PATH:/sbin/:/usr/sbin:'~/.local/sbin/':$HOME/.tmux/plugins/tmuxifier/bin
+eval "$(tmuxifier init -)"
+
+source <(fzf --zsh)
 
 #source ~/dotfiles/zsh/utils/zsh-vi-mode.plugin.zsh
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
