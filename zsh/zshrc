@@ -67,7 +67,7 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Modification to include sbin directories
 
-export PATH=$PATH:/sbin/:/usr/sbin:'~/.local/sbin/':$HOME/.tmux/plugins/tmuxifier/bin
+export PATH=$PATH:/sbin/:/usr/sbin:'~/.local/sbin/':$HOME/.local/share/tmux/plugins/tmuxifier/bin
 eval "$(tmuxifier init -)"
 
 source <(fzf --zsh)

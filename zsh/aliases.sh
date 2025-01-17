@@ -1,8 +1,11 @@
 alias saveclip='xclip -selection clipboard -t image/png -o > '
+alias cat=batcat
+alias bat=batcat
 alias mount_shares='sudo vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other'
 alias fzp="fzf --preview 'bat --style=numbers --colors=always --line-range :500 {}'"
 alias fzv="fzf --print0 | xargs -0 -o nvim"
 alias mc="mc --nosubshell"
+alias lg=lazygit
 alias la="eza -a"
 alias ll="eza --long --icons=always --git"
 alias ls="eza --icons=always"
@@ -12,7 +15,9 @@ alias vi='nvim'
 alias vim='nvim'
 alias svi='sudoedit'
 alias history="history 0" # force zsh to show the complete history
-
+alias man=batman
+alias diff=batdif
+alias grep=rg
 alias grep='grep -nH --color=auto' # Changes the grep command to enable colors and print linenumbers and filenames for the hits
 
 alias force_dvorak='setxkbmap dvorak' # Changes keyboard setting in X to dvorak. Needed to make VS code aware of layout

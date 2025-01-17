@@ -1,16 +1,12 @@
-prompt_install() {
+install_with_package_manager() {
 	echo -n "$1 is not installed. Would you like to install it? (y/n) " >&2
 	old_stty_cfg=$(stty -g)
 	stty raw -echo
 	answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
 	stty $old_stty_cfg && echo
 	if echo "$answer" | grep -iq "^y" ;then
-		# This could def use community support
-		if [ "$1" = "neovim" ]; then
-			wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O /tmp/nvim
-			sudo chmod +x /tmp/nvim
-			sudo mv -f /tmp/nvim /usr/bin/nvim
-		elif [ -x "$(command -v apt-get)" ]; then
+
+		if [ -x "$(command -v apt-get)" ]; then
 			sudo apt-get install $1 -y
 
 		elif [ -x "$(command -v brew)" ]; then
@@ -25,16 +21,93 @@ prompt_install() {
 		else
 			echo "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again. Tests for package managers are in the deploy script you just ran starting at line 13. Feel free to make a pull request at https://github.com/parth/dotfiles :)" 
 		fi 
-		if [ "$1" = "zsh" ]; then
-			curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
-		fi
 	fi
+}
+
+install_neovim() {
+	wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O /tmp/nvim
+	sudo chmod +x /tmp/nvim
+	sudo mv -f /tmp/nvim /usr/bin/nvim
+
+}
+
+install_eza() {
+	src=`pwd`
+	cd /tmp
+	wget https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz -O /tmp/eza.tgz
+	tar xzvf /tmp/eza.tgz
+	sudo chmod +x /tmp/eza
+	sudo mv -f /tmp/eza /usr/bin/eza
+	rm /tmp/eza.tgz
+}
+
+install_zoxide() {
+	curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+}
+install_lazygit() {
+	src=`pwd`
+	git clone https://github.com/jesseduffield/lazygit.git /tmp/lazygit --depth=1
+	cd /tmp/lazygit
+	make build
+	sudo mv lazygit /usr/bin/lazygit
+	cd $src
+	rm -rf /tmp/lazygit
+}
+
+install_fzf() {
+	src=`pwd`
+	git clone https://github.com/junegunn/fzf.git /tmp/fzf
+	cd /tmp/fzf
+	make install
+	sudo cp /tmp/fzf/bin/fzf /usr/bin/fzf
+	cd $src
+	rm -rf /tmp/fzf
+}
+
+install_batman() {
+	src=`pwd`
+	git clone https://github.com/eth-p/bat-extras.git /tmp/bat-extras
+	cd /tmp/bat-extras
+	./build.sh
+	cd bin
+	sudo cp * /usr/bin
+	cd $src
+	rm -rf /tmp/bat-extras
 }
 
 check_for_software() {
 	echo "Checking to see if $1 is installed"
-	if ! [ -x "$(command -v $1)" ]; then
-		prompt_install $1
+	if [ "$1" = "neovim" ]; then
+		if ! command -v nvim 2>&1 >/dev/null; then
+			install_neovim
+		else
+		  VER=`nvim -v | grep -nE 'NVIM'|cut -d'.' -f2`
+		  if [ $VER -lt 10 ]; then
+			  install_neovim
+		  else
+			  echo "Neovim is installed"
+		  fi
+		fi
+	elif [ "$1" = "zoxide" ]; then
+		if ! command -v zoxide 2>&1 >/dev/null; then
+			install_zoxide
+		fi
+	elif [ "$1" = "fzf" ]; then
+		if ! command -v fzf 2>&1 >/dev/null; then
+			install_fzf
+		fi
+	elif [ "$1" = "batman" ]; then
+		if ! command -v batman 2>&1 >/dev/null; then
+			install_batman
+		fi
+	elif [ "$1" = "ripgrep" ]; then
+		if ! command -v rg 2>&1 >/dev/null; then
+			install_with_package_manager rg
+		else
+			echo "Ripgrep is installed"
+		fi
+	elif ! [ -x "$(command -v $1)" ]; then
+		install_with_package_manager $1
 	else
 		echo "$1 is installed."
 	fi
@@ -76,14 +149,10 @@ else
 	exit 0
 fi
 
-check_for_software zsh
-echo
-echo neovim is always reinstalled to make sure it is current 
-prompt_install neovim
-echo
-check_for_software tmux
-echo
-check_for_software stow
+for app in zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman
+do
+	check_for_software $app
+done
 
 check_default_shell
 
@@ -108,11 +177,6 @@ else
 	echo -e "\nNot backing up old dotfiles."
 fi
 
-echo Cloning the NvChad repo for neovim
-git clone https://github.com/NvChad/starter /tmp/nvchad
-mkdir -p ~/.config/nvim
-cp -R /tmp/nvchad/* ~/.config/nvim
-rm -rf /tmp/nvchad
 
 
 
@@ -120,10 +184,13 @@ ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 ln -sf $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf 
 
 echo Using stow for configurations
-stow --dotfiles -t ~ -d ~/dotfiles/stowed_files .
+cd ~/dotfiles/stowed_files/config/
+stow .
+cd ~/dotfiles/stowed_files/local/
+stow .
 
 echo
-echo "For correct display of the fonts ensure that 'MesloLGS NF Regular' is selected."
+echo "For correct display of the fonts ensure that your prefered Nerd Font is selected."
 echo "Please log out and log back in for default shell to be initialized."
 
 # TODO: Iets doen

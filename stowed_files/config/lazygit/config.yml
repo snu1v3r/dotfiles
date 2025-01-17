@@ -1,0 +1,27 @@
+gui:
+  theme:
+    activeBorderColor:
+    - '#c0caf5'
+    - bold
+    cherryPickedCommitBgColor:
+    - '#292e42'
+    cherryPickedCommitFgColor:
+    - '#565f89'
+    defaultFgColor:
+    - '#c0caf5'
+    inactiveBorderColor:
+    - '#a9b1d6'
+    optionsTextColor:
+    - '#c0caf5'
+    searchingActiveBorderColor:
+    - '#292e42'
+    - bold
+    selectedLineBgColor:
+    - '#565f89'
+    unstagedChangesColor:
+    - '#f7768e'
+os:
+  edit: /etc/profiles/per-user/user/bin/nvim {{filename}}
+  editAtLine: /etc/profiles/per-user/user/bin/nvim {{filename}} +{{line}}
+refresher:
+  fetchInterval: 300
