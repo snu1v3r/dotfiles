@@ -76,3 +76,8 @@ source <(fzf --zsh)
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
+
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+  eval $(ssh-agent -s)
+  ssh-add
+fi
