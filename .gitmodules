@@ -7,3 +7,6 @@
 [submodule "stowed_files/local/share/tmux/plugins/tmuxifier"]
 	path = stowed_files/local/share/tmux/plugins/tmuxifier
 	url = https://github.com/jimeh/tmuxifier.git
+[submodule "stowed_files/local/share/tmux/plugins/catppuccin"]
+	path = stowed_files/local/share/tmux/plugins/catppuccin
+	url = https://github.com/catppuccin/tmux.git
