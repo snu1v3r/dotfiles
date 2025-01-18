@@ -3,3 +3,6 @@ stowed_files/.tmux/plugins/catppuccin_tmux
 stowed_files/.tmux/plugins/tmux-sensible/
 stowed_files/.tmux/plugins/tmux-yank/
 stowed_files/.tmux/plugins/vim-tmux-navigator/
+
+stowed_files/local/share/mc/history
+stowed_files/local/share/mc/filepos
