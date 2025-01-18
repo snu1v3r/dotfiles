@@ -1,18 +1,9 @@
 [submodule "powerlevel10k"]
 	path = powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
-[submodule "stowed_files/local/share/tmux/plugins/tmux-yank"]
-	path = stowed_files/local/share/tmux/plugins/tmux-yank
-	url = https://github.com/tmux-plugins/tmux-yank.git
 [submodule "stowed_files/local/share/tmux/plugins/vim-tmux-navigator"]
 	path = stowed_files/local/share/tmux/plugins/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
-[submodule "stowed_files/local/share/tmux/plugins/catppuccin"]
-	path = stowed_files/local/share/tmux/plugins/catppuccin
-	url = https://github.com/catppuccin/tmux.git
 [submodule "stowed_files/local/share/tmux/plugins/tmuxifier"]
 	path = stowed_files/local/share/tmux/plugins/tmuxifier
 	url = https://github.com/jimeh/tmuxifier.git
-[submodule "stowed_files/local/share/tmux/plugins/tmux-sensible"]
-	path = stowed_files/local/share/tmux/plugins/tmux-sensible
-	url = https://github.com/tmux-plugins/tmux-sensible.git

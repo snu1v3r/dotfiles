@@ -125,6 +125,8 @@ alacritty=
 
 screen=
 
+tmux-256color=
+
 [Panels]
 show_mini_info=true
 kilobyte_si=false

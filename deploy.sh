@@ -138,6 +138,13 @@ echo "4. We're going to check to see if your default shell is zsh"
 echo "5. We'll try to change it if it's not" 
 
 echo "Let's get started? (y/n)"
+
+echo Using stow for configurations
+cd ~/dotfiles/stowed_files/config/
+stow .
+cd ~/dotfiles/stowed_files/local/
+stow .
+
 old_stty_cfg=$(stty -g)
 stty raw -echo
 answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
@@ -156,41 +163,10 @@ done
 
 check_default_shell
 
-
-echo
-echo -n "Would you like to backup your current dotfiles? (y/n) "
-old_stty_cfg=$(stty -g)
-stty raw -echo
-answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
-stty $old_stty_cfg
-if echo "$answer" | grep -iq "^y" ;then
-	if [ -f "~/.zshrc" ]; then
-		mv ~/.zshrc ~/.zshrc.old
-	fi
-	if [ -f "~/.tmux.conf" ]; then
-		mv ~/.tmux.conf ~/.tmux.conf.old
-	fi
-	if [ -f "~/.vimrc" ]; then
-		mv ~/.vimrc ~/.vimrc.old
-	fi
-else
-	echo -e "\nNot backing up old dotfiles."
-fi
-
-
-
-
 ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
-ln -sf $HOME/dotfiles/tmux/tmux.conf $HOME/.tmux.conf 
 
-echo Using stow for configurations
-cd ~/dotfiles/stowed_files/config/
-stow .
-cd ~/dotfiles/stowed_files/local/
-stow .
 
 echo
 echo "For correct display of the fonts ensure that your prefered Nerd Font is selected."
 echo "Please log out and log back in for default shell to be initialized."
 
-# TODO: Iets doen
