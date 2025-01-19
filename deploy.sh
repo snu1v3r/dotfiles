@@ -69,6 +69,15 @@ install_fzf() {
 	sudo mv /tmp/fzf /usr/bin/fzf
 }
 
+install_bat() {
+	bat_repo="sharkdp/bat"
+	latest=`get_latest_release $bat_repo`
+	echo "Getting release $latest from $bat_repo"
+	curl --silent -L "https://github.com/$bat_repo/releases/download/v$latest/bat_${latest}_amd64.deb" -o /tmp/bat.deb
+	sudo dpkg -i /tmp/bat.deb
+	rm /tmp/bat.deb
+}
+
 install_batman() {
 	src=`pwd`
 	git clone https://github.com/eth-p/bat-extras.git /tmp/bat-extras
