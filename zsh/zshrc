@@ -68,7 +68,7 @@ eval "$(zoxide init --cmd cd zsh)"
 # Modification to include sbin directories
 
 export PATH=$PATH:/sbin/:/usr/sbin:'~/.local/sbin/':$HOME/.local/share/tmux/plugins/tmuxifier/bin
-eval "$(tmuxifier init -)"
+#eval "$(tmuxifier init -)"
 
 source <(fzf --zsh)
 
@@ -78,6 +78,6 @@ source <(fzf --zsh)
 # confirmations, etc.) must go above this block; everything else may go below.
 
 if [ -z "$SSH_AUTH_SOCK" ] ; then
-  eval $(ssh-agent -s)
+  eval $(ssh-agent -s) >/dev/null
   ssh-add
 fi
