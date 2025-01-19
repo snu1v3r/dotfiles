@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+
+get_latest_release() {
+	curl --silent "https://api.github.com/repos/$1/releases/latest" | grep "tag_name" | cut -d'"' -f 4 | tr -d v
+}
+
 install_with_package_manager() {
 	echo -n "$1 is not installed. Would you like to install it? (y/n) " >&2
 	old_stty_cfg=$(stty -g)
