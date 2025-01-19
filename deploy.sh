@@ -61,13 +61,12 @@ install_lazygit() {
 }
 
 install_fzf() {
-	src=`pwd`
-	git clone https://github.com/junegunn/fzf.git /tmp/fzf
-	cd /tmp/fzf
-	make install
-	sudo cp /tmp/fzf/bin/fzf /usr/bin/fzf
-	cd $src
-	rm -rf /tmp/fzf
+	fzf_repo="junegunn/fzf"
+	latest=`get_latest_release $fzf_repo`
+	echo "Getting release $latest from $fzf_repo"
+	curl --silent -L "https://github.com/$fzf_repo/releases/download/v$latest/fzf-${latest}-linux_amd64.tar.gz" -o /tmp/fzf.tgz
+	tar xzf /tmp/fzf.tgz -C /tmp
+	sudo mv /tmp/fzf /usr/bin/fzf
 }
 
 install_batman() {
