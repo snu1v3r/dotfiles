@@ -51,13 +51,13 @@ install_zoxide() {
 	curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 }
 install_lazygit() {
-	src=`pwd`
-	git clone https://github.com/jesseduffield/lazygit.git /tmp/lazygit --depth=1
-	cd /tmp/lazygit
-	make build
-	sudo mv lazygit /usr/bin/lazygit
-	cd $src
-	rm -rf /tmp/lazygit
+	lazygit_repo="jesseduffield/lazygit"
+	latest=`get_latest_release $lazygit_repo`
+	mkdir -p /tmp/lg
+	curl -L "https://github.com/$lazygit_repo/releases/download/v$latest/lazygit_${latest}_Linux_x86_64.tar.gz" -o /tmp/lg/lg.tgz
+	tar -xzvf /tmp/lg/lg.tgz -C /tmp/lg
+	sudo mv /tmp/lg/lazygit /usr/bin
+	rm -rf /tmp/lg
 }
 
 install_fzf() {
