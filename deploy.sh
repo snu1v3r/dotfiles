@@ -148,7 +148,7 @@ echo "[i] We're going to do the following:"
 echo "      1. Grab dependencies"
 echo "      2. Check to make sure you have zsh, neovim, tmux, fzf, bat, bat-extra, lazygit are installed"
 echo "      3. Install any missing applications"
-echo " 		4. Pull relevant configuration files from github"
+echo " 	    4. Pull relevant configuration files from github"
 echo "      5. Create symbolic links to the relevant environment files"
 echo "      6. Set 'zsh' as the default"
 echo 
