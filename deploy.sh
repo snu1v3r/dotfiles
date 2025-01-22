@@ -215,7 +215,8 @@ stow .
 
 check_default_shell
 
-ln -sf ../../dotfiles/zsh/zshrc $HOME/.zshrc
+cd ../../
+ln -sf dotfiles/zsh/zshrc $HOME/.zshrc
 
 echo
 echo "[i] For correct display of the fonts ensure that your prefered Nerd Font is selected."
