@@ -160,8 +160,8 @@ if ! confirm "Shall we get started?"; then
 	exit 1
 fi
 
-if  [[ "$1" != "--force" ]]; then
-	if [[ -d dotfiles ]] || [[ `pwd | awk -F / '{print $NF}'` == "dotfiles" ]]; then
+if  [ "$1" != "--force" ]; then
+	if [ -d dotfiles ] || [ `pwd | awk -F / '{print $NF}'` == "dotfiles" ]; then
 		echo "[!] dotfiles directory already exists. Execute with the '--force' to force execution" 
 		exit 1
 	fi
@@ -180,11 +180,11 @@ echo
 echo "[i] Verifying existence of dotfiles repository"
 echo 
 
-if [[ -d dotfiles ]]; then
+if [ -d dotfiles ]; then
 	cd dotfiles
 fi
 
-if ! [[ `pwd | awk -F / '{print $NF}'` == "dotfiles" ]]; then
+if ! [ `pwd | awk -F / '{print $NF}'` == "dotfiles" ]; then
 	git clone --recurse-submodules https://github.com/snu1v3r/dotfiles.git
 	cd dotfiles
 fi
