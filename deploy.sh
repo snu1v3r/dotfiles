@@ -22,14 +22,14 @@ missing_app() {
 	# Checks if an application is missing
 	# If a second (optional) argument is used, then this argument will be used in the output message
 	if command -v $1 > /dev/null; then
-	 	if [[ -z "$2" ]]; then	
+	 	if [ -z "$2" ]; then	
 			echo "[>] $1 is installed"
 		else
 			echo "[>] $2 is installed"
 		fi
 		false
 	else
-	 	if [[ -z "$2" ]]; then
+	 	if [ -z "$2" ]; then
 			echo "[>] installing $1"
 		else 
 			echo "[>] installing $2"
