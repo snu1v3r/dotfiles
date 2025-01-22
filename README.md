@@ -5,7 +5,7 @@ This repository contains my custom dotfiles for *Zsh*, *Vim* and *Tmux*. Initial
 Installation is very easy. It only contains two steps:
 
 ```shell
-sh <(curl -L https://raw.githubusercontent.com/snu1v3r/dotfiles/main/deploy.sh)
+bash <(curl -L https://raw.githubusercontent.com/snu1v3r/dotfiles/main/deploy.sh)
 ```
 # Short description of functionality
 
