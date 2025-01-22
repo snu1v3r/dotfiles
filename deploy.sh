@@ -171,7 +171,7 @@ echo
 echo "[i] First installing applications from the package manager"
 echo
 
-for app in git zsh stow
+for app in git zsh stow gcc
 do
 	install_with_package_manager $app
 done
