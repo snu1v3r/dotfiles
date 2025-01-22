@@ -4,14 +4,43 @@ get_latest_release() {
 	curl --silent "https://api.github.com/repos/$1/releases/latest" | grep "tag_name" | cut -d'"' -f 4 | tr -d v
 }
 
-install_with_package_manager() {
-	echo -n "$1 is not installed. Would you like to install it? (y/n) " >&2
-	old_stty_cfg=$(stty -g)
-	stty raw -echo
-	answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
-	stty $old_stty_cfg && echo
-	if echo "$answer" | grep -iq "^y" ;then
+confirm() {
+	# Returns true or false
+	# Can be called with an optional prompt
+    read -r -p "[?] ${1:-Are you sure?} [y/N] " response
+    case "$response" in
+        [yY][eE][sS]|[yY]) 
+            true
+            ;;
+        *)
+            false
+            ;;
+    esac
+}
 
+missing_app() {
+	# Checks if an application is missing
+	# If a second (optional) argument is used, then this argument will be used in the output message
+	if command -v $1 > /dev/null; then
+	 	if [[ -z "$2" ]]; then	
+			echo "[>] $1 is installed"
+		else
+			echo "[>] $2 is installed"
+		fi
+		false
+	else
+	 	if [[ -z "$2" ]]; then
+			echo "[>] installing $1"
+		else 
+			echo "[>] installing $2"
+		fi
+		true
+	fi
+}
+
+install_with_package_manager() {
+	if missing_app $1; then
+		echo "[i] Trying to install $1"
 		if [ -x "$(command -v apt-get)" ]; then
 			sudo apt-get install $1 -y
 
@@ -25,105 +54,73 @@ install_with_package_manager() {
 			sudo pacman -S $1
 
 		else
-			echo "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again. Tests for package managers are in the deploy script you just ran starting at line 13. Feel free to make a pull request at https://github.com/parth/dotfiles :)" 
+			echo "[!] I'm not sure what your package manager is!"
+			echo "[!] Please install $1 on your own and run this deploy script again."
 		fi 
 	fi
 }
 
 install_neovim() {
-	wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O /tmp/nvim
-	sudo chmod +x /tmp/nvim
-	sudo mv -f /tmp/nvim /usr/bin/nvim
-
+	if missing_app nvim neovim; then
+		curl --silent -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o $workdir/nvim
+		chmod +x $workdir/nvim
+		sudo mv $workdir/nvim /usr/bin/nvim
+	fi
 }
 
 install_eza() {
-	src=`pwd`
-	cd /tmp
-	wget https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz -O /tmp/eza.tgz
-	tar xzvf /tmp/eza.tgz
-	sudo chmod +x /tmp/eza
-	sudo mv -f /tmp/eza /usr/bin/eza
-	rm /tmp/eza.tgz
+	if missing_app eza; then
+		curl --silent -L https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz -o $workdir/eza.tgz
+		tar xzf $workdir/eza.tgz -C $workdir
+		sudo mv -f $workdir/eza /usr/bin/eza
+	fi
 }
 
 install_zoxide() {
-	curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+	if missing_app zoxide; then
+		curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+	fi
 }
+
 install_lazygit() {
-	lazygit_repo="jesseduffield/lazygit"
-	latest=`get_latest_release $lazygit_repo`
-	mkdir -p /tmp/lg
-	curl -L "https://github.com/$lazygit_repo/releases/download/v$latest/lazygit_${latest}_Linux_x86_64.tar.gz" -o /tmp/lg/lg.tgz
-	tar -xzvf /tmp/lg/lg.tgz -C /tmp/lg
-	sudo mv /tmp/lg/lazygit /usr/bin
-	rm -rf /tmp/lg
+	if missing_app lazygit; then
+		lazygit_repo="jesseduffield/lazygit"
+		latest=`get_latest_release $lazygit_repo`
+		curl --silent -L "https://github.com/$lazygit_repo/releases/download/v$latest/lazygit_${latest}_Linux_x86_64.tar.gz" -o $workdir/lg.tgz
+		tar -xzvf $workdir/lg.tgz -C $workdir
+		sudo mv $workdir/lazygit /usr/bin
+	fi
 }
 
 install_fzf() {
-	fzf_repo="junegunn/fzf"
-	latest=`get_latest_release $fzf_repo`
-	echo "Getting release $latest from $fzf_repo"
-	curl --silent -L "https://github.com/$fzf_repo/releases/download/v$latest/fzf-${latest}-linux_amd64.tar.gz" -o /tmp/fzf.tgz
-	tar xzf /tmp/fzf.tgz -C /tmp
-	sudo mv /tmp/fzf /usr/bin/fzf
+	if missing_app fzf; then
+		fzf_repo="junegunn/fzf"
+		latest=`get_latest_release $fzf_repo`
+		echo "Getting release $latest from $fzf_repo"
+		curl --silent -L "https://github.com/$fzf_repo/releases/download/v$latest/fzf-${latest}-linux_amd64.tar.gz" -o $workdir/fzf.tgz
+		tar xzf $workdir/fzf.tgz -C $workdir
+		sudo mv $workdir/fzf /usr/bin/fzf
+	fi 
 }
 
 install_bat() {
-	bat_repo="sharkdp/bat"
-	latest=`get_latest_release $bat_repo`
-	echo "Getting release $latest from $bat_repo"
-	curl --silent -L "https://github.com/$bat_repo/releases/download/v$latest/bat_${latest}_amd64.deb" -o /tmp/bat.deb
-	sudo dpkg -i /tmp/bat.deb
-	rm /tmp/bat.deb
+	if missing_app bat; then
+		bat_repo="sharkdp/bat"
+		latest=`get_latest_release $bat_repo`
+		echo "Getting release $latest from $bat_repo"
+		curl --silent -L "https://github.com/$bat_repo/releases/download/v$latest/bat_${latest}_amd64.deb" -o $workdir/bat.deb
+		sudo dpkg -i $workdir/bat.deb
+	fi
 }
 
-install_batman() {
-	src=`pwd`
-	git clone https://github.com/eth-p/bat-extras.git /tmp/bat-extras
-	cd /tmp/bat-extras
-	./build.sh
-	cd bin
-	sudo cp * /usr/bin
-	cd $src
-	rm -rf /tmp/bat-extras
-}
-
-check_for_software() {
-	echo "Checking to see if $1 is installed"
-	if [ "$1" = "neovim" ]; then
-		if ! command -v nvim 2>&1 >/dev/null; then
-			install_neovim
-		else
-		  VER=`nvim -v | grep -nE 'NVIM'|cut -d'.' -f2`
-		  if [ $VER -lt 10 ]; then
-			  install_neovim
-		  else
-			  echo "Neovim is installed"
-		  fi
-		fi
-	elif [ "$1" = "zoxide" ]; then
-		if ! command -v zoxide 2>&1 >/dev/null; then
-			install_zoxide
-		fi
-	elif [ "$1" = "fzf" ]; then
-		if ! command -v fzf 2>&1 >/dev/null; then
-			install_fzf
-		fi
-	elif [ "$1" = "batman" ]; then
-		if ! command -v batman 2>&1 >/dev/null; then
-			install_batman
-		fi
-	elif [ "$1" = "ripgrep" ]; then
-		if ! command -v rg 2>&1 >/dev/null; then
-			install_with_package_manager rg
-		else
-			echo "Ripgrep is installed"
-		fi
-	elif ! [ -x "$(command -v $1)" ]; then
-		install_with_package_manager $1
-	else
-		echo "$1 is installed."
+install_bat_extras() {
+	if missing_app batman bat-extras; then
+		bat_extras="eth-p/bat-extras"
+		latest=`get_latest_release $bat_extras`
+		echo "Getting release $latest from $bat_extras"
+		curl -L "https://github.com/$bat_extras/archive/refs/tags/v$latest.tar.gz" -o $workdir/batextras.tgz
+		tar xzvf $workdir/batextras.tgz -C $workdir
+		sudo $workdir/bat-extras-$latest/build.sh --install --no-verify
 	fi
 }
 
@@ -144,43 +141,87 @@ check_default_shell() {
 	fi
 }
 
-echo "We're going to do the following:"
-echo "1. Grab dependencies"
-echo "2. Check to make sure you have zsh, neovim, and tmux installed"
-echo "3. We'll help you install them if you don't"
-echo "4. We're going to check to see if your default shell is zsh"
-echo "5. We'll try to change it if it's not" 
+echo "[*] Manual installation of dotfiles from 'https://github.com/snu1v3r'"
 
-echo "Let's get started? (y/n)"
+echo 
+echo "[i] We're going to do the following:"
+echo "      1. Grab dependencies"
+echo "      2. Check to make sure you have zsh, neovim, tmux, fzf, bat, bat-extra, lazygit are installed"
+echo "      3. Install any missing applications"
+echo " 		4. Pull relevant configuration files from github"
+echo "      5. Create symbolic links to the relevant environment files"
+echo "      6. Set 'zsh' as the default"
+echo 
+echo "[!] sudo privileges are needed to complete the above steps"
+echo 
 
-echo Using stow for configurations
-cd ~/dotfiles/stowed_files/config/
-stow .
-cd ~/dotfiles/stowed_files/local/
-stow .
-
-old_stty_cfg=$(stty -g)
-stty raw -echo
-answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
-stty $old_stty_cfg
-if echo "$answer" | grep -iq "^y" ;then
-	echo 
-else
-	echo "Quitting, nothing was changed."
-	exit 0
+if ! confirm "Shall we get started?"; then
+	echo "[*] Nothing is changed"
+	exit 1
 fi
 
-for app in zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman
+if  [[ "$1" != "--force" ]]; then
+	if [[ -d dotfiles ]] || [[ `pwd | awk -F / '{print $NF}'` -eq "dotfiles" ]]; then
+		echo "[!] dotfiles directory already exists. Execute with the '--force' to force execution" 
+		exit 1
+	fi
+fi
+
+echo 
+echo "[i] First installing applications from the package manager"
+echo
+
+for app in git zsh stow
 do
-	check_for_software $app
+	install_with_package_manager $app
 done
+
+echo 
+echo "[i] Verifying existence of dotfiles repository"
+echo 
+
+if [[ -d dotfiles ]]; then
+	cd dotfiles
+fi
+
+if ! [[ `pwd | awk -F / '{print $NF}'` == "dotfiles" ]]; then
+	git clone --recurse-submodules https://github.com/snu1v3r/dotfiles.git
+	cd dotfiles
+fi
+
+echo
+echo "[i] Next installing the specials"
+echo
+
+workdir=/tmp/dotfiles
+mkdir $workdir
+
+install_neovim
+install_zoxide
+install_eza
+install_bat
+install_bat_extras
+install_lazygit
+install_fzf
+install_lazygit
+
+echo 
+echo "[i] Using stow for configuration files"
+cd stowed_files/config/
+stow .
+echo "[i] Using stow for local files"
+cd ../local/
+stow .
 
 check_default_shell
 
-ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
-
+ln -sf ../../dotfiles/zsh/zshrc $HOME/.zshrc
 
 echo
-echo "For correct display of the fonts ensure that your prefered Nerd Font is selected."
-echo "Please log out and log back in for default shell to be initialized."
-
+echo "[i] For correct display of the fonts ensure that your prefered Nerd Font is selected."
+echo "[i] Please log out and log back in for default shell to be initialized."
+echo
+echo "[i] Cleaning up"
+sudo rm -rf $workdir
+echo 
+echo "[i] Finished"
