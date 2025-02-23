@@ -460,13 +460,13 @@ require("lazy").setup({
       -- Automatically install LSPs and related tools to stdpath for Neovim
       --
       -- Disabled Mason because it is not compatible with nixos
-      -- { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
-      -- 'williamboman/mason-lspconfig.nvim',
-      -- 'WhoIsSethDaniel/mason-tool-installer.nvim',
+      { 'williamboman/mason.nvim', config = true }, -- NOTE: Must be loaded before dependants
+      'williamboman/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
 
       -- Useful status updates for LSP.
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { "j-hui/fidget.nvim", opts = {} },
+      { "j-hui/fidget.nvim",       opts = {} },
 
       -- Allows extra capabilities provided by nvim-cmp
       "hrsh7th/cmp-nvim-lsp",
@@ -952,7 +952,8 @@ require("lazy").setup({
     end,
   },
   {
-    "voldikss/vim-floaterm"
+    "voldikss/vim-floaterm",
+    vim.keymap.set({ 't', 'n' }, '<Leader>ft', [[<C-\><C-n>:FloatermToggle<CR>]], { desc = "[F]loaterm [T]oggle" })
   },
   { -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
