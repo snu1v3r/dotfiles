@@ -21,7 +21,7 @@ gui:
     unstagedChangesColor:
     - '#f7768e'
 os:
-  edit: /etc/profiles/per-user/user/bin/nvim {{filename}}
-  editAtLine: /etc/profiles/per-user/user/bin/nvim {{filename}} +{{line}}
+  edit: nvim {{filename}}
+  editAtLine: nvim {{filename}} +{{line}}
 refresher:
   fetchInterval: 300
