@@ -16,7 +16,7 @@ alias vim='nvim'
 alias svi='sudoedit'
 alias history="history 0" # force zsh to show the complete history
 alias man=batman
-alias diff=batdif
+alias diff=batdiff
 alias grep=rg
 alias grep='grep -nH --color=auto' # Changes the grep command to enable colors and print linenumbers and filenames for the hits
 
