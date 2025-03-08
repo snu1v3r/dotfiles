@@ -14,6 +14,7 @@ alias llt="eza --long --tree --icons=always --git"
 alias vi='nvim'
 alias vim='nvim'
 alias svi='sudoedit'
+alias yz='yazi'
 alias history="history 0" # force zsh to show the complete history
 alias man=batman
 alias diff=batdiff
