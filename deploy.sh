@@ -1,3 +1,62 @@
+#!/usr/bin/bash
+
+BLACK=$'\033[0;30m'
+RED=$'\033[0;31m'
+GREEN=$'\033[0;32m'
+ORANGE=$'\033[0;33m'
+BLUE=$'\033[0;34m'
+PURPLE=$'\033[0;35m'
+CYAN=$'\033[0;36m'
+WHITE=$'\033[1;37m'
+CLEAR=$'\033[0m'
+
+log_info(){
+	echo -e "$BLUE[i]$CLEAR $1"
+}
+
+log_warning(){
+	echo -e "$ORANGE[!]$CLEAR $1"
+}
+
+log_success(){
+	echo -e "$GREEN[*]$CLEAR $1"
+}
+
+
+log_spaced(){
+	echo "    $1"
+}
+
+
+print_title(){
+	echo -e "${PURPLE}================================================${CLEAR}"
+	echo -e "${PURPLE}=====  USER ENVIRONMENT DEPLOYMENT SCRIPT  =====${CLEAR}"
+	echo -e "${PURPLE}================================================${CLEAR}"
+	echo
+
+}
+print_splash(){
+	log_info "We're going to do the following:"
+	echo
+	log_spaced "1. Grab dependencies"
+	log_spaced "2. Check to make sure you have zsh, neovim, and tmux installed"
+	log_spaced "3. We'll help you install them if you don't"
+	log_spaced "4. We're going to check to see if your default shell is zsh"
+	log_spaced "5. We'll try to change it if it's not" 
+}
+
+print_help() {
+	print_title
+	echo -e "Usage: $0 [-c|--clear]"
+	echo
+	print_splash
+	echo
+	echo -e "Options:"
+	echo -e "  ${BLUE}-c, --clear ${CLEAR} Clear packages that might be installed by the package manager "
+	echo
+}
+
+
 install_with_package_manager() {
 	echo -n "$1 is not installed. Would you like to install it? (y/n) " >&2
 	old_stty_cfg=$(stty -g)
@@ -24,6 +83,28 @@ install_with_package_manager() {
 	fi
 }
 
+install_kitty() {
+	curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+	ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten ~/.local/bin/
+	cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+	cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+	sed -i "s|Icon=kitty|Icon=$(readlink -f ~)/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+	sed -i "s|Exec=kitty|Exec=$(readlink -f ~)/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+	echo 'kitty.desktop' > ~/.config/xdg-terminals.list
+}
+
+install_yazi() {
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	rustup update
+	cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
+	sudo cp ~/.cargo/bin/ya ~/.cargo/bin/yazi /usr/bin
+	sudo apt install ffmpeg p7zip jq poppler-utils xclip
+}
+clean_kitty() {
+	rm -rf ~/.local/kitty.app
+	rm ~/.local/bin/kitt*
+	rm ~/.local/share/applications/kitty*.desktop
+}
 install_neovim() {
 	wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O /tmp/nvim
 	sudo chmod +x /tmp/nvim
@@ -76,7 +157,7 @@ install_batman() {
 }
 
 check_for_software() {
-	echo "Checking to see if $1 is installed"
+	log_info "Checking to see if $1 is installed"
 	if [ "$1" = "neovim" ]; then
 		if ! command -v nvim 2>&1 >/dev/null; then
 			install_neovim
@@ -85,7 +166,7 @@ check_for_software() {
 		  if [ $VER -lt 10 ]; then
 			  install_neovim
 		  else
-			  echo "Neovim is installed"
+			  log_success "Neovim is installed"
 		  fi
 		fi
 	elif [ "$1" = "zoxide" ]; then
@@ -100,73 +181,100 @@ check_for_software() {
 		if ! command -v batman 2>&1 >/dev/null; then
 			install_batman
 		fi
+	elif [ "$1" = "yazi" ]; then
+		if ! command -v yazi 2>&1 >/dev/null; then
+			install_yazi
+		fi
+	elif [ "$1" = "kitty" ]; then
+		if ! command -v kitty 2>&1 >/dev/null; then
+			install_kitty
+		fi
 	elif [ "$1" = "ripgrep" ]; then
 		if ! command -v rg 2>&1 >/dev/null; then
 			install_with_package_manager rg
 		else
-			echo "Ripgrep is installed"
+			log_success "Ripgrep is installed"
 		fi
 	elif ! [ -x "$(command -v $1)" ]; then
 		install_with_package_manager $1
 	else
-		echo "$1 is installed."
+		log_success "$1 is installed."
 	fi
 }
 
 check_default_shell() {
 	if [ -z "${SHELL##*zsh*}" ] ;then
-			echo "Default shell is zsh."
+			echo 
+			log_info "Default shell is zsh."
 	else
-		echo -n "Default shell is not zsh. Do you want to chsh -s \$(which zsh)? (y/n)"
-		old_stty_cfg=$(stty -g)
-		stty raw -echo
-		answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
-		stty $old_stty_cfg && echo
-		if echo "$answer" | grep -iq "^y" ;then
-			sudo chsh -s $(which zsh) $USER
-		else
-			echo "Warning: Your configuration won't work properly. If you exec zsh, it'll exec tmux which will exec your default shell which isn't zsh."
-		fi
+		echo
+		read -p "${ORANGE}[?]${CLEAR} Default shell is not zsh. Do you want to chsh -s \$(which zsh)? (y/n) " -r -n 1
+		case "$REPLY" in
+			y|Y )
+				sudo chsh -s $(which zsh) $USER;;
+			* ) echo
+				log_warning "Your configuration won't work properly. If you exec zsh, it'll exec tmux which will exec your default shell which isn't zsh."
+				exit;;
+		esac
 	fi
 }
 
-echo "We're going to do the following:"
-echo "1. Grab dependencies"
-echo "2. Check to make sure you have zsh, neovim, and tmux installed"
-echo "3. We'll help you install them if you don't"
-echo "4. We're going to check to see if your default shell is zsh"
-echo "5. We'll try to change it if it's not" 
+full_install() {
+	print_title
+	print_splash
 
-echo "Let's get started? (y/n)"
+	echo
+	read -p "${ORANGE}[?]${CLEAR} Let's get started? (y/n) " -r -n 1
+	case "$REPLY" in 
+		y|Y ) 
+			echo ;;
+		* ) 
+			echo
+			log_info "Quitting, nothing was changed."
+			exit;;
+	esac
 
-echo Using stow for configurations
-cd ~/dotfiles/stowed_files/config/
-stow .
-cd ~/dotfiles/stowed_files/local/
-stow .
 
-old_stty_cfg=$(stty -g)
-stty raw -echo
-answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
-stty $old_stty_cfg
-if echo "$answer" | grep -iq "^y" ;then
-	echo 
-else
-	echo "Quitting, nothing was changed."
-	exit 0
+
+
+	for app in zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman kitty yazi
+	do
+		check_for_software $app
+	done
+	
+	echo
+	log_info "Using stow for configurations"
+	cd ~/dotfiles/stowed_files/config/
+	stow .
+	cd ~/dotfiles/stowed_files/local/
+	stow .
+
+	check_default_shell
+
+	ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
+
+
+	echo
+	log_warning "For correct display of the fonts ensure that your prefered Nerd Font is selected."
+	log_warning "Please log out and log back in for default shell to be initialized."
+
+
+}
+
+
+if [ $# -eq 0 ]; then
+	full_install
+	exit 0 
 fi
 
-for app in zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman
-do
-	check_for_software $app
-done
+case $1 in
+	-c|--clean)
+		echo clean
+		exit 0
+		;;
+	*)	
+		print_help
+esac
 
-check_default_shell
 
-ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
-
-
-echo
-echo "For correct display of the fonts ensure that your prefered Nerd Font is selected."
-echo "Please log out and log back in for default shell to be initialized."
-
+# TODO: add clean installation
