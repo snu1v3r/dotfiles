@@ -22,6 +22,15 @@ vim.keymap.set("n", "N", "Nzzzv", { desc = "Jump to next occurence with search i
 
 vim.keymap.set("x", "<leader>pp", '"_dP', { desc = "[P]aste over without replacing register" })
 
+vim.keymap.set({ "n", "v" }, "<leader>yz", "<cmd>Yazi<cr>", { desc = "Open [Y]a[z]i at the current file" })
+vim.keymap.set(
+	{ "n", "v" },
+	"<leader>yw",
+	"<cmd>Yazi cwd<cr>",
+	{ desc = "Open [Y]azi in the current [w]orking directory" }
+)
+vim.keymap.set({ "n", "v", "t" }, "<c-up>", "<cmd>Yazi toggle<cr>", { desc = "Toggle Yazi" })
+
 local harpoon = require("harpoon")
 harpoon.setup({})
 vim.keymap.set("n", "<leader>a", function()

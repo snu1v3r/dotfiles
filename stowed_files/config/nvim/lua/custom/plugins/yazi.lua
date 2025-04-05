@@ -2,26 +2,6 @@ return {
 	"mikavilpas/yazi.nvim",
 	event = "VeryLazy",
 	dependencies = { "folke/snacks.nvim", lazy = true },
-	keys = {
-		-- 👇 in this section, choose your own keymappings!
-		{
-			"<leader>yf",
-			mode = { "n", "v" },
-			"<cmd>Yazi<cr>",
-			desc = "Open [Y]azi at the current [f]ile",
-		},
-		{
-			-- Open in the current working directory
-			"<leader>yc",
-			"<cmd>Yazi cwd<cr>",
-			desc = "Open [Y]azi in the [c]urrent working directory",
-		},
-		{
-			"<c-up>",
-			"<cmd>Yazi toggle<cr>",
-			desc = "Resume the last yazi session",
-		},
-	},
 	---@type YaziConfig | {}
 	opts = {
 		-- if you want to open yazi instead of netrw, see below for more info

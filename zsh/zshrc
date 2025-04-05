@@ -4,8 +4,18 @@
 # Last check that we are not a vscode terminal
 # Otherwise attach to existing tmux session
 
+# Extend the path with some optional local binary directories. These take precedence over the rest of the path
+
 if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/sbin" ] ; then
+    PATH="$HOME/.local/sbin:$PATH"
+fi
+
+if [ -d "$HOME/opt/bin" ] ; then
+    PATH="$HOME/opt/bin:$PATH"
 fi
 
 # export DISABLE_TMUX=true
@@ -23,7 +33,6 @@ fi
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/dotfiles/zsh/p10k.zsh ]] || source ~/dotfiles/zsh/p10k.zsh
 #source '/home/user/dotfiles/zsh/zshrc_manager.sh'
-
 
 
 if command -v tmux>/dev/null; then
@@ -57,7 +66,6 @@ source ~/dotfiles/zsh/aliases.sh
 
 # Added for support of zoxide
 
-export PATH=$PATH:'~/.local/bin/'
 
 # Set bat as the manpager when it is installed
 if type "bat" > /dev/null; then
@@ -67,7 +75,7 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Modification to include sbin directories
 
-export PATH=$PATH:/sbin/:/usr/sbin:'~/.local/sbin/':$HOME/.local/share/tmux/plugins/tmuxifier/bin
+export PATH=$PATH:/sbin/:/usr/sbin:$HOME/.local/share/tmux/plugins/tmuxifier/bin
 eval "$(tmuxifier init -)"
 
 source <(fzf --zsh)
@@ -81,3 +89,12 @@ if [ -z "$SSH_AUTH_SOCK" ] ; then
   eval $(ssh-agent -s)
   ssh-add
 fi
+
+function yz() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}

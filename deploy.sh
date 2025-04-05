@@ -1,14 +1,21 @@
 #!/usr/bin/bash
 
-BLACK=$'\033[0;30m'
-RED=$'\033[0;31m'
-GREEN=$'\033[0;32m'
-ORANGE=$'\033[0;33m'
-BLUE=$'\033[0;34m'
-PURPLE=$'\033[0;35m'
-CYAN=$'\033[0;36m'
-WHITE=$'\033[1;37m'
-CLEAR=$'\033[0m'
+initialize(){
+	BLACK=$'\033[0;30m'
+	RED=$'\033[0;31m'
+	GREEN=$'\033[0;32m'
+	ORANGE=$'\033[0;33m'
+	BLUE=$'\033[0;34m'
+	PURPLE=$'\033[0;35m'
+	CYAN=$'\033[0;36m'
+	WHITE=$'\033[1;37m'
+	CLEAR=$'\033[0m'
+
+	DST=~/opt/bin
+	if [ ! -d $DST ]; then
+		mkdir -p $DST
+	fi
+}
 
 log_info(){
 	echo -e "$BLUE[i]$CLEAR $1"
@@ -22,12 +29,51 @@ log_success(){
 	echo -e "$GREEN[*]$CLEAR $1"
 }
 
-
 log_spaced(){
 	echo "    $1"
 }
 
+log_yes_no(){
+	echo
+	read -p "${ORANGE}[?]${CLEAR} $1 (y/n) " -r -n 1
+}
 
+
+pm_install(){
+
+		if [ -x "$(command -v apt-get)" ]; then
+			sudo apt-get install $1 -y
+		elif [ -x "$(command -v brew)" ]; then
+			brew install $1
+		elif [ -x "$(command -v pkg)" ]; then
+			sudo pkg install $1
+		elif [ -x "$(command -v pacman)" ]; then
+			sudo pacman -S $1
+		else
+			log_warning "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again." 
+		fi 
+}
+
+pm_remove(){
+
+		if [ -x "$(command -v apt-get)" ]; then
+			sudo apt-get purge $1 -y
+
+		elif [ -x "$(command -v brew)" ]; then
+			brew uninstall $1
+
+		elif [ -x "$(command -v pkg)" ]; then
+			sudo pkg remove $1
+
+		elif [ -x "$(command -v pacman)" ]; then
+			sudo pacman -R $1
+
+		else
+			echo "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again. Tests for package managers are in the deploy script you just ran starting at line 13. Feel free to make a pull request at https://github.com/parth/dotfiles :)" 
+		fi 
+
+
+}
 print_title(){
 	echo -e "${PURPLE}================================================${CLEAR}"
 	echo -e "${PURPLE}=====  USER ENVIRONMENT DEPLOYMENT SCRIPT  =====${CLEAR}"
@@ -45,14 +91,19 @@ print_splash(){
 	log_spaced "5. We'll try to change it if it's not" 
 }
 
+print_usage() {
+	echo
+	log_info "Usage: $0 [-c|--clear] [-h|--help] [-f|--force]"
+	echo
+
+}
+
 print_help() {
-	print_title
-	echo -e "Usage: $0 [-c|--clear]"
-	echo
-	print_splash
-	echo
-	echo -e "Options:"
-	echo -e "  ${BLUE}-c, --clear ${CLEAR} Clear packages that might be installed by the package manager "
+	print_usage
+	log_info "Options:"
+	log_spaced "  ${BLUE}-c, --clear ${CLEAR} Clear packages that might be installed by the package manager "
+	log_spaced "  ${BLUE}-h, --help ${CLEAR} Show help for this script"
+	log_spaced "  ${BLUE}-f, --force ${CLEAR} Force (re)installation of all applications"
 	echo
 }
 
@@ -84,21 +135,25 @@ install_with_package_manager() {
 }
 
 install_kitty() {
-	curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
-	ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten ~/.local/bin/
-	cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
-	cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
-	sed -i "s|Icon=kitty|Icon=$(readlink -f ~)/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
-	sed -i "s|Exec=kitty|Exec=$(readlink -f ~)/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
-	echo 'kitty.desktop' > ~/.config/xdg-terminals.list
+	if need_install "kitty" ; then
+		curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
+		ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten $DST
+		cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+		cp ~/.local/kitty.app/share/applications/kitty-open.desktop ~/.local/share/applications/
+		sed -i "s|Icon=kitty|Icon=$(readlink -f ~)/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+		sed -i "s|Exec=kitty|Exec=$(readlink -f ~)/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+		echo 'kitty.desktop' > ~/.config/xdg-terminals.list
+	fi
 }
 
 install_yazi() {
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-	rustup update
-	cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
-	sudo cp ~/.cargo/bin/ya ~/.cargo/bin/yazi /usr/bin
-	sudo apt install ffmpeg p7zip jq poppler-utils xclip
+	if need_install "yazi" ; then
+		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+		rustup update
+		cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
+		sudo cp ~/.cargo/bin/ya ~/.cargo/bin/yazi ~/.local/bin
+		sudo apt install ffmpeg p7zip jq poppler-utils xclip
+	fi
 }
 clean_kitty() {
 	rm -rf ~/.local/kitty.app
@@ -106,9 +161,11 @@ clean_kitty() {
 	rm ~/.local/share/applications/kitty*.desktop
 }
 install_neovim() {
-	wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -O /tmp/nvim
-	sudo chmod +x /tmp/nvim
-	sudo mv -f /tmp/nvim /usr/bin/nvim
+	if need_install "nvim" "Neovim" ; then
+		wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -O /tmp/nvim
+		chmod +x /tmp/nvim
+		mv -f /tmp/nvim $DST
+	fi
 
 }
 
@@ -156,18 +213,45 @@ install_batman() {
 	rm -rf /tmp/bat-extras
 }
 
+install_ghostty() {
+	if need_install "ghostty"; then
+		SUFFIX="amd64_bookworm"
+		GHOSTTY_DEB_URL=$(
+		   curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases/latest | \
+		   grep -oP "https://github.com/mkasberg/ghostty-ubuntu/releases/download/[^\s/]+/ghostty_[^\s/_]+_${SUFFIX}.deb")
+		wget $GHOSTTY_DEB_URL -O /tmp/ghostty
+		sudo dpkg -i /tmp/ghostty
+		ln -s /usr/bin/ghostty $DST
+	fi
+}
+
+need_install() {
+	if [ $# -gt 1 ]; then
+		app=$2
+	else
+		app=$1
+	fi
+	if [ "$FORCE" = "true" ]; then
+		log_warning "$app will be (re)installed"
+		true
+	else
+		log_info "Checking to see if $app is installed"
+		if ! command -v $1 2>&1 >/dev/null; then
+			log_warning "$app is not installed"
+			true
+		else
+			log_success "$app is already installed"
+			false
+		fi
+	fi
+}
+
 check_for_software() {
-	log_info "Checking to see if $1 is installed"
 	if [ "$1" = "neovim" ]; then
 		if ! command -v nvim 2>&1 >/dev/null; then
 			install_neovim
 		else
-		  VER=`nvim -v | grep -nE 'NVIM'|cut -d'.' -f2`
-		  if [ $VER -lt 10 ]; then
-			  install_neovim
-		  else
-			  log_success "Neovim is installed"
-		  fi
+            install_neovim
 		fi
 	elif [ "$1" = "zoxide" ]; then
 		if ! command -v zoxide 2>&1 >/dev/null; then
@@ -186,7 +270,7 @@ check_for_software() {
 			install_yazi
 		fi
 	elif [ "$1" = "kitty" ]; then
-		if ! command -v kitty 2>&1 >/dev/null; then
+		if ! command -v kitt 2>&1 >/dev/null; then
 			install_kitty
 		fi
 	elif [ "$1" = "ripgrep" ]; then
@@ -207,8 +291,7 @@ check_default_shell() {
 			echo 
 			log_info "Default shell is zsh."
 	else
-		echo
-		read -p "${ORANGE}[?]${CLEAR} Default shell is not zsh. Do you want to chsh -s \$(which zsh)? (y/n) " -r -n 1
+		log_yes_no "Default shell is not zsh. Do you want to chsh -s \$(which zsh)?"
 		case "$REPLY" in
 			y|Y )
 				sudo chsh -s $(which zsh) $USER;;
@@ -220,14 +303,14 @@ check_default_shell() {
 }
 
 full_install() {
-	print_title
 	print_splash
-
-	echo
-	read -p "${ORANGE}[?]${CLEAR} Let's get started? (y/n) " -r -n 1
+	log_yes_no "Let's get started?"
 	case "$REPLY" in 
 		y|Y ) 
-			echo ;;
+			echo
+			echo $TE
+
+			;;
 		* ) 
 			echo
 			log_info "Quitting, nothing was changed."
@@ -261,20 +344,35 @@ full_install() {
 
 }
 
-
-if [ $# -eq 0 ]; then
-	full_install
-	exit 0 
-fi
+initialize
+print_title
 
 case $1 in
+	"")
+		full_install
+		;;
 	-c|--clean)
 		echo clean
 		exit 0
 		;;
-	*)	
+	-f|--force)
+		log_warning "Forcing (re)installation of all applications"
+		echo
+		FORCE=true
+		full_install
+		;;
+	"")
+		;;
+	-h|--help)
 		print_help
+		;;
+	*)	
+		print_usage
+		;;
 esac
 
 
+
 # TODO: add clean installation
+# TODO: add ghostty to the configuration
+# 
