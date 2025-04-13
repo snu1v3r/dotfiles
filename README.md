@@ -2,11 +2,23 @@
 This repository contains my custom dotfiles for *Zsh*, *Vim* and *Tmux*. Initially I used various repositories from other persons, but these contained a lot of other configurations from which I didn't know exactly what it was doing and in what way or form they conflicted with eachother. Therefore I switched to a vanilla setup that only contains the settings that I specifically use. Besides the settings for the various programs it also contains a deployment script that is used for installation. Next the repository contains a list with resources where pieces of code or environment suggestions where found.
 
 # Installation
-Installation is very easy. It only contains two steps:
-```default
+There are two methods for installation. An automatic method and a manual method:
+
+## Automatic Method
+Only a single command is needed and all installation steps will be performed:
+
+```bash
+bash <(curl -L https://raw.githubusercontent.com/snu1v3r/dotfiles/main/deploy.sh)
+```
+
+## Manual method
+This method only uses two simple steps:
+
+```bash
 git clone --recurse-submodules https://github.com/snu1v3r/dotfiles.git
 ~/dotfiles/deploy.sh
 ```
+
 # Short description of functionality
 
 ## Deployment script
