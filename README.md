@@ -1,17 +1,17 @@
 # My Custom Dotfiles
 This repository contains my custom dotfiles for *Zsh*, *Vim* and *Tmux*. Initially I used various repositories from other persons, but these contained a lot of other configurations from which I didn't know exactly what it was doing and in what way or form they conflicted with eachother. Therefore I switched to a vanilla setup that only contains the settings that I specifically use. Besides the settings for the various programs it also contains a deployment script that is used for installation. Next the repository contains a list with resources where pieces of code or environment suggestions where found.
 
-# Installation
+## Installation
 There are two methods for installation. An automatic method and a manual method:
 
-## Automatic Method
+### Automatic Method
 Only a single command is needed and all installation steps will be performed:
 
 ```bash
 bash <(curl -L https://raw.githubusercontent.com/snu1v3r/dotfiles/main/deploy.sh)
 ```
 
-## Manual method
+### Manual method
 This method only uses two simple steps:
 
 ```bash
@@ -19,18 +19,18 @@ git clone --recurse-submodules https://github.com/snu1v3r/dotfiles.git
 ~/dotfiles/deploy.sh
 ```
 
-# Short description of functionality
+## Short description of functionality
 
-## Deployment script
+### Deployment script
 This script is used to deploy the various files to the server. It first checks if *Tmux*, *Vim* and *Zsh* are installed and if *Zsh* is selected as the default shell. If the various programs a
 re not installed, then they will first be installed. Next *Zsh* will be selected as the default shell. After that the various existing dotfiles are saved and new dotfiles are created that actually only source the relevant dotfiles in the repository directory. Benefit of this is that all changes can remain the repository without copying or moving files around.
-## Zsh
+### Zsh
 I created an optimized configuration that generates a prompt with the following layout
 
 ![](prompt_example.png)
 
 The `git` part in the prompt is only shown when you are in a git repository.
-## Tmux
+### Tmux
 The most important changes are:
 * The prefix is changed to `` ` ``
 * The index of the panes will start at `1` 
@@ -40,9 +40,9 @@ The most important changes are:
 
 The code supports nested *Tmux* windows for local and remote. If the remote windows is started from remote, it will have a yellow on orange theme. The main theme is orange on yellow.
 
-## Vim
+### Vim
 
-# Resources
+## Resources
 The following resources where used for pieces of code or more general idea's
 
 * <https://github.com/Parth/dotfiles>: Used for the idea of the deployment script
