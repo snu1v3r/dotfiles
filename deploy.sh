@@ -170,36 +170,32 @@ install_neovim() {
 }
 
 install_eza() {
-	src=`pwd`
 	cd /tmp
-	wget https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz -O /tmp/eza.tgz
-	tar xzvf /tmp/eza.tgz
+	wget -qO- https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz | tar xvz
 	sudo chmod +x /tmp/eza
 	sudo mv -f /tmp/eza /usr/bin/eza
-	rm /tmp/eza.tgz
+	cd -
 }
 
 install_zoxide() {
 	curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 }
 install_lazygit() {
-	src=`pwd`
-	git clone https://github.com/jesseduffield/lazygit.git /tmp/lazygit --depth=1
-	cd /tmp/lazygit
-	make build
+	cd /tmp
+    SUFFIX=Linux_x86_64
+    TAGNAME=`curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .name | cut -c2     
+    wget -qO- "https://github.com/jesseduffield/lazygit/releases/download/v${TAGNAME}/lazygit_${TAGNAME}_${SUFFIX}.tar.gz" | tar xvz
 	sudo mv lazygit /usr/bin/lazygit
-	cd $src
-	rm -rf /tmp/lazygit
+    cd -
 }
 
 install_fzf() {
-	src=`pwd`
-	git clone https://github.com/junegunn/fzf.git /tmp/fzf
-	cd /tmp/fzf
-	make install
-	sudo cp /tmp/fzf/bin/fzf /usr/bin/fzf
-	cd $src
-	rm -rf /tmp/fzf
+	cd /tmp
+	SUFFIX=linux_amd64
+	TAGNAME=`curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | jq -r .name`
+	wget -qO- "https://github.com/junegunn/fzf/releases/download/v${TAGNAME}/fzf-${TAGNAME}-${SUFFIX}.tar.gz" | tar xvz
+	sudo mv /tmp/fzf /usr/bin
+	cd -
 }
 
 install_batman() {
@@ -248,11 +244,7 @@ need_install() {
 
 check_for_software() {
 	if [ "$1" = "neovim" ]; then
-		if ! command -v nvim 2>&1 >/dev/null; then
-			install_neovim
-		else
-            install_neovim
-		fi
+        install_neovim
 	elif [ "$1" = "zoxide" ]; then
 		if ! command -v zoxide 2>&1 >/dev/null; then
 			install_zoxide
@@ -317,10 +309,7 @@ full_install() {
 			exit;;
 	esac
 
-
-
-
-	for app in zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman kitty yazi
+	for app in build-essential jq zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman kitty yazi ghostty
 	do
 		check_for_software $app
 	done
@@ -375,4 +364,4 @@ esac
 
 # TODO: add clean installation
 # TODO: add ghostty to the configuration
-# 
+# TODO: make difference between gui and non gui applications 
