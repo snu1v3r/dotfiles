@@ -170,7 +170,6 @@ install_eza() {
 	if need_install "eza" ; then
 		curl -sS -L --output - https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz | tar xz -C /tmp
 		sudo mv -f /tmp/eza /usr/bin/eza
-		cd -
 		log_success "Installed Eza"
 	fi
 }
@@ -188,7 +187,6 @@ install_lazygit() {
 		TAGNAME=`curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .name | cut -c2-`
 		curl -sS -L --output - "https://github.com/jesseduffield/lazygit/releases/download/v${TAGNAME}/lazygit_${TAGNAME}_${SUFFIX}.tar.gz" | tar xz -C /tmp
 		sudo mv /tmp/lazygit /usr/bin/lazygit
-		cd -
 		log_success "Installed Lazygit"
 	fi
 }
@@ -200,7 +198,6 @@ install_ripgrep() {
 		curl -sS -L --output - "https://github.com/BurntSushi/ripgrep/releases/download/${TAGNAME}/ripgrep-${TAGNAME}-${SUFFIX}.tar.gz" | tar xz -C /tmp
 		sudo mv /tmp/ripgrep-${TAGNAME}-${SUFFIX}/rg /usr/bin/rg
 		rm -rf /tmp/ripgrep-${TAGNAME}-${SUFFIX}
-		cd -
 		log_success "Installed Ripgrep"
 	fi
 }
@@ -211,7 +208,6 @@ install_fzf() {
 		TAGNAME=`curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | jq -r .name`
 		curl -sS -L --output - "https://github.com/junegunn/fzf/releases/download/v${TAGNAME}/fzf-${TAGNAME}-${SUFFIX}.tar.gz" | tar xz -C /tmp
 		sudo mv /tmp/fzf /usr/bin
-		cd -
 		log_success "Installed FZF"
 	fi
 }
