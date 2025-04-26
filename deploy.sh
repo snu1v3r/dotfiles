@@ -145,7 +145,7 @@ install_yazi() {
 		curl -sS -L --output /tmp/yazi.zip https://github.com/sxyazi/yazi/releases/download/v${TAGNAME}/yazi-${SUFFIX}.zip
 		unzip /tmp/yazi.zip -d /tmp
 		sudo mv /tmp/yazi-${SUFFIX}/yazi /tmp/yazi-${SUFFIX}/ya /usr/bin
-		sudo apt install -y ffmpeg p7zip jq
+		sudo apt install -y p7zip jq
 		log_success "Installed Yazi"
 	fi
 }
@@ -156,9 +156,10 @@ clean_kitty() {
 }
 install_neovim() {
 	if need_install "nvim" "Neovim" ; then
-		curl -sS -L --output /tmp/nvim https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
-		chmod +x /tmp/nvim
-		mv -f /tmp/nvim $DST
+		curl -sS -L --output - https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz | tar xz -C /tmp
+		cd /tmp/nvim-linux-x86_64
+		sudo cp -r ./* /usr
+		rm -rf /tmp/nvim-linux-x86_64
 		log_success "Installed Neovim"
 	fi
 
@@ -359,6 +360,7 @@ full_install() {
 	 		check_for_software ghostty
 			check_for_software poppler-utils
 			check_for_software xclip
+			check_for_software ffmpeg
 			;;
 		* )
 			echo
