@@ -152,7 +152,7 @@ install_yazi() {
 		rustup update
 		cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
 		sudo cp ~/.cargo/bin/ya ~/.cargo/bin/yazi ~/.local/bin
-		sudo apt install ffmpeg p7zip jq poppler-utils xclip
+		sudo apt install ffmpeg p7zip jq
 	fi
 }
 clean_kitty() {
@@ -327,6 +327,8 @@ full_install() {
 	
 	echo
 	log_info "Using stow for configurations"
+	mkdir ~/.local
+	mkdir ~/.config
 	cd ~/dotfiles/stowed_files/config/
 	stow .
 	cd ~/dotfiles/stowed_files/local/
@@ -343,7 +345,9 @@ full_install() {
 	case "$REPLY" in
 		y|Y )
 			check_for_software kitty
-			check_for_software ghostty
+	 		check_for_software ghostty
+			check_for_software poppler-utils
+			check_for_software xclip
 			;;
 		* )
 			echo
