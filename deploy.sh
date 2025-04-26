@@ -162,7 +162,7 @@ clean_kitty() {
 }
 install_neovim() {
 	if need_install "nvim" "Neovim" ; then
-		wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -O /tmp/nvim
+		curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -o /tmp/nvim
 		chmod +x /tmp/nvim
 		mv -f /tmp/nvim $DST
 	fi
@@ -318,7 +318,7 @@ full_install() {
 			exit;;
 	esac
 
-	for app in build-essential jq zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman yazi 
+	for app in build-essential curl jq zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman yazi 
 	do
 		check_for_software $app
 	done
