@@ -162,7 +162,7 @@ clean_kitty() {
 }
 install_neovim() {
 	if need_install "nvim" "Neovim" ; then
-		curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -o /tmp/nvim
+		curl -sS -L --output /tmp/nvim https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
 		chmod +x /tmp/nvim
 		mv -f /tmp/nvim $DST
 	fi
@@ -171,20 +171,20 @@ install_neovim() {
 
 install_eza() {
 	cd /tmp
-	curl -L -O- https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz | tar xvz
+	curl -sS -L --output - https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz | tar xz
 	sudo chmod +x /tmp/eza
 	sudo mv -f /tmp/eza /usr/bin/eza
 	cd -
 }
 
 install_zoxide() {
-	curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+	curl -sS -L --output - https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
 }
 install_lazygit() {
 	cd /tmp
     SUFFIX=Linux_x86_64
     TAGNAME=`curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .name | cut -c2`
-    curl -L -O- "https://github.com/jesseduffield/lazygit/releases/download/v${TAGNAME}/lazygit_${TAGNAME}_${SUFFIX}.tar.gz" | tar xvz
+    curl -sS -L --output - "https://github.com/jesseduffield/lazygit/releases/download/v${TAGNAME}/lazygit_${TAGNAME}_${SUFFIX}.tar.gz" | tar xz
 	sudo mv lazygit /usr/bin/lazygit
     cd -
 }
@@ -193,8 +193,10 @@ install_ripgrep() {
 	if need_install "rg" "Ripgrep" ; then
 		SUFFIX=x86_64-unknown-linux-musl
 		TAGNAME=`curl -s https://api.github.com/repos/BurntSushi/ripgrep/releases/latest | jq -r .name` 
-		curl -L -O- "https://github.com/BurntSushi/ripgrep/releases/download/${TAGNAME}/ripgrep-${TAGNAME}-${SUFFIX}.tar.gz"
+		curl -sS -L --output - "https://github.com/BurntSushi/ripgrep/releases/download/${TAGNAME}/ripgrep-${TAGNAME}-${SUFFIX}.tar.gz" | tar xz
 		sudo mv /tmp/ripgrep-${TAGNAME}-${SUFFIX}/rg /usr/bin/rg
+		rm -rf /tmp/ripgrep-${TAGNAME}-${SUFFIX}
+		cd -
 	fi
 }
 
@@ -202,20 +204,20 @@ install_fzf() {
 	cd /tmp
 	SUFFIX=linux_amd64
 	TAGNAME=`curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | jq -r .name`
-	curl -L -O- "https://github.com/junegunn/fzf/releases/download/v${TAGNAME}/fzf-${TAGNAME}-${SUFFIX}.tar.gz" | tar xvz
+	curl -sS -L --output - "https://github.com/junegunn/fzf/releases/download/v${TAGNAME}/fzf-${TAGNAME}-${SUFFIX}.tar.gz" | tar xz
 	sudo mv /tmp/fzf /usr/bin
 	cd -
 }
 
 install_batman() {
-	src=`pwd`
-	git clone https://github.com/eth-p/bat-extras.git /tmp/bat-extras
-	cd /tmp/bat-extras
-	./build.sh
-	cd bin
-	sudo cp * /usr/bin
-	cd $src
-	rm -rf /tmp/bat-extras
+	TAGNAME=`curl -s https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url`
+	cd /tmp
+	curl -sS -L --output ${TAGNAME} 
+	sudo mv /tmp/bin/* /usr/bin/
+	rm -rf /tmp/bin
+	rm -rf /tmp/doc
+	rm -rf /tmp/man
+	cd -
 }
 
 install_ghostty() {
@@ -318,7 +320,7 @@ full_install() {
 			exit;;
 	esac
 
-	for app in build-essential curl jq zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman yazi 
+	for app in build-essential curl jq zsh stow man unzip ripgrep neovim lazygit eza fzf zoxide bat batman yazi 
 	do
 		check_for_software $app
 	done
