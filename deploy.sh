@@ -11,10 +11,6 @@ initialize(){
 	WHITE=$'\033[1;37m'
 	CLEAR=$'\033[0m'
 
-	DST=~/opt/bin
-	if [ ! -d $DST ]; then
-		mkdir -p $DST
-	fi
 }
 
 log_info(){
@@ -128,6 +124,10 @@ install_with_package_manager() {
 
 install_kitty() {
 	if need_install "kitty" ; then
+        DST=~/opt/bin
+        if [ ! -d $DST ]; then
+            mkdir -p $DST
+        fi
 		curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
 		ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten $DST
 		cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
@@ -243,6 +243,10 @@ install_batman() {
 
 install_ghostty() {
 	if need_install "ghostty"; then
+        DST=~/opt/bin
+        if [ ! -d $DST ]; then
+            mkdir -p $DST
+        fi
 		SUFFIX="amd64_bookworm"
 		GHOSTTY_DEB_URL=$(
 		   curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases/latest | \
@@ -341,8 +345,14 @@ full_install() {
 	
 	echo
 	log_info "Using stow for configurations"
-	mkdir ~/.local
-	mkdir ~/.config
+    CFG=~/.config
+    if [ ! -d $CFG ]; then
+        mkdir -p $CFG
+    fi
+    LCL=~/.local
+    if [ ! -d $LCL ]; then
+        mkdir -p $LCL
+    fi
 	cd ~/dotfiles/stowed_files/config/
 	stow .
 	cd ~/dotfiles/stowed_files/local/
