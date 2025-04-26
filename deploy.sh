@@ -170,23 +170,30 @@ install_neovim() {
 }
 
 install_eza() {
-	cd /tmp
-	curl -sS -L --output - https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz | tar xz
-	sudo chmod +x /tmp/eza
-	sudo mv -f /tmp/eza /usr/bin/eza
-	cd -
+	if need_install "eza" ; then
+		cd /tmp
+		curl -sS -L --output - https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz | tar xz
+		sudo chmod +x /tmp/eza
+		sudo mv -f /tmp/eza /usr/bin/eza
+		cd -
+	fi
 }
 
 install_zoxide() {
-	curl -sS -L --output - https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+	if need_install "zoxide" ; then
+		curl -sS -L --output - https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+	fi
 }
+
 install_lazygit() {
-	cd /tmp
-    SUFFIX=Linux_x86_64
-    TAGNAME=`curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .name | cut -c2`
-    curl -sS -L --output - "https://github.com/jesseduffield/lazygit/releases/download/v${TAGNAME}/lazygit_${TAGNAME}_${SUFFIX}.tar.gz" | tar xz
-	sudo mv lazygit /usr/bin/lazygit
-    cd -
+	if need_install "lazygit" ; then
+		cd /tmp
+		SUFFIX=Linux_x86_64
+		TAGNAME=`curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .name | cut -c2`
+		curl -sS -L --output - "https://github.com/jesseduffield/lazygit/releases/download/v${TAGNAME}/lazygit_${TAGNAME}_${SUFFIX}.tar.gz" | tar xz
+		sudo mv lazygit /usr/bin/lazygit
+		cd -
+	fi
 }
 
 install_ripgrep() {
@@ -201,23 +208,31 @@ install_ripgrep() {
 }
 
 install_fzf() {
-	cd /tmp
-	SUFFIX=linux_amd64
-	TAGNAME=`curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | jq -r .name`
-	curl -sS -L --output - "https://github.com/junegunn/fzf/releases/download/v${TAGNAME}/fzf-${TAGNAME}-${SUFFIX}.tar.gz" | tar xz
-	sudo mv /tmp/fzf /usr/bin
-	cd -
+	if need_install "fzf" ; then
+		cd /tmp
+		SUFFIX=linux_amd64
+		TAGNAME=`curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | jq -r .name`
+		curl -sS -L --output - "https://github.com/junegunn/fzf/releases/download/v${TAGNAME}/fzf-${TAGNAME}-${SUFFIX}.tar.gz" | tar xz
+		sudo mv /tmp/fzf /usr/bin
+		cd -
+	fi
 }
 
 install_batman() {
-	TAGNAME=`curl -s https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url`
-	cd /tmp
-	curl -sS -L --output ${TAGNAME} 
-	sudo mv /tmp/bin/* /usr/bin/
-	rm -rf /tmp/bin
-	rm -rf /tmp/doc
-	rm -rf /tmp/man
-	cd -
+	if need_install "bat" ; then
+		BATSUFFIX=i686-unknown-linux-musl
+		BATTAG=`curl -sS -L https://api.github.com/repos/sharkdp/bat/releases/latest | jq -r .tag_name|cut -c2-`
+		BATMANURL=`curl -s https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url`
+		cd /tmp
+		curl -sS -L --output - https://github.com/sharkdp/bat/releases/download/v${BATTAG}/bat-v${BATTAG}-${BATSUFFIX}.tar.gz | tar xz
+		curl -sS -L --output ${BATMANURL} 
+		sudo mv /tmp/bat-v${BATTAG}-${BATSUFFIX}/bat /usr/bin
+		sudo mv /tmp/bin/* /usr/bin/
+		rm -rf /tmp/bin
+		rm -rf /tmp/doc
+		rm -rf /tmp/man
+		cd -
+	fi
 }
 
 install_ghostty() {
@@ -257,31 +272,21 @@ check_for_software() {
 	if [ "$1" = "neovim" ]; then
         install_neovim
 	elif [ "$1" = "zoxide" ]; then
-		if ! command -v zoxide 2>&1 >/dev/null; then
-			install_zoxide
-		fi
+		install_zoxide
 	elif [ "$1" = "fzf" ]; then
-		if ! command -v fzf 2>&1 >/dev/null; then
-			install_fzf
-		fi
+		install_fzf
 	elif [ "$1" = "batman" ]; then
-		if ! command -v batman 2>&1 >/dev/null; then
-			install_batman
-		fi
+		install_batman
 	elif [ "$1" = "yazi" ]; then
-		if ! command -v yazi 2>&1 >/dev/null; then
-			install_yazi
-		fi
+		install_yazi
 	elif [ "$1" = "kitty" ]; then
-		if ! command -v kitt 2>&1 >/dev/null; then
-			install_kitty
-		fi
+		install_kitty
+	elif [ "$1" = "eza" ]; then
+		install_eza
+	elif [ "$1" = "lazygit" ]; then
+		install_lazygit
 	elif [ "$1" = "ripgrep" ]; then
-		if ! command -v rg 2>&1 >/dev/null; then
-			install_ripgrep
-		else
-			log_success "Ripgrep is installed"
-		fi
+		install_ripgrep
 	elif ! [ -x "$(command -v $1)" ]; then
 		install_with_package_manager $1
 	else
