@@ -348,7 +348,7 @@ full_install() {
         cd ~/dotfiles
     else
         cd ~
-        git clone --recursive --depth 1 https://github.com/snu1v3r/dotfiles.git
+        git clone --recurse-submodules https://github.com/snu1v3r/dotfiles.git
     fi
 	
 	echo
