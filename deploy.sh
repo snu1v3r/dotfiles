@@ -146,6 +146,8 @@ install_yazi() {
 		unzip /tmp/yazi.zip -d /tmp
 		sudo mv /tmp/yazi-${SUFFIX}/yazi /tmp/yazi-${SUFFIX}/ya /usr/bin
 		sudo apt install -y p7zip jq
+		rm /tmp/yazi.zip
+		rm -rf /tmp/yazi-${SUFFIX}
 		log_success "Installed Yazi"
 	fi
 }
@@ -157,8 +159,7 @@ clean_kitty() {
 install_neovim() {
 	if need_install "nvim" "Neovim" ; then
 		curl -sS -L --output - https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz | tar xz -C /tmp
-		cd /tmp/nvim-linux-x86_64
-		sudo cp -r ./* /usr
+		sudo cp -r /tmp/nvim-linux/x86_64/* /usr
 		rm -rf /tmp/nvim-linux-x86_64
 		log_success "Installed Neovim"
 	fi
@@ -221,6 +222,7 @@ install_bat() {
 		BATTAG=`curl -sS -L https://api.github.com/repos/sharkdp/bat/releases/latest | jq -r .tag_name|cut -c2-`
 		curl -sS -L --output - https://github.com/sharkdp/bat/releases/download/v${BATTAG}/bat-v${BATTAG}-${BATSUFFIX}.tar.gz | tar xz -C /tmp
 		sudo mv /tmp/bat-v${BATTAG}-${BATSUFFIX}/bat /usr/bin
+		rm -rf /tmp/bat-v${BATTAG}-${BATSUFFIX}
 		log_success "Installed Bat"
 	fi
 }
@@ -234,7 +236,7 @@ install_batman() {
 		rm -rf /tmp/bin
 		rm -rf /tmp/doc
 		rm -rf /tmp/man
-		cd -
+		rm /tmp/batman.zip
 		log_success "Installed bat-extras"
 	fi
 }
