@@ -109,29 +109,21 @@ print_help() {
 
 
 install_with_package_manager() {
-	echo -n "$1 is not installed. Would you like to install it? (y/n) " >&2
-	old_stty_cfg=$(stty -g)
-	stty raw -echo
-	answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
-	stty $old_stty_cfg && echo
-	if echo "$answer" | grep -iq "^y" ;then
+	if [ -x "$(command -v apt-get)" ]; then
+		sudo apt-get install $1 -y
 
-		if [ -x "$(command -v apt-get)" ]; then
-			sudo apt-get install $1 -y
+	elif [ -x "$(command -v brew)" ]; then
+		brew install $1
 
-		elif [ -x "$(command -v brew)" ]; then
-			brew install $1
+	elif [ -x "$(command -v pkg)" ]; then
+		sudo pkg install $1
 
-		elif [ -x "$(command -v pkg)" ]; then
-			sudo pkg install $1
+	elif [ -x "$(command -v pacman)" ]; then
+		sudo pacman -S $1
 
-		elif [ -x "$(command -v pacman)" ]; then
-			sudo pacman -S $1
-
-		else
-			echo "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again. Tests for package managers are in the deploy script you just ran starting at line 13. Feel free to make a pull request at https://github.com/parth/dotfiles :)" 
-		fi 
-	fi
+	else
+		echo "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again. Tests for package managers are in the deploy script you just ran starting at line 13. Feel free to make a pull request at https://github.com/parth/dotfiles :)" 
+	fi 
 }
 
 install_kitty() {
@@ -152,7 +144,7 @@ install_yazi() {
 		rustup update
 		cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
 		sudo cp ~/.cargo/bin/ya ~/.cargo/bin/yazi ~/.local/bin
-		sudo apt install ffmpeg p7zip jq
+		sudo apt install -y ffmpeg p7zip jq
 		log_success "Installed Yazi"
 	fi
 }
@@ -235,7 +227,7 @@ install_batman() {
 	if need_install "batman" ; then
 		BATMANURL=`curl -s https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url`
 		curl -sS -L --output /tmp/batman.zip ${BATMANURL} 
-		unzip /tmp/batman.zip
+		unzip /tmp/batman.zip -d /tmp
 		sudo mv /tmp/bin/* /usr/bin/
 		rm -rf /tmp/bin
 		rm -rf /tmp/doc
