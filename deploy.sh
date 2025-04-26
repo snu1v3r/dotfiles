@@ -153,6 +153,7 @@ install_yazi() {
 		cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
 		sudo cp ~/.cargo/bin/ya ~/.cargo/bin/yazi ~/.local/bin
 		sudo apt install ffmpeg p7zip jq
+		log_success "Installed Yazi"
 	fi
 }
 clean_kitty() {
@@ -165,6 +166,7 @@ install_neovim() {
 		curl -sS -L --output /tmp/nvim https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage
 		chmod +x /tmp/nvim
 		mv -f /tmp/nvim $DST
+		log_success "Installed Neovim"
 	fi
 
 }
@@ -176,12 +178,14 @@ install_eza() {
 		sudo chmod +x /tmp/eza
 		sudo mv -f /tmp/eza /usr/bin/eza
 		cd -
+		log_success "Installed Eza"
 	fi
 }
 
 install_zoxide() {
 	if need_install "zoxide" ; then
 		curl -sS -L --output - https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+		log_success "Installed Zoxide"
 	fi
 }
 
@@ -193,6 +197,7 @@ install_lazygit() {
 		curl -sS -L --output - "https://github.com/jesseduffield/lazygit/releases/download/v${TAGNAME}/lazygit_${TAGNAME}_${SUFFIX}.tar.gz" | tar xz
 		sudo mv lazygit /usr/bin/lazygit
 		cd -
+		log_success "Installed Lazygit"
 	fi
 }
 
@@ -204,6 +209,7 @@ install_ripgrep() {
 		sudo mv /tmp/ripgrep-${TAGNAME}-${SUFFIX}/rg /usr/bin/rg
 		rm -rf /tmp/ripgrep-${TAGNAME}-${SUFFIX}
 		cd -
+		log_success "Installed Ripgrep"
 	fi
 }
 
@@ -215,23 +221,32 @@ install_fzf() {
 		curl -sS -L --output - "https://github.com/junegunn/fzf/releases/download/v${TAGNAME}/fzf-${TAGNAME}-${SUFFIX}.tar.gz" | tar xz
 		sudo mv /tmp/fzf /usr/bin
 		cd -
+		log_success "Installed FZF"
+	fi
+}
+
+install_bat() {
+	if need_install "bat" ; then
+		BATSUFFIX=i686-unknown-linux-musl
+		BATTAG=`curl -sS -L https://api.github.com/repos/sharkdp/bat/releases/latest | jq -r .tag_name|cut -c2-`
+		curl -sS -L --output - https://github.com/sharkdp/bat/releases/download/v${BATTAG}/bat-v${BATTAG}-${BATSUFFIX}.tar.gz | tar xz
+		sudo mv /tmp/bat-v${BATTAG}-${BATSUFFIX}/bat /usr/bin
+		log_success "Installed Bat"
 	fi
 }
 
 install_batman() {
-	if need_install "bat" ; then
-		BATSUFFIX=i686-unknown-linux-musl
-		BATTAG=`curl -sS -L https://api.github.com/repos/sharkdp/bat/releases/latest | jq -r .tag_name|cut -c2-`
+	if need_install "batman" ; then
 		BATMANURL=`curl -s https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url`
 		cd /tmp
-		curl -sS -L --output - https://github.com/sharkdp/bat/releases/download/v${BATTAG}/bat-v${BATTAG}-${BATSUFFIX}.tar.gz | tar xz
-		curl -sS -L --output ${BATMANURL} 
-		sudo mv /tmp/bat-v${BATTAG}-${BATSUFFIX}/bat /usr/bin
+		curl -sS -L --output /tmp/batman.zip ${BATMANURL} 
+		unzip /tmp/batman.zip
 		sudo mv /tmp/bin/* /usr/bin/
 		rm -rf /tmp/bin
 		rm -rf /tmp/doc
 		rm -rf /tmp/man
 		cd -
+		log_success "Installed bat-extras"
 	fi
 }
 
@@ -244,6 +259,7 @@ install_ghostty() {
 		curl -L $GHOSTTY_DEB_URL -o /tmp/ghostty
 		sudo dpkg -i /tmp/ghostty
 		ln -s /usr/bin/ghostty $DST
+		log_success "Installed Ghostty"
 	fi
 }
 
@@ -277,6 +293,8 @@ check_for_software() {
 		install_fzf
 	elif [ "$1" = "batman" ]; then
 		install_batman
+	elif [ "$1" = "bat" ]; then
+		install_bat
 	elif [ "$1" = "yazi" ]; then
 		install_yazi
 	elif [ "$1" = "kitty" ]; then
