@@ -159,7 +159,7 @@ clean_kitty() {
 install_neovim() {
 	if need_install "nvim" "Neovim" ; then
 		curl -sS -L --output - https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz | tar xz -C /tmp
-		sudo cp -r /tmp/nvim-linux/x86_64/* /usr
+		sudo cp -r /tmp/nvim-linux-x86_64/* /usr
 		rm -rf /tmp/nvim-linux-x86_64
 		log_success "Installed Neovim"
 	fi
