@@ -338,10 +338,18 @@ full_install() {
 			exit;;
 	esac
 
-	for app in build-essential curl jq file tmux zsh stow man unzip ripgrep neovim lazygit eza fzf zoxide bat batman yazi 
+	for app in build-essential git curl jq file tmux zsh stow man unzip ripgrep neovim lazygit eza fzf zoxide bat batman yazi 
 	do
 		check_for_software $app
 	done
+
+    if [ -d ~/dotfiles ]; then
+        log_info "Dotfiles directory exists"
+        cd ~/dotfiles
+    else
+        cd ~
+        git clone --recursive --depth 1 https://github.com/snu1v3r/dotfiles.git
+    fi
 	
 	echo
 	log_info "Using stow for configurations"
@@ -362,17 +370,15 @@ full_install() {
 
 	ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 
-
 	echo
 
 	log_yes_no "Do I need to install GUI applications?"
 	case "$REPLY" in
 		y|Y )
-			check_for_software kitty
-	 		check_for_software ghostty
-			check_for_software poppler-utils
-			check_for_software xclip
-			check_for_software ffmpeg
+            for app in kitty ghostty poppler-utils xclip ffmpeg
+            do
+                check_for_software $app
+            done
 			;;
 		* )
 			echo
