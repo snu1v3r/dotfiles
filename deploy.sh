@@ -182,7 +182,7 @@ install_zoxide() {
 install_lazygit() {
 	if need_install "lazygit" ; then
 		SUFFIX=Linux_x86_64
-		TAGNAME=`curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .name | cut -c2`
+		TAGNAME=`curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .name | cut -c2-`
 		curl -sS -L --output - "https://github.com/jesseduffield/lazygit/releases/download/v${TAGNAME}/lazygit_${TAGNAME}_${SUFFIX}.tar.gz" | tar xz -C /tmp
 		sudo mv /tmp/lazygit /usr/bin/lazygit
 		cd -
