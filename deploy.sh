@@ -171,7 +171,7 @@ install_neovim() {
 
 install_eza() {
 	cd /tmp
-	wget -qO- https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz | tar xvz
+	curl -L -O- https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz | tar xvz
 	sudo chmod +x /tmp/eza
 	sudo mv -f /tmp/eza /usr/bin/eza
 	cd -
@@ -183,17 +183,26 @@ install_zoxide() {
 install_lazygit() {
 	cd /tmp
     SUFFIX=Linux_x86_64
-    TAGNAME=`curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .name | cut -c2     
-    wget -qO- "https://github.com/jesseduffield/lazygit/releases/download/v${TAGNAME}/lazygit_${TAGNAME}_${SUFFIX}.tar.gz" | tar xvz
+    TAGNAME=`curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .name | cut -c2`
+    curl -L -O- "https://github.com/jesseduffield/lazygit/releases/download/v${TAGNAME}/lazygit_${TAGNAME}_${SUFFIX}.tar.gz" | tar xvz
 	sudo mv lazygit /usr/bin/lazygit
     cd -
+}
+
+install_ripgrep() {
+	if need_install "rg" "Ripgrep" ; then
+		SUFFIX=x86_64-unknown-linux-musl
+		TAGNAME=`curl -s https://api.github.com/repos/BurntSushi/ripgrep/releases/latest | jq -r .name` 
+		curl -L -O- "https://github.com/BurntSushi/ripgrep/releases/download/${TAGNAME}/ripgrep-${TAGNAME}-${SUFFIX}.tar.gz"
+		sudo mv /tmp/ripgrep-${TAGNAME}-${SUFFIX}/rg /usr/bin/rg
+	fi
 }
 
 install_fzf() {
 	cd /tmp
 	SUFFIX=linux_amd64
 	TAGNAME=`curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | jq -r .name`
-	wget -qO- "https://github.com/junegunn/fzf/releases/download/v${TAGNAME}/fzf-${TAGNAME}-${SUFFIX}.tar.gz" | tar xvz
+	curl -L -O- "https://github.com/junegunn/fzf/releases/download/v${TAGNAME}/fzf-${TAGNAME}-${SUFFIX}.tar.gz" | tar xvz
 	sudo mv /tmp/fzf /usr/bin
 	cd -
 }
@@ -215,7 +224,7 @@ install_ghostty() {
 		GHOSTTY_DEB_URL=$(
 		   curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases/latest | \
 		   grep -oP "https://github.com/mkasberg/ghostty-ubuntu/releases/download/[^\s/]+/ghostty_[^\s/_]+_${SUFFIX}.deb")
-		wget $GHOSTTY_DEB_URL -O /tmp/ghostty
+		curl -L $GHOSTTY_DEB_URL -o /tmp/ghostty
 		sudo dpkg -i /tmp/ghostty
 		ln -s /usr/bin/ghostty $DST
 	fi
@@ -267,7 +276,7 @@ check_for_software() {
 		fi
 	elif [ "$1" = "ripgrep" ]; then
 		if ! command -v rg 2>&1 >/dev/null; then
-			install_with_package_manager rg
+			install_ripgrep
 		else
 			log_success "Ripgrep is installed"
 		fi
@@ -309,7 +318,7 @@ full_install() {
 			exit;;
 	esac
 
-	for app in build-essential jq zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman kitty yazi ghostty
+	for app in build-essential jq zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman yazi 
 	do
 		check_for_software $app
 	done
@@ -327,6 +336,19 @@ full_install() {
 
 
 	echo
+
+	log_yes_no "Do I need to install GUI applications?"
+	case "$REPLY" in
+		y|Y )
+			check_for_software kitty
+			check_for_software ghostty
+			;;
+		* )
+			echo
+			log_info "No GUI applications are installed."
+			;;
+	esac
+
 	log_warning "For correct display of the fonts ensure that your prefered Nerd Font is selected."
 	log_warning "Please log out and log back in for default shell to be initialized."
 
