@@ -140,10 +140,11 @@ install_kitty() {
 
 install_yazi() {
 	if need_install "yazi" ; then
-		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-		rustup update
-		cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
-		sudo cp ~/.cargo/bin/ya ~/.cargo/bin/yazi ~/.local/bin
+		SUFFIX=x86_64-unknown-linux-musl
+		TAGNAME=`curl -sS -L https://api.github.com/repos/sxyazi/yazi/releases/latest | jq -r .tag_name | cut -c2-`
+		curl -sS -L --output /tmp/yazi.zip https://github.com/sxyazi/yazi/releases/download/v${TAGNAME}/yazi-${SUFFIX}.zip
+		unzip /tmp/yazi.zip -d /tmp
+		sudo mv /tmp/yazi-${SUFFIX}/yazi /tmp/yazi-${SUFFIX}/ya /usr/bin
 		sudo apt install -y ffmpeg p7zip jq
 		log_success "Installed Yazi"
 	fi
