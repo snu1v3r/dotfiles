@@ -11,10 +11,6 @@ initialize(){
 	WHITE=$'\033[1;37m'
 	CLEAR=$'\033[0m'
 
-	DST=~/opt/bin
-	if [ ! -d $DST ]; then
-		mkdir -p $DST
-	fi
 }
 
 log_info(){
@@ -109,33 +105,29 @@ print_help() {
 
 
 install_with_package_manager() {
-	echo -n "$1 is not installed. Would you like to install it? (y/n) " >&2
-	old_stty_cfg=$(stty -g)
-	stty raw -echo
-	answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
-	stty $old_stty_cfg && echo
-	if echo "$answer" | grep -iq "^y" ;then
+	if [ -x "$(command -v apt-get)" ]; then
+		sudo apt-get install $1 -y
 
-		if [ -x "$(command -v apt-get)" ]; then
-			sudo apt-get install $1 -y
+	elif [ -x "$(command -v brew)" ]; then
+		brew install $1
 
-		elif [ -x "$(command -v brew)" ]; then
-			brew install $1
+	elif [ -x "$(command -v pkg)" ]; then
+		sudo pkg install $1
 
-		elif [ -x "$(command -v pkg)" ]; then
-			sudo pkg install $1
+	elif [ -x "$(command -v pacman)" ]; then
+		sudo pacman -S $1
 
-		elif [ -x "$(command -v pacman)" ]; then
-			sudo pacman -S $1
-
-		else
-			echo "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again. Tests for package managers are in the deploy script you just ran starting at line 13. Feel free to make a pull request at https://github.com/parth/dotfiles :)" 
-		fi 
-	fi
+	else
+		echo "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again. Tests for package managers are in the deploy script you just ran starting at line 13. Feel free to make a pull request at https://github.com/parth/dotfiles :)" 
+	fi 
 }
 
 install_kitty() {
 	if need_install "kitty" ; then
+        DST=~/opt/bin
+        if [ ! -d $DST ]; then
+            mkdir -p $DST
+        fi
 		curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
 		ln -sf ~/.local/kitty.app/bin/kitty ~/.local/kitty.app/bin/kitten $DST
 		cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
@@ -148,11 +140,15 @@ install_kitty() {
 
 install_yazi() {
 	if need_install "yazi" ; then
-		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-		rustup update
-		cargo install --locked --git https://github.com/sxyazi/yazi.git yazi-fm yazi-cli
-		sudo cp ~/.cargo/bin/ya ~/.cargo/bin/yazi ~/.local/bin
-		sudo apt install ffmpeg p7zip jq poppler-utils xclip
+		SUFFIX=x86_64-unknown-linux-musl
+		TAGNAME=`curl -sS -L https://api.github.com/repos/sxyazi/yazi/releases/latest | jq -r .tag_name | cut -c2-`
+		curl -sS -L --output /tmp/yazi.zip https://github.com/sxyazi/yazi/releases/download/v${TAGNAME}/yazi-${SUFFIX}.zip
+		unzip /tmp/yazi.zip -d /tmp
+		sudo mv /tmp/yazi-${SUFFIX}/yazi /tmp/yazi-${SUFFIX}/ya /usr/bin
+		sudo apt install -y p7zip jq
+		rm /tmp/yazi.zip
+		rm -rf /tmp/yazi-${SUFFIX}
+		log_success "Installed Yazi"
 	fi
 }
 clean_kitty() {
@@ -162,66 +158,103 @@ clean_kitty() {
 }
 install_neovim() {
 	if need_install "nvim" "Neovim" ; then
-		wget https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -O /tmp/nvim
-		chmod +x /tmp/nvim
-		mv -f /tmp/nvim $DST
+		curl -sS -L --output - https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz | tar xz -C /tmp
+		sudo cp -r /tmp/nvim-linux-x86_64/* /usr
+		rm -rf /tmp/nvim-linux-x86_64
+		log_success "Installed Neovim"
 	fi
 
 }
 
 install_eza() {
-	src=`pwd`
-	cd /tmp
-	wget https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz -O /tmp/eza.tgz
-	tar xzvf /tmp/eza.tgz
-	sudo chmod +x /tmp/eza
-	sudo mv -f /tmp/eza /usr/bin/eza
-	rm /tmp/eza.tgz
+	if need_install "eza" ; then
+		curl -sS -L --output - https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz | tar xz -C /tmp
+		sudo mv -f /tmp/eza /usr/bin/eza
+		cd -
+		log_success "Installed Eza"
+	fi
 }
 
 install_zoxide() {
-	curl -sS https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+	if need_install "zoxide" ; then
+		curl -sS -L --output - https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | bash
+		log_success "Installed Zoxide"
+	fi
 }
+
 install_lazygit() {
-	src=`pwd`
-	git clone https://github.com/jesseduffield/lazygit.git /tmp/lazygit --depth=1
-	cd /tmp/lazygit
-	make build
-	sudo mv lazygit /usr/bin/lazygit
-	cd $src
-	rm -rf /tmp/lazygit
+	if need_install "lazygit" ; then
+		SUFFIX=Linux_x86_64
+		TAGNAME=`curl -s https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .name | cut -c2-`
+		curl -sS -L --output - "https://github.com/jesseduffield/lazygit/releases/download/v${TAGNAME}/lazygit_${TAGNAME}_${SUFFIX}.tar.gz" | tar xz -C /tmp
+		sudo mv /tmp/lazygit /usr/bin/lazygit
+		cd -
+		log_success "Installed Lazygit"
+	fi
+}
+
+install_ripgrep() {
+	if need_install "rg" "Ripgrep" ; then
+		SUFFIX=x86_64-unknown-linux-musl
+		TAGNAME=`curl -s https://api.github.com/repos/BurntSushi/ripgrep/releases/latest | jq -r .name` 
+		curl -sS -L --output - "https://github.com/BurntSushi/ripgrep/releases/download/${TAGNAME}/ripgrep-${TAGNAME}-${SUFFIX}.tar.gz" | tar xz -C /tmp
+		sudo mv /tmp/ripgrep-${TAGNAME}-${SUFFIX}/rg /usr/bin/rg
+		rm -rf /tmp/ripgrep-${TAGNAME}-${SUFFIX}
+		cd -
+		log_success "Installed Ripgrep"
+	fi
 }
 
 install_fzf() {
-	src=`pwd`
-	git clone https://github.com/junegunn/fzf.git /tmp/fzf
-	cd /tmp/fzf
-	make install
-	sudo cp /tmp/fzf/bin/fzf /usr/bin/fzf
-	cd $src
-	rm -rf /tmp/fzf
+	if need_install "fzf" ; then
+		SUFFIX=linux_amd64
+		TAGNAME=`curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | jq -r .name`
+		curl -sS -L --output - "https://github.com/junegunn/fzf/releases/download/v${TAGNAME}/fzf-${TAGNAME}-${SUFFIX}.tar.gz" | tar xz -C /tmp
+		sudo mv /tmp/fzf /usr/bin
+		cd -
+		log_success "Installed FZF"
+	fi
+}
+
+install_bat() {
+	if need_install "bat" ; then
+		BATSUFFIX=i686-unknown-linux-musl
+		BATTAG=`curl -sS -L https://api.github.com/repos/sharkdp/bat/releases/latest | jq -r .tag_name|cut -c2-`
+		curl -sS -L --output - https://github.com/sharkdp/bat/releases/download/v${BATTAG}/bat-v${BATTAG}-${BATSUFFIX}.tar.gz | tar xz -C /tmp
+		sudo mv /tmp/bat-v${BATTAG}-${BATSUFFIX}/bat /usr/bin
+		rm -rf /tmp/bat-v${BATTAG}-${BATSUFFIX}
+		log_success "Installed Bat"
+	fi
 }
 
 install_batman() {
-	src=`pwd`
-	git clone https://github.com/eth-p/bat-extras.git /tmp/bat-extras
-	cd /tmp/bat-extras
-	./build.sh
-	cd bin
-	sudo cp * /usr/bin
-	cd $src
-	rm -rf /tmp/bat-extras
+	if need_install "batman" ; then
+		BATMANURL=`curl -s https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url`
+		curl -sS -L --output /tmp/batman.zip ${BATMANURL} 
+		unzip /tmp/batman.zip -d /tmp
+		sudo mv /tmp/bin/* /usr/bin/
+		rm -rf /tmp/bin
+		rm -rf /tmp/doc
+		rm -rf /tmp/man
+		rm /tmp/batman.zip
+		log_success "Installed bat-extras"
+	fi
 }
 
 install_ghostty() {
 	if need_install "ghostty"; then
+        DST=~/opt/bin
+        if [ ! -d $DST ]; then
+            mkdir -p $DST
+        fi
 		SUFFIX="amd64_bookworm"
 		GHOSTTY_DEB_URL=$(
 		   curl -s https://api.github.com/repos/mkasberg/ghostty-ubuntu/releases/latest | \
 		   grep -oP "https://github.com/mkasberg/ghostty-ubuntu/releases/download/[^\s/]+/ghostty_[^\s/_]+_${SUFFIX}.deb")
-		wget $GHOSTTY_DEB_URL -O /tmp/ghostty
+		curl -L $GHOSTTY_DEB_URL -o /tmp/ghostty
 		sudo dpkg -i /tmp/ghostty
 		ln -s /usr/bin/ghostty $DST
+		log_success "Installed Ghostty"
 	fi
 }
 
@@ -248,37 +281,25 @@ need_install() {
 
 check_for_software() {
 	if [ "$1" = "neovim" ]; then
-		if ! command -v nvim 2>&1 >/dev/null; then
-			install_neovim
-		else
-            install_neovim
-		fi
+        install_neovim
 	elif [ "$1" = "zoxide" ]; then
-		if ! command -v zoxide 2>&1 >/dev/null; then
-			install_zoxide
-		fi
+		install_zoxide
 	elif [ "$1" = "fzf" ]; then
-		if ! command -v fzf 2>&1 >/dev/null; then
-			install_fzf
-		fi
+		install_fzf
 	elif [ "$1" = "batman" ]; then
-		if ! command -v batman 2>&1 >/dev/null; then
-			install_batman
-		fi
+		install_batman
+	elif [ "$1" = "bat" ]; then
+		install_bat
 	elif [ "$1" = "yazi" ]; then
-		if ! command -v yazi 2>&1 >/dev/null; then
-			install_yazi
-		fi
+		install_yazi
 	elif [ "$1" = "kitty" ]; then
-		if ! command -v kitt 2>&1 >/dev/null; then
-			install_kitty
-		fi
+		install_kitty
+	elif [ "$1" = "eza" ]; then
+		install_eza
+	elif [ "$1" = "lazygit" ]; then
+		install_lazygit
 	elif [ "$1" = "ripgrep" ]; then
-		if ! command -v rg 2>&1 >/dev/null; then
-			install_with_package_manager rg
-		else
-			log_success "Ripgrep is installed"
-		fi
+		install_ripgrep
 	elif ! [ -x "$(command -v $1)" ]; then
 		install_with_package_manager $1
 	else
@@ -317,16 +338,29 @@ full_install() {
 			exit;;
 	esac
 
-
-
-
-	for app in zsh stow ripgrep neovim lazygit eza fzf zoxide bat batman kitty yazi
+	for app in build-essential git curl jq file tmux zsh stow man unzip ripgrep neovim lazygit eza fzf zoxide bat batman yazi 
 	do
 		check_for_software $app
 	done
+
+    if [ -d ~/dotfiles ]; then
+        log_info "Dotfiles directory exists"
+        cd ~/dotfiles
+    else
+        cd ~
+        git clone --recurse-submodules https://github.com/snu1v3r/dotfiles.git
+    fi
 	
 	echo
 	log_info "Using stow for configurations"
+    CFG=~/.config
+    if [ ! -d $CFG ]; then
+        mkdir -p $CFG
+    fi
+    LCL=~/.local
+    if [ ! -d $LCL ]; then
+        mkdir -p $LCL
+    fi
 	cd ~/dotfiles/stowed_files/config/
 	stow .
 	cd ~/dotfiles/stowed_files/local/
@@ -336,8 +370,22 @@ full_install() {
 
 	ln -sf $HOME/dotfiles/zsh/zshrc $HOME/.zshrc
 
-
 	echo
+
+	log_yes_no "Do I need to install GUI applications?"
+	case "$REPLY" in
+		y|Y )
+            for app in kitty ghostty poppler-utils xclip ffmpeg
+            do
+                check_for_software $app
+            done
+			;;
+		* )
+			echo
+			log_info "No GUI applications are installed."
+			;;
+	esac
+
 	log_warning "For correct display of the fonts ensure that your prefered Nerd Font is selected."
 	log_warning "Please log out and log back in for default shell to be initialized."
 
@@ -375,4 +423,4 @@ esac
 
 # TODO: add clean installation
 # TODO: add ghostty to the configuration
-# 
+# TODO: make difference between gui and non gui applications 
