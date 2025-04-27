@@ -334,7 +334,7 @@ full_install() {
 			exit;;
 	esac
 
-	for app in build-essential git curl jq file tmux zsh stow man unzip ripgrep neovim lazygit eza fzf zoxide bat batman yazi 
+	for app in build-essential git python3 curl jq file tmux zsh stow man unzip ripgrep neovim lazygit eza fzf zoxide bat batman yazi 
 	do
 		check_for_software $app
 	done
