@@ -217,7 +217,7 @@ install_bat() {
 		BATSUFFIX=i686-unknown-linux-musl
 		BATTAG=`curl -sS -L https://api.github.com/repos/sharkdp/bat/releases/latest | jq -r .tag_name|cut -c2-`
 		curl -sS -L --output - https://github.com/sharkdp/bat/releases/download/v${BATTAG}/bat-v${BATTAG}-${BATSUFFIX}.tar.gz | tar xz -C /tmp
-		sudo mv /tmp/bat-v${BATTAG}-${BATSUFFIX}/bat /usr/bin
+		sudo mv /tmp/bat-v${BATTAG}-${BATSUFFIX}/bat /usr/bin/batcat
 		rm -rf /tmp/bat-v${BATTAG}-${BATSUFFIX}
 		log_success "Installed Bat"
 	fi
