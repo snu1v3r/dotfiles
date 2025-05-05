@@ -290,6 +290,8 @@ check_for_software() {
 		install_yazi
 	elif [ "$1" = "kitty" ]; then
 		install_kitty
+  	elif [ "$1" = "ghostty" ]; then
+   		install_ghostty
 	elif [ "$1" = "eza" ]; then
 		install_eza
 	elif [ "$1" = "lazygit" ]; then
