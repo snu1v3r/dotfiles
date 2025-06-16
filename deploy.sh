@@ -44,7 +44,7 @@ pm_install(){
 		elif [ -x "$(command -v pkg)" ]; then
 			sudo pkg install $1
 		elif [ -x "$(command -v pacman)" ]; then
-			sudo pacman -S $1
+			sudo pacman -Sy $1
 		else
 			log_warning "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again." 
 		fi 
@@ -115,7 +115,7 @@ install_with_package_manager() {
 		sudo pkg install $1
 
 	elif [ -x "$(command -v pacman)" ]; then
-		sudo pacman -S $1
+		sudo pacman -Sy $1
 
 	else
 		echo "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again. Tests for package managers are in the deploy script you just ran starting at line 13. Feel free to make a pull request at https://github.com/parth/dotfiles :)" 
