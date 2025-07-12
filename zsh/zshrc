@@ -70,6 +70,7 @@ fi
 source ${DOTFILES}/zsh/base_config.sh
 source ${DOTFILES}/zsh/syntax.sh
 source ${DOTFILES}/zsh/aliases.sh
+source ${DOTFILES}/zsh/functions.sh
 
 source ${DOTFILES}/zsh/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'

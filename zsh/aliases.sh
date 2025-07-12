@@ -36,6 +36,11 @@ zd() {
   fi
 }
 
+# Opens a file in the default application
+open() {
+  xdg-open "$@" >/dev/null 2>&1
+}
+
 # Directories
 alias ..='cd ..'
 alias ...='cd ../..'
