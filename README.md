@@ -15,7 +15,7 @@ bash <(curl -L https://raw.githubusercontent.com/snu1v3r/dotfiles/main/deploy.sh
 This method only uses two simple steps:
 
 ```bash
-git clone --recursive --depth 1 https://github.com/snu1v3r/dotfiles.git
+git clone --recursive --depth 1 --shallow-submodules https://github.com/snu1v3r/dotfiles.git
 ~/dotfiles/deploy.sh
 ```
 
