@@ -62,23 +62,17 @@ if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
 fi
 
+# Enable shell integration for fzf (completion and bindings)
 if command -v fzf &> /dev/null; then
-  if [[ -f /usr/share/bash-completion/completions/fzf ]]; then
-    source /usr/share/bash-completion/completions/fzf
-  fi
-  if [[ -f /usr/share/fzf/key-bindings.bash ]]; then
-    source /usr/share/fzf/key-bindings.bash
-  fi
+  source <(fzf --zsh)
 fi
 
-source ${DOTFILES}/zsh/zshrc.sh
+source ${DOTFILES}/zsh/base_config.sh
 source ${DOTFILES}/zsh/syntax.sh
-source ${DOTFILES}/zsh/autosuggestions.sh
-source ${DOTFILES}/zsh/prompt.sh
 source ${DOTFILES}/zsh/aliases.sh
 
-# Added for support of zoxide
-
+source ${DOTFILES}/zsh/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 
 # Set bat as the manpager when it is installed
 if type "bat" > /dev/null; then
@@ -90,7 +84,6 @@ fi
 export PATH=$PATH:/sbin/:/usr/sbin:$HOME/.local/share/tmux/plugins/tmuxifier/bin
 eval "$(tmuxifier init -)"
 
-source <(fzf --zsh)
 
 #source ~/dotfiles/zsh/utils/zsh-vi-mode.plugin.zsh
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
