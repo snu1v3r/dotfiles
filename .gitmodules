@@ -1,12 +1,16 @@
 [submodule "powerlevel10k"]
 	path = powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
+  shallow = true
 [submodule "stowed_files/local/share/tmux/plugins/vim-tmux-navigator"]
 	path = stowed_files/local/share/tmux/plugins/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
+  shallow = true
 [submodule "stowed_files/local/share/tmux/plugins/tmuxifier"]
 	path = stowed_files/local/share/tmux/plugins/tmuxifier
 	url = https://github.com/jimeh/tmuxifier.git
+  shallow = true
 [submodule "stowed_files/config/yazi/flavors/tokyo-night.yazi"]
 	path = stowed_files/config/yazi/flavors/tokyo-night.yazi
 	url = https://github.com/BennyOe/tokyo-night.yazi.git
+  shallow = true
