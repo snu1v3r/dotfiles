@@ -5,8 +5,9 @@ alias fzp="fzf --preview 'bat --style=numbers --colors=always --line-range :500 
 alias fzv="fzf --print0 | xargs -0 -o nvim"
 alias mc="mc --nosubshell"
 alias lg=lazygit
-alias ls='eza -lh --group-directories-first --icons=auto'
+alias ls='eza --group-directories-first --icons=auto'
 alias la='ls -a'
+alias ll='ls -lh'
 alias lt='eza --tree --level=2 --long --icons --git'
 alias lta='lt -a'
 alias ltl='lt --long'
@@ -26,6 +27,7 @@ alias force_us='setxkbmap us'         # Changes keyboard layout in X to US-Inter
 alias toggle_keyboard='test_keyboard=`setxkbmap -print | grep dvorak` ; if [[ $test_keyboard ]]; then setxkbmap us; else setxkbmap dvorak; fi' # This can be used to toggle the keyboard setting
 
 alias tms=tmux-sessionizer
+alias convert-markdown=convert-markdown.py
 
 alias cd="zd"
 zd() {
@@ -57,8 +59,6 @@ myfunction() {
 alias follow=myfunction
 
 alias clean_codes='sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"'
-
-alias convert-markdown='python3 ~/dotfiles/markdown/convert_markdown.py'
 
 # Find packages without leaving the terminal
 alias yayf="yay -Slq | fzf --multi --preview 'yay -Sii {1}' --preview-window=down:75% | xargs -ro yay -S"

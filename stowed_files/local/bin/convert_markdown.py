@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import argparse
 import os
 import shutil
@@ -13,9 +14,9 @@ General installation instructions:
     3. sudo apt install pandoc texlive-latex-extra texlive-lang-european texlive-xetex texlive-fonts-extra
 """
 
-dotfiles_dir = os.getenv('DOTFILES')
-default_template = f'{dotfiles_dir}/markdown/eisvogel.latex'
-default_highlight = f'{dotfiles_dir}/markdown/custom_highlight.theme'
+dotfiles_dir = os.getenv('HOME')
+default_template = f'{dotfiles_dir}/.local/share/convert-markdown/eisvogel.latex'
+default_highlight = f'{dotfiles_dir}/.local/share/convert-markdown/custom_highlight.theme'
 
 default_title = """titlepage: true
 titlepage: true
@@ -34,7 +35,7 @@ keywords:
 output:
 	pdf_document:
 		md_extensions: +task_lists
-code-block-font-size: \scriptsize
+code-block-font-size: \\scriptsize
 ---
 """
 
