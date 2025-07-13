@@ -82,8 +82,7 @@ fi
 
 # Modification to include sbin directories
 
-export PATH=$PATH:/sbin/:/usr/sbin:$HOME/.local/share/tmux/plugins/tmuxifier/bin
-eval "$(tmuxifier init -)"
+export PATH=$PATH:/sbin/:/usr/sbin
 
 
 #source ~/dotfiles/zsh/utils/zsh-vi-mode.plugin.zsh
