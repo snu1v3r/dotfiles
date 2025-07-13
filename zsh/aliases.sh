@@ -25,6 +25,8 @@ alias force_us='setxkbmap us'         # Changes keyboard layout in X to US-Inter
 
 alias toggle_keyboard='test_keyboard=`setxkbmap -print | grep dvorak` ; if [[ $test_keyboard ]]; then setxkbmap us; else setxkbmap dvorak; fi' # This can be used to toggle the keyboard setting
 
+alias tms=tmux-sessionizer
+
 alias cd="zd"
 zd() {
   if [ $# -eq 0 ]; then
