@@ -342,12 +342,12 @@ full_install() {
     check_for_software $app
   done
 
-  if [ -d ~/dotfiles ]; then
+  if [ -d ${XDG_CONFIG_HOME:-~/.config}/dotfiles ]; then
     log_info "Dotfiles directory exists"
-    cd ~/dotfiles
+    cd ${XDG_CONFIG_HOME:-~/.config}/dotfiles
   else
     cd ~
-    git clone --recurse-submodules https://github.com/snu1v3r/dotfiles.git
+    git clone --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ${XDG_CONFIG_HOME:-~/.config}/dotfiles
   fi
 
   echo
@@ -360,8 +360,13 @@ full_install() {
   if [ ! -d $LCL ]; then
     mkdir -p $LCL
   fi
-  stow --target=${HOME}/.config --dir=${HOME}/dotfiles/stowed/config .
-  stow --target=${HOME}/.local --dir=${HOME}/dotfiles/stowed_files/local .
+
+  # Use stow to create links in ~/.config and ~/.local
+  # ~/.config and ~/.local need to exist prior to stow to ensure
+  # subdirs are linked and not entire config and local dir
+  # (linking entire dir will put any future dirs into repo)
+  stow --target=${HOME}/.config --dir=${HOME}/dotfiles/config .
+  stow --target=${HOME}/.local --dir=${HOME}/dotfiles/local .
 
   check_default_shell
 
