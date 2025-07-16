@@ -36,12 +36,12 @@ web2app() {
     return 1
   fi
 
-  cat > "$DESKTOP_FILE" <<EOF
+  cat >"$DESKTOP_FILE" <<EOF
 [Desktop Entry]
 Version=1.0
 Name=$APP_NAME
 Comment=$APP_NAME
-Exec=chromium --new-window --ozone-platform=wayland --app="$APP_URL" --name="$APP_NAME" --class="$APP_NAME"
+Exec=brave --new-window --ozone-platform=wayland --app="$APP_URL" --name="$APP_NAME" --class="$APP_NAME"
 Terminal=false
 Type=Application
 Icon=$ICON_PATH
