@@ -1,4 +1,3 @@
-alias saveclip='xclip -selection clipboard -t image/png -o > '
 alias cat=bat
 alias mount_shares='sudo vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other'
 alias fzp="fzf --preview 'bat --style=numbers --colors=always --line-range :500 {}'"

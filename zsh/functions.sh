@@ -73,3 +73,79 @@ refresh-xcompose() {
   pkill fcitx5
   setsid fcitx5 &>/dev/null &
 }
+
+saveclip() {
+  if [[ -n $XDG_SESSION_TYPE && $XDG_SESSION_TYPE = "wayland" ]]; then
+    if [[ $(wl-paste -l) =~ 'image/png' ]]; then
+      wl-paste -t "image/png" >$1
+      log_info "Image saved to $(pwd)/$1"
+      return 0
+    else
+      log_warning "No image on the clipboard"
+      return 1
+    fi
+  else
+    if [[ $(xclip -o -t TARGETS) =~ 'image/png' ]]; then
+      xclip -selection clipboard -t image/png -o >$1
+      log_info "Image saved to $(pwd)/$1"
+      return 0
+    else
+      log_warning "No image on the clipboard"
+      return 1
+    fi
+  fi
+}
+
+colorlog() {
+  BLACK=$'\033[0;30m'
+  RED=$'\033[0;31m'
+  GREEN=$'\033[0;32m'
+  ORANGE=$'\033[0;33m'
+  BLUE=$'\033[0;34m'
+  PURPLE=$'\033[0;35m'
+  CYAN=$'\033[0;36m'
+  WHITE=$'\033[1;37m'
+  CLEAR=$'\033[0m'
+}
+
+log_info() {
+  colorlog
+  echo -e "$BLUE[i]$CLEAR $1"
+}
+
+log_warning() {
+  colorlog
+  echo -e "$ORANGE[!]$CLEAR $1"
+}
+
+log_success() {
+  colorlog
+  echo -e "$GREEN[*]$CLEAR $1"
+}
+
+log_error() {
+  colorlog
+  echo -e "$RED[E]$CLEAR $1"
+}
+
+saveclip() {
+  if [[ -n $XDG_SESSION_TYPE && $XDG_SESSION_TYPE = "wayland" ]]; then
+    if [[ $(wl-paste -l) =~ 'image/png' ]]; then
+      wl-paste -t "image/png" >$1
+      echo "Images saved to $(pwd)/$1"
+      return 0
+    else
+      echo "No image on the clipboard"
+      return 1
+    fi
+  else
+    if [[ $(xclip -o -t TARGETS) =~ 'image/png' ]]; then
+      xclip -selection clipboard -t image/png -o >$1
+      echo "Image saved to $(pwd)/$1"
+      return 0
+    else
+      echo "No image no the clipboard"
+      return 1
+    fi
+  fi
+}
