@@ -15,3 +15,6 @@ local/share/applications/mimeinfo.cache
 
 # These are ignored because they are machine specific overrides
 config/hypr/overrides.conf
+config/bat/themes/bat-theme.tmTheme
+config/btop/themes/current.theme
+config/nvim/lazy-lock.json
