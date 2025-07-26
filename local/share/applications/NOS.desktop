@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=NOS
+Comment=NOS
+Exec=brave --new-window --ozone-platform=wayland --app="https://nos.nl/" --name="NOS" --class="NOS"
+Terminal=false
+Type=Application
+Icon=~/.local/share/applications/icons/NOS.png
+StartupNotify=true

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Tijdloze
+Comment=Tijdloze
+Exec=brave --new-window --ozone-platform=wayland --app="https://www.vrt.be/vrtmax/livestream/audio/tijdloze/" --name="Tijdloze" --class="Tijdloze"
+Terminal=false
+Type=Application
+Icon=~/.local/share/applications/icons/Tijdloze.png
+StartupNotify=true

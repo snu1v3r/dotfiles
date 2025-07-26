@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Vuurland
+Comment=Vuurland
+Exec=brave --new-window --ozone-platform=wayland --app="https://www.vrt.be/vrtmax/livestream/audio/vuurland/" --name="Vuurland" --class="Vuurland"
+Terminal=false
+Type=Application
+Icon=~/.local/share/applications/icons/Vuurland.png
+StartupNotify=true
