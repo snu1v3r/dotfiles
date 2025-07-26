@@ -41,8 +41,7 @@ install_info "Cloning Dotfiles..."
 rm -rf ~/.local/share/dotfiles/
 
 # This is kept for the final version
-# git clone --depth 1 --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
-git clone --single-branch --branch feature-merge-with-hyprarch --depth 1 --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
+git clone --depth 1 --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
 
 install_info "Installation starting..."
 

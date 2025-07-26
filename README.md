@@ -27,7 +27,7 @@ It is also possible to use create a *Hyprland* installation starting from a basi
 The command to install the *Hyprland* version is:
 
 ```bash
-bash <(wget -qO- https://raw.githubusercontent.com/snu1v3r/dotfiles/feature-merge-with-hyprarch/install.sh)
+bash <(wget -qO- https://raw.githubusercontent.com/snu1v3r/dotfiles/main/install.sh)
 ```
 
 ## Short description of functionality
