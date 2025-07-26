@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=breeze-blue-dark
+Description=breeze-blue-dark
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/breeze-blue-dark
+ScriptFile=/usr/share/plymouth/themes/breeze-blue-dark/breeze-blue-dark.script

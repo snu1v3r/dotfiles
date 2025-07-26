@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=arch-linux-branded
+Description=arch-linux-branded
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/arch-linux-branded
+ScriptFile=/usr/share/plymouth/themes/arch-linux-branded/arch-linux-branded.script

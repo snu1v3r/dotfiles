@@ -19,6 +19,17 @@ git clone --recursive --depth 1 --shallow-submodules https://github.com/snu1v3r/
 ~/dotfiles/deploy.sh
 ```
 
+## Hyprland installation
+It is also possible to use create a *Hyprland* installation starting from a basic *Arch* install. This *Arch* install assumes the following pre-installed applications:
+
+* `wget`
+
+The command to install the *Hyprland* version is:
+
+```bash
+bash <(wget -qO- https://raw.githubusercontent.com/snu1v3r/dotfiles/feature-merge-with-hyprarch/install.sh)
+```
+
 ## Short description of functionality
 
 ### Deployment script
@@ -49,3 +60,20 @@ The following resources where used for pieces of code or more general idea's
 * <https://github.com/LukeSmithxyz/voidrice>: For various *Vim* related settings
 * <https://github.com/samoshkin/tmux-config>: For most of the *Tmux* related configuration
 * <https://github.com/olivierverdier/zsh-git-prompt>: For the *Git* prompt idea's
+
+
+## Setup portforwarding in VirtManager
+In the interfaces section add the following xml:
+
+```xml
+<interface type="user">
+  <mac address="52:54:00:a4:85:7d"/>
+  <portForward proto="tcp">
+    <range start="4022" to="22"/>
+  </portForward>
+  <model type="rtl8139"/>
+  <backend type="passt"/>
+  <alias name="net0"/>
+  <address type="pci" domain="0x0000" bus="0x10" slot="0x01" function="0x0"/>
+</interface>
+```

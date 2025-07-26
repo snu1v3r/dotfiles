@@ -1,0 +1,9 @@
+[Plymouth Theme]
+Name=Error-Boot
+Description=Error Bootanimation For Plymouth
+Comment=made by Vivek Rajan
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/Error
+ScriptFile=/usr/share/plymouth/themes/Error/Error.script

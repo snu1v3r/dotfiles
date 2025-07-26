@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=breeze-blue-light
+Description=breeze-blue-light
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/breeze-blue-light
+ScriptFile=/usr/share/plymouth/themes/breeze-blue-light/breeze-blue-light.script

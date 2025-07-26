@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=manjaro-branded
+Description=manjaro-branded
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/manjaro-branded
+ScriptFile=/usr/share/plymouth/themes/manjaro-branded/manjaro-branded.script

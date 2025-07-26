@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=adwaita-blue-light
+Description=adwaita-blue-light
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/adwaita-blue-light
+ScriptFile=/usr/share/plymouth/themes/adwaita-blue-light/adwaita-blue-light.script

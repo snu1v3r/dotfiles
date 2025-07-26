@@ -1,0 +1,51 @@
+#!/bin/bash
+
+THEMES_DIR="$HOME/.local/share/themes/dynamic"
+CURRENT_THEME_LINK="$HOME/.config/theme/current"
+
+THEMES=($(find "$THEMES_DIR" -maxdepth 1 -type d | tail -n +2 | sort))
+TOTAL=${#THEMES[@]}
+
+# Get current theme from symlink
+if [[ -L "$CURRENT_THEME_LINK" ]]; then
+  CURRENT_THEME=$(readlink "$CURRENT_THEME_LINK")
+else
+  # Default to first theme if no symlink exists
+  CURRENT_THEME=${THEMES[0]}
+fi
+
+# Find current theme index
+INDEX=0
+for i in "${!THEMES[@]}"; do
+  if [[ "${THEMES[$i]}" == "$CURRENT_THEME" ]]; then
+    INDEX=$i
+    break
+  fi
+done
+
+# Get next theme (wrap around)
+NEXT_INDEX=$(((INDEX + 1) % TOTAL))
+NEW_THEME=${THEMES[$NEXT_INDEX]}
+NEW_THEME_NAME=$(basename "$NEW_THEME")
+
+# Set current theme
+ln -nsf "$NEW_THEME" "$CURRENT_THEME_LINK"
+
+# Ensure new theme is picked up by bat
+bat cache --build
+
+# Touch alacritty config to pickup the changed theme
+touch "$HOME/.config/alacritty/alacritty.toml"
+
+# Restart for new theme
+pkill -SIGUSR2 waybar
+makoctl reload
+hyprctl reload
+
+# Set new background
+ln -nsf $(find "$HOME/.config/theme/current/backgrounds/" -type f | head -n 1) "$HOME/.config/theme/background"
+pkill -x swaybg
+setsid swaybg -i "$HOME/.config/theme/background" -m fill &
+
+# Notify of the new theme
+notify-send "Theme changed to $NEW_THEME_NAME" -t 2000

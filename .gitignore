@@ -8,3 +8,5 @@ stowed_files/local/share/mc/history
 stowed_files/local/share/mc/filepos
 
 stowed_files/config/nvim/lazy-lock.json
+
+config/hypr/overrides.conf

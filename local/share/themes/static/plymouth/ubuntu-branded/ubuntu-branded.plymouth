@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=ubuntu-branded
+Description=ubuntu-branded
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/ubuntu-branded
+ScriptFile=/usr/share/plymouth/themes/ubuntu-branded/ubuntu-branded.script

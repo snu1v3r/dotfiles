@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=steam-os-branded
+Description=steam-os-branded
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/steam-os-branded
+ScriptFile=/usr/share/plymouth/themes/steam-os-branded/steam-os-branded.script

@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=fry-dark
+Description=fry-dark
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/fry-dark
+ScriptFile=/usr/share/plymouth/themes/fry-dark/fry-dark.script

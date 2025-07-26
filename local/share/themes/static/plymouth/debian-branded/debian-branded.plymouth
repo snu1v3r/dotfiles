@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=debian-branded
+Description=debian-branded
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/debian-branded
+ScriptFile=/usr/share/plymouth/themes/debian-branded/debian-branded.script

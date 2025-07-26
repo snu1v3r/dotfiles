@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=fedora-branded
+Description=fedora-branded
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/fedora-branded
+ScriptFile=/usr/share/plymouth/themes/fedora-branded/fedora-branded.script

@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name= 3D tux plymouth theme
+Description=a plymouth theme featuring 3D tux alongside with progress bar and shutdown animation by - Atom
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/3D-tux-plymouth-theme
+ScriptFile=/usr/share/plymouth/themes/3D-tux-plymouth-theme/3D-tux-plymouth-theme.script
