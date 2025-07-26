@@ -13,7 +13,7 @@ yay -S --noconfirm --needed \
 if [ "$PROFILE" = "main" ]; then
   yay -S --noconfirm --needed \
     keepassxc nextcloud-client qt5-wayland brightnessctl \
-    thunderbird virtmanager qemu-base qemu-desktop
+    thunderbird virt-manager qemu-base qemu-desktop
 fi
 
 # Needed to pre-install keepassxc plugin in brave-bin
