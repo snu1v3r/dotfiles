@@ -14,6 +14,7 @@ if [ "$PROFILE" = "main" ]; then
   yay -S --noconfirm --needed \
     keepassxc nextcloud-client qt5-wayland brightnessctl gnome-keyring \
     thunderbird virt-manager qemu-base qemu-desktop
+  sudo systemctl enable libvirtd.service
 fi
 
 # Needed to pre-install keepassxc plugin in brave-bin
