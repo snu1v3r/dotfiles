@@ -13,7 +13,7 @@ yay -S --noconfirm --needed \
 if [ "$PROFILE" = "main" ]; then
   yay -S --noconfirm --needed \
     keepassxc nextcloud-client qt5-wayland brightnessctl gnome-keyring \
-    thunderbird virt-manager qemu-base qemu-desktop
+    thunderbird virt-manager qemu-base qemu-desktop passt
   sudo systemctl enable libvirtd.service
 fi
 
