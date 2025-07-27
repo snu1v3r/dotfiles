@@ -12,7 +12,7 @@ yay -S --noconfirm --needed \
 
 if [ "$PROFILE" = "main" ]; then
   yay -S --noconfirm --needed \
-    keepassxc nextcloud-client qt5-wayland brightnessctl \
+    keepassxc nextcloud-client qt5-wayland brightnessctl gnome-keyring \
     thunderbird virt-manager qemu-base qemu-desktop
 fi
 
