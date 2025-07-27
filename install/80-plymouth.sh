@@ -9,5 +9,8 @@ sudo cp -r ~/.local/share/themes/static/plymouth/* /usr/share/plymouth/themes
 
 sudo plymouth-set-default-theme arch-linux-branded -R
 
-# Needed to ensure that plymouth is loaded as early as possible
-sudo mkinitcpio -A plymouth -g /boot/initramfs-linux.img
+# This ensures that plymouth is hooked before encrypt
+sudo sed -i "s/\(^HOOKS=([^)]*\)encrypt/\\1plymouth encrypt/" /etc/mkinitcpio.conf
+
+# Regenerate boot image
+sudo mkinitcpio -g /boot/initramfs-linux.img
