@@ -94,7 +94,7 @@ rm -rf ~/.local/share/dotfiles/
 # git clone --depth 1 --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
 git clone --single-branch --branch dev --depth 1 --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
 
-install_info "Installation starting..."
+install_info "Installation of individual scripts starting..."
 exit
 
 # Install everything
