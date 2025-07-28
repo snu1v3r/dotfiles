@@ -46,7 +46,7 @@ install_packages() {
 
 install_info "Installation started"
 
-if command -v gum &>/dev/null ; then
+if ! command -v gum &>/dev/null ; then
     install_info "Installing gum..."
     if [ "${PKG_MGR}" = "apt" ]; then
         GUMTAG=$(wget -qO- https://api.github.com/repos/charmbracelet/gum/releases/latest | jq -r .tag_name | cut -c2-)
@@ -82,7 +82,7 @@ install_info "The following profile is used: $PROFILE"
 RESOLUTION=$(gum choose "2880x1800" "2560x1440" "1920x1080" "MULTI" --header="Select the target resolution:")
 install_info "The following resolution is used: $RESOLUTION"
 
-if command -v git &>/dev/null ; then
+if ! command -v git &>/dev/null ; then
     install_info "Installing git..."
     install_packages git
 fi
