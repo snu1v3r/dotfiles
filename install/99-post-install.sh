@@ -8,3 +8,5 @@ update-desktop-database ~/.local/share/applications
 
 # This ensures that the font cache is updated
 fc-cache
+
+update-db &>/dev/null
