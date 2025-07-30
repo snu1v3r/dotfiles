@@ -69,7 +69,7 @@ if [ -n "$(lspci | grep -i 'nvidia')" ]; then
   sudo mkinitcpio -P
 
   # Add NVIDIA environment variables to hyprland.conf
-  HYPRLAND_CONF="$HOME/.config/hypr/hyprland.conf"
+  HYPRLAND_CONF="$HOME/.config/hypr/overrides.conf"
   if [ -f "$HYPRLAND_CONF" ]; then
     cat >>"$HYPRLAND_CONF" <<'EOF'
 
