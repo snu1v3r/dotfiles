@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "${PROFILE}" = "Main" ]; then
+if [ "${PROFILE}" = "main" ]; then
     yay -S --noconfirm --needed \
         sddm sddm-theme-mountain-git
 
