@@ -12,5 +12,5 @@ if [ "${PROFILE}" = "main" ]; then
 [keyboard]
 keymap_layout=us
 keymap_variant=dvorak
-    EOF
+EOF
 fi
