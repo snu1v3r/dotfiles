@@ -3,8 +3,8 @@ yay -S --noconfirm --needed \
   wofi waybar mako swaybg \
 xdg-desktop-portal-hyprland xdg-desktop-portal-gtk
 
-tee ${HOME}/.zprofile &>/dev/null <<EOF
-# Loading the agent in the .zprofile makes it available during all sessions
+tee ${HOME}/.zshenv &>/dev/null <<EOF
+# Loading the agent in the .zshenv makes it available during all sessions
 
 if [ -z "\$SSH_AUTH_SOCK" ] ; then
     eval \$(ssh-agent -s) &>/dev/null
