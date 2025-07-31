@@ -18,3 +18,5 @@ config/hypr/overrides.conf
 config/bat/themes/bat-theme.tmTheme
 config/btop/themes/current.theme
 config/nvim/lazy-lock.json
+
+config/keepassxc/keepassxc.ini
