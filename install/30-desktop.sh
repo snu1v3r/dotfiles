@@ -6,6 +6,7 @@ yay -S --noconfirm --needed \
   wl-clip-persist clipse sushi pamixer playerctl pavucontrol wireplumber \
   pamac-git networkmanager network-manager-applet
 
+sudo systemctl enable NetworkManager.service
 # yay -S --noconfirm --needed \
 #   spotify \
 #   obsidian
