@@ -10,14 +10,9 @@ PURPLE=$'\033[0;35m'
 CYAN=$'\033[0;36m'
 WHITE=$'\033[1;37m'
 CLEAR=$'\033[0m'
-if [ -x "$(command -v apt-get)" ]; then
-    FLAVOR=debian
-elif [ -x "$(command -v brew)" ]; then
-    FLAVOR=macos
-elif [ -x "$(command -v pkg)" ]; then
-    FLAVOR=alpine
-elif [ -x "$(command -v pacman)" ]; then
-    FLAVOR=arch
+
+if [ -f /etc/os-release ]; then
+    FLAVOR=$(grep "^ID" /etc/os-release| cut -d"=" -f2)
 fi
 
 
