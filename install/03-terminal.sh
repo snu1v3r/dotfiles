@@ -9,11 +9,15 @@ case "${FLAVOR}" in
         # Install Yazi
         SUFFIX=x86_64-unknown-linux-musl
         TAGNAME=$(wget -qO- https://api.github.com/repos/sxyazi/yazi/releases/latest | jq -r .tag_name | cut -c2-)
-        wget -qO yazi.zip https://github.com/sxyazi/yazi/releases/download/v${TAGNAME}/yazi-${SUFFIX}.zip
-        unzip /tmp/yazi.zip -od /tmp
-        sudo mv /tmp/yazi-${SUFFIX}/yazi /tmp/yazi-${SUFFIX}/ya /usr/bin
-        rm -rf /tmp/yazi*
-
+        if [ ! -z ${TAGNAME} ]; then
+            wget -qO /tmp/yazi.zip https://github.com/sxyazi/yazi/releases/download/v${TAGNAME}/yazi-${SUFFIX}.zip
+            unzip /tmp/yazi.zip -od /tmp/yazi
+            sudo mv /tmp/yazi/yazi-${SUFFIX}/yazi /tmp/yazi/yazi-${SUFFIX}/ya /usr/bin
+            rm -rf /tmp/yazi*
+        else
+            install_warning "Yazi couldn't be installed because a valid tag was not found"
+        fi
+       
         # Install neovim
         wget -qO- https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz | tar xz -C /tmp
         sudo cp -r /tmp/nvim-linux-x86_64/* /usr
@@ -25,11 +29,15 @@ case "${FLAVOR}" in
       
         # Intall bat-extras
         BATURL=$(curl -s https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url)
-        wget -qO /tmp/batextra.zip ${BATMANURL}
-        unzip /tmp/batextra.zip -od /tmp/bat
-        sudo mv /tmp/bat/* /usr
-        rm -rf /tmp/bat
-        rm /tmp/batextra.zip
+        if [ ! -z ${BATMANURL} ]; then
+            wget -qO /tmp/batextra.zip ${BATMANURL}
+            unzip /tmp/batextra.zip -od /tmp/bat
+            sudo mv /tmp/bat/* /usr
+            rm -rf /tmp/bat
+            rm /tmp/batextra.zip
+        else
+            install_warning "bat-extras couldn't be installed because a valid url was not found"
+        fi
         ;;
     "arch")
         install_packages fd eza zoxide bat bat-extras openssh \
