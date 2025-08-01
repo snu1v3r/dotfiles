@@ -11,7 +11,7 @@ case "${FLAVOR}" in
         TAGNAME=$(wget -qO- https://api.github.com/repos/sxyazi/yazi/releases/latest | jq -r .tag_name | cut -c2-)
         if [ ! -z ${TAGNAME} ]; then
             wget -qO /tmp/yazi.zip https://github.com/sxyazi/yazi/releases/download/v${TAGNAME}/yazi-${SUFFIX}.zip
-            unzip /tmp/yazi.zip -od /tmp/yazi
+            unzip -od /tmp/yazi /tmp/yazi.zip
             sudo mv /tmp/yazi/yazi-${SUFFIX}/yazi /tmp/yazi/yazi-${SUFFIX}/ya /usr/bin
             rm -rf /tmp/yazi*
         else
@@ -31,7 +31,7 @@ case "${FLAVOR}" in
         BATURL=$(curl -s https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url)
         if [ ! -z ${BATMANURL} ]; then
             wget -qO /tmp/batextra.zip ${BATMANURL}
-            unzip /tmp/batextra.zip -od /tmp/bat
+            unzip -od /tmp/bat /tmp/batextra.zip
             sudo mv /tmp/bat/* /usr
             rm -rf /tmp/bat
             rm /tmp/batextra.zip
