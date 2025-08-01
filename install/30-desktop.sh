@@ -8,7 +8,7 @@ case "${FLAVOR}" in
         install_packages brave-bin \
           fcitx5-configtool fcitx5-gtk fcitx5-qt \
           wl-clip-persist clipse sushi \
-          pamac-git networkmanager network-manager-applet
+          networkmanager network-manager-applet
         ;;
     "debian")
         install_packages network-manager gnome-sushi fcitx5-config-qt
