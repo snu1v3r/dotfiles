@@ -10,7 +10,7 @@ case "${FLAVOR}" in
         SUFFIX=x86_64-unknown-linux-musl
         TAGNAME=$(wget -qO- https://api.github.com/repos/sxyazi/yazi/releases/latest | jq -r .tag_name | cut -c2-)
         wget -qO yazi.zip https://github.com/sxyazi/yazi/releases/download/v${TAGNAME}/yazi-${SUFFIX}.zip
-        unzip /tmp/yazi.zip -d /tmp
+        unzip /tmp/yazi.zip -od /tmp
         sudo mv /tmp/yazi-${SUFFIX}/yazi /tmp/yazi-${SUFFIX}/ya /usr/bin
         rm -rf /tmp/yazi*
 
@@ -26,7 +26,7 @@ case "${FLAVOR}" in
         # Intall bat-extras
         BATURL=$(curl -s https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url)
         wget -qO /tmp/batextra.zip ${BATMANURL}
-        unzip /tmp/batextra.zip -d /tmp/bat
+        unzip /tmp/batextra.zip -od /tmp/bat
         sudo mv /tmp/bat/* /usr
         rm -rf /tmp/bat
         rm /tmp/batextra.zip
