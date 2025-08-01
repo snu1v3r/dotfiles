@@ -6,6 +6,11 @@ case "${FLAVOR}" in
     "debian")
         install_packages fd-find openssh-client openssh-server p7zip python3-venv
         
+        # Sometimes bat is named batcat. if batcat exists we make a symbolic link to bat
+        if [ -f /usr/bin/batcat ]; then
+            sudo ln -snf /usr/bin/batcat /usr/bin/bat
+        fi
+
         # Some off the packages below are available in the repo, but those are too old and
         # lacking functionality
         #
