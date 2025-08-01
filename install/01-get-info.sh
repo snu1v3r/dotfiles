@@ -37,9 +37,4 @@ if [ ! "${PROFILE}" = "headless" ]; then
     install_info "The following resolution is used: $RESOLUTION"
 fi
 
-if ! command -v git &>/dev/null ; then
-    install_info "Installing git..."
-    install_packages git
-fi
-
 

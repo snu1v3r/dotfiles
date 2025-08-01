@@ -53,6 +53,10 @@ install_packages() {
 }
 
 install_info "Cloning Dotfiles..."
+if ! command -v git &>/dev/null ; then
+    install_info "Installing git..."
+    install_packages git
+fi
 rm -rf ~/.local/share/dotfiles/
 
 # This is kept for the final version
