@@ -11,7 +11,7 @@ if [ "$PROFILE" = "main" ]; then
             install_packages bluetooth
             ;;
     esac
+    # Turn on bluetooth by default
+    sudo systemctl enable --now bluetooth.service
 fi
 
-# Turn on bluetooth by default
-sudo systemctl enable --now bluetooth.service
