@@ -11,7 +11,6 @@
     ],
     "modules-right": [
       "bluetooth",
-      "network",
       "pulseaudio",
       "cpu",
       "power-profiles-daemon",
@@ -55,19 +54,6 @@
     "tray": {
         "icon-size": 15,
         "spacing": 10
-    },
-    "network": {
-      "format-icons": ["󰤯","󰤟","󰤢","󰤥","󰤨"],
-      "format" : "{icon}",
-      "format-wifi" : "{icon}",
-      "format-ethernet" : "󰀂",
-      "format-disconnected" : "󰖪",
-      "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-      "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
-      "tooltip-format-disconnected": "Disconnected",
-      "interval": 3,
-      "nospacing": 1,
-      "on-click": "alacritty -e iwctl"
     },
     "battery": {
       "format": "{capacity}% {icon}",

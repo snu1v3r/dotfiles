@@ -4,8 +4,9 @@ yay -S --noconfirm --needed \
   fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt \
   evince imv \
   wl-clip-persist clipse sushi pamixer playerctl pavucontrol wireplumber \
-  pamac-git
+  pamac-git networkmanager network-manager-applet
 
+sudo systemctl enable NetworkManager.service
 # yay -S --noconfirm --needed \
 #   spotify \
 #   obsidian
