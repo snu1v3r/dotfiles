@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+
+# Use stow to create links in the .local directory for dotfiles
+mkdir -p ${HOME}/.local/bin
+stow --target=${HOME}/.local --dir=${HOME}/.local/share/dotfiles/local .
+
 # Use stow to create links to config of dotfiles
 stow --target=${HOME}/.config --dir=${HOME}/.local/share/dotfiles/config .
 
