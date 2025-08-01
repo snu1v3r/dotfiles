@@ -73,4 +73,4 @@ done
 
 install_info "Installation finished."
 
-gum confirm "Reboot to apply all settings?" && reboot
+gum confirm "Reboot to apply all settings?" && sudo reboot
