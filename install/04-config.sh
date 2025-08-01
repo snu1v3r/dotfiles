@@ -5,6 +5,7 @@ mkdir -p ${HOME}/.local/bin
 stow --target=${HOME}/.local --dir=${HOME}/.local/share/dotfiles/local .
 
 # Use stow to create links to config of dotfiles
+mkdir -p ${HOME}/.config
 stow --target=${HOME}/.config --dir=${HOME}/.local/share/dotfiles/config .
 
 if [ "${FLAVOR}" = "arch" ]; then
