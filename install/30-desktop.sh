@@ -27,7 +27,8 @@ if [ "$PROFILE" = "main" ]; then
             install_packages nextcloud-client qt5-wayland qemu-base qemu-desktop
             ;;
         "debian")
-            install_packages nextcloud-desktop qemu-system-gui qemu-system-q86 qemu-user
+            install_packages nextcloud-desktop qemu-system-gui qemu-system-q86 \
+                qemu-user qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
             ;;
     esac
     # Enable virtualization
