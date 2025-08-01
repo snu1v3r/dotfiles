@@ -32,7 +32,7 @@ case "${FLAVOR}" in
         if [ ! -z ${BATEXTRAURL} ]; then
             wget -qO /tmp/batextra.zip ${BATEXTRAURL}
             unzip -od /tmp/bat /tmp/batextra.zip
-            sudo mv /tmp/bat/* /usr
+            sudo cp -r /tmp/bat/* /usr
             rm -rf /tmp/bat
             rm /tmp/batextra.zip
         else
