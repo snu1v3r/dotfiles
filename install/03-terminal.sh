@@ -28,9 +28,9 @@ case "${FLAVOR}" in
         sudo mv -f /tmp/eza /usr/bin/eza
       
         # Intall bat-extras
-        BATURL=$(curl -s https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url)
-        if [ ! -z ${BATMANURL} ]; then
-            wget -qO /tmp/batextra.zip ${BATMANURL}
+        BATEXTRAURL=$(wget -qO- https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url)
+        if [ ! -z ${BATEXTRAURL} ]; then
+            wget -qO /tmp/batextra.zip ${BATEXTRAURL}
             unzip -od /tmp/bat /tmp/batextra.zip
             sudo mv /tmp/bat/* /usr
             rm -rf /tmp/bat
