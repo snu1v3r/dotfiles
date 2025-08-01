@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 
-install-packages imagemagick
+install_packages imagemagick
 
 if [ "${PROFILE}" = "develop" ]; then
     case "${FLAVOR}" in
         "arch")
-            install-packages mariadb-libs postgresql-libs github-cli cargo clang llvm
+            install_packages mariadb-libs postgresql-libs github-cli cargo clang llvm
             ;;
     esac
 fi        
 
 case "${FLAVOR}" in
     "arch")
-        install-packages lazygit lazydocker
+        install_packages lazygit lazydocker
         ;;
     "debian")
         SUFFIX=Linux_x86_64

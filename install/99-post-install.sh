@@ -10,12 +10,4 @@ update-desktop-database ~/.local/share/applications
 
 # This ensures that the font cache is updated
 fc-cache
-
-case "${FLAVOR}" in
-    "arch")
-        update-db
-        ;;
-    "debian")
-        updatedb
-        ;;
-esac
+sudo updatedb

@@ -11,7 +11,7 @@ if [ "${PROFILE}" = "hacking" ] || [ "${PROFILE}" = "basevm" ]; then
             sudo pacman -S --noconfirm syncthing syncthingtray-qt6
             ;;
         "debian")
-            install-packages syncthing syncthingtray
+            install_packages syncthing syncthingtray
             ;;
     esac
 
