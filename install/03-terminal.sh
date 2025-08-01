@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
-install_packages wget curl unzip fzf ripgrep zoxide bat btop man tldr less whois plocate zsh stow tmux luarocks mc
+install_packages wget curl unzip ripgrep zoxide bat btop man tldr less whois plocate zsh stow tmux luarocks mc
 
 case "${FLAVOR}" in
     "debian")
         install_packages fd-find openssh-client openssh-server p7zip
-
+        
+        # Some off the packages below are available in the repo, but those are too old and
+        # lacking functionality
+        #
         # Install Yazi
         SUFFIX=x86_64-unknown-linux-musl
         TAGNAME=$(wget -qO- https://api.github.com/repos/sxyazi/yazi/releases/latest | jq -r .tag_name | cut -c2-)
@@ -26,6 +29,12 @@ case "${FLAVOR}" in
         # Install eza
         wget -qO- https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-unknown-linux-gnu.tar.gz | tar xz -C /tmp
         sudo mv -f /tmp/eza /usr/bin/eza
+        
+        # Install fzf
+        SUFFIX=linux_amd64
+        TAGNAME=$(wget -qO- https://api.github.com/repos/junegunn/fzf/releases/latest | jq -r .name)
+        wget -qO- "https://github.com/junegunn/fzf/releases/download/v${TAGNAME}/fzf-${TAGNAME}-${SUFFIX}.tar.gz" | tar xz -C /tmp
+        sudo mv /tmp/fzf /usr/bin
       
         # Intall bat-extras
         BATEXTRAURL=$(wget -qO- https://api.github.com/repos/eth-p/bat-extras/releases/latest | jq -r .assets\[0\].browser_download_url)
@@ -42,7 +51,7 @@ case "${FLAVOR}" in
     "arch")
         install_packages fd eza zoxide bat bat-extras openssh \
           wl-clipboard fastfetch btop \
-          nvim yazi swappy mc
+          nvim yazi swappy mc fzf
         ;;
 esac
 
