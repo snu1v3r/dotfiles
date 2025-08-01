@@ -19,9 +19,9 @@ vim.opt.rtp:prepend(lazypath)
 -- loading lazy.nvim so that mappings are correct.
 -- This is also a good place to setup other settings (vim.opt)
 
-
 require("config.pre-options")
 -- Setup lazy.nvim
+vim.g.lazyvim_check_order = false
 require("lazy").setup({
 	spec = {
 		-- import your plugins

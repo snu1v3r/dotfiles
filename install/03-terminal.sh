@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-install_packages wget curl unzip ripgrep zoxide bat btop man tldr less whois plocate zsh stow tmux luarocks mc
+install_packages wget curl unzip ripgrep zoxide bat btop man tldr less whois plocate zsh stow tmux luarocks mc npm
 
 case "${FLAVOR}" in
     "debian")
-        install_packages fd-find openssh-client openssh-server p7zip
+        install_packages fd-find openssh-client openssh-server p7zip python3-venv
         
         # Some off the packages below are available in the repo, but those are too old and
         # lacking functionality
