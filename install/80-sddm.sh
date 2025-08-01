@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-if [ "${PROFILE}" = "main" ]; then
-    yay -S --noconfirm --needed \
-        sddm sddm-theme-mountain-git
-
+if [ "${PROFILE}" = "main" ] && [ "${FLAVOR}" = "arch" ]; then
+    install_packages sddm sddm-theme-mountain-git weston
     sudo cp /usr/lib/sddm/sddm.conf.d/default.conf /etc/sddm.conf
     sudo sed -i "s/^\(Current=\).*/\\1mountain/" /etc/sddm.conf
     sudo systemctl enable sddm.service
@@ -13,6 +11,7 @@ if [ "${PROFILE}" = "main" ]; then
 keymap_layout=us
 keymap_variant=dvorak
 EOF
+    # This is needed to ensure that sddm will also unlock the keyring
     sudo rm /etc/pam.d/sddm && sudo tee /etc/pam.d/sddm &>/dev/null <<EOF
 #%PAM-1.0
 

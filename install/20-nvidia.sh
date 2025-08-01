@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # ==============================================================================
 # Hyprland NVIDIA Setup Script for Arch Linux
 # ==============================================================================
@@ -9,7 +11,7 @@
 # ==============================================================================
 
 # --- GPU Detection ---
-if [ -n "$(lspci | grep -i 'nvidia')" ]; then
+if [ -n "$(lspci | grep -i 'nvidia')" ] && [ "${FLAVOR}" = "arch" ]; then
   # --- Driver Selection ---
   # Turing (16xx, 20xx), Ampere (30xx), Ada (40xx), and newer recommend the open-source kernel modules
   if echo "$gpu_info" | grep -q -E "RTX [2-9][0-9]|GTX 16"; then
@@ -45,7 +47,7 @@ if [ -n "$(lspci | grep -i 'nvidia')" ]; then
     "qt6-wayland"
   )
 
-  yay -Syu --needed --noconfirm "${PACKAGES_TO_INSTALL[@]}"
+  install_packages "${PACKAGES_TO_INSTALL[@]}"
 
   # Configure modprobe for early KMS
   echo "options nvidia_drm modeset=1" | sudo tee /etc/modprobe.d/nvidia.conf >/dev/null

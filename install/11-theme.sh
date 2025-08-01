@@ -1,8 +1,17 @@
-# Use dark mode for QT apps too (like VLC and kdenlive)
-sudo pacman -S --noconfirm kvantum-qt5
+#!/usr/bin/env bash
 
-# Prefer dark mode everything
-sudo pacman -S --noconfirm gnome-themes-extra # Adds Adwaita-dark theme
+# Use dark mode for QT apps too (like VLC and kdenlive)
+if [ ! "${PROFILE}" = "headless" ]; then
+    case "${FLAVOR}" in
+        "arch")
+            install_packages kvantum-qt5 gnome-themes-extra
+            ;;
+        "debian")
+            install_packages qt5-style-kvantum gnome-themes-extra
+            ;;
+    esac
+fi
+
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 

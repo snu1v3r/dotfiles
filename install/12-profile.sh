@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 tee ${HOME}/.zshenv &>/dev/null <<EOF
 # Loading the agent in the .zshenv makes it available during all sessions
 
