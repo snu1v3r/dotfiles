@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 if ! command -v gum &>/dev/null ; then
     install_info "Installing gum..."
-    if [ "${PKG_MGR}" = "apt" ]; then
+    if [ "${FLAVOR}" = "debian" ]; then
         GUMTAG=$(wget -qO- https://api.github.com/repos/charmbracelet/gum/releases/latest | jq -r .tag_name | cut -c2-)
         wget -q -O /tmp/gum.deb https://github.com/charmbracelet/gum/releases/download/v${GUMTAG}/gum_${GUMTAG}_amd64.deb
         sudo dpkg -i /tmp/gum.deb
         rm /tmp/gum.deb
-    elif [ "${PKG_MGR}" = "pacman" ]; then
+    elif [ "${FLAVOR}" = "arch" ]; then
         sudo pacman -Sy --noconfirm --needed gum
     fi
 fi
