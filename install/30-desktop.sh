@@ -21,7 +21,7 @@ sudo systemctl enable NetworkManager.service
 #   obsidian
 
 if [ "$PROFILE" = "main" ]; then
-    install_packages keepssxc brightnessctl gnome-keyring thunderbird virt-manager passt
+    install_packages keepassxc brightnessctl gnome-keyring thunderbird virt-manager passt
     case "${FLAVOR}" in
         "arch")
             install_packages nextcloud-client qt5-wayland qemu-base qemu-desktop
