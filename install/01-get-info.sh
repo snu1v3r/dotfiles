@@ -13,8 +13,8 @@ fi
 
 # Configure identification
 echo -e "\nEnter identification for git and autocomplete..."
-export USER_NAME=$(gum input --placeholder "Enter full name" --prompt "Name> ")
-export USER_EMAIL=$(gum input --placeholder "Enter email address" --prompt "Email> ")
+USER_NAME=$(gum input --placeholder "Enter full name" --prompt "Name> ")
+USER_EMAIL=$(gum input --placeholder "Enter email address" --prompt "Email> ")
 
 install_info "Installing for user: $USER_NAME"
 install_info "Using e-mail: $USER_EMAIL"
@@ -36,5 +36,3 @@ if [ ! "${PROFILE}" = "headless" ]; then
     RESOLUTION=$(gum choose "2880x1800" "2560x1440" "1920x1080" "MULTI" --header="Select the target resolution:")
     install_info "The following resolution is used: $RESOLUTION"
 fi
-
-
