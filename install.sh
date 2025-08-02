@@ -1,49 +1,64 @@
 #!/usr/bin/env bash
+
+# First we determine some general settings
+BLACK=$'\033[0;30m'
+RED=$'\033[0;31m'
+GREEN=$'\033[0;32m'
+ORANGE=$'\033[0;33m'
+BLUE=$'\033[0;34m'
+PURPLE=$'\033[0;35m'
+CYAN=$'\033[0;36m'
+WHITE=$'\033[1;37m'
+CLEAR=$'\033[0m'
+
+if [ -f /etc/os-release ]; then
+    FLAVOR=$(grep "^ID" /etc/os-release| cut -d"=" -f2)
+fi
+
+
 install_info() {
-  BLUE=$'\033[0;34m'
-  CLEAR=$'\033[0m'
   echo -e "$(date +%T) $BLUE[i]$CLEAR $1" | tee -a ${HOME}/install.log
 }
 
-install_info "Installation started"
+install_warning() {
+  echo -e "$(date +%T) $ORANGE[!]$CLEAR $1" | tee -a ${HOME}/install.log
+}
 
-install_info "Installing gum..."
-pacman -Q gum &>/dev/null || sudo pacman -Sy --noconfirm --needed gum
-
-# Configure identification
-echo -e "\nEnter identification for git and autocomplete..."
-export USER_NAME=$(gum input --placeholder "Enter full name" --prompt "Name> ")
-export USER_EMAIL=$(gum input --placeholder "Enter email address" --prompt "Email> ")
-
-install_info "Installing for user: $USER_NAME"
-install_info "Using e-mail: $USER_EMAIL"
-
-# Select profile
-if [ "$PROFILE" = "" ]; then
-  RESULT=$(gum choose Main BaseVM HackingVM Headless --header="Select the target profile:")
-  if [ "$RESULT" = "" ]; then
-    PROFILE="main"
-  else
-    PROFILE=$(echo "$RESULT" | tr '[:upper:]' '[:lower:]')
-  fi
-fi
-
-install_info "The following profile is used: $PROFILE"
-
-# Select target resolution
-RESOLUTION=$(gum choose "2880x1800" "2560x1440" "1920x1080" "MULTI" --header="Select the target resolution:")
-install_info "The following resolution is used: $RESOLUTION"
-
-install_info "Installing git..."
-pacman -Q git &>/dev/null || sudo pacman -Sy --noconfirm --needed git
+install_packages() {
+    case "${FLAVOR}" in 
+        "debian")
+            sudo apt-get install -y $@
+            ;;
+        "macos")
+            brew install $@
+            ;;
+        "alpine")
+            sudo pkg install $@
+            ;;
+        "arch")
+            if [ -x "$(command -v yay)" ]; then
+                yay --noconfirm --needed -S $@
+            else
+                sudo pacman --noconfirm --needed -S $@
+            fi
+            ;;
+        *)
+            install_warning "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again."
+    esac
+}
 
 install_info "Cloning Dotfiles..."
+if ! command -v git &>/dev/null ; then
+    install_info "Installing git..."
+    install_packages git
+fi
 rm -rf ~/.local/share/dotfiles/
 
 # This is kept for the final version
-git clone --depth 1 --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
+# git clone --depth 1 --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
+git clone --single-branch --branch dev --depth 1 --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
 
-install_info "Installation starting..."
+install_info "Installation of individual scripts starting..."
 
 # Install everything
 for f in ~/.local/share/dotfiles/install/*.sh; do
@@ -51,9 +66,6 @@ for f in ~/.local/share/dotfiles/install/*.sh; do
   source "$f"
 done
 
-# Ensure locate is up to date now that everything has been installed
-sudo updatedb
-
 install_info "Installation finished."
 
-gum confirm "Reboot to apply all settings?" && reboot
+gum confirm "Reboot to apply all settings?" && sudo reboot

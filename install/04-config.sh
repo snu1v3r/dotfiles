@@ -1,7 +1,15 @@
+#!/usr/bin/env bash
+
+# Use stow to create links in the .local directory for dotfiles
+mkdir -p ${HOME}/.local/bin
+stow --target=${HOME}/.local --dir=${HOME}/.local/share/dotfiles/local .
+
 # Use stow to create links to config of dotfiles
+mkdir -p ${HOME}/.config
 stow --target=${HOME}/.config --dir=${HOME}/.local/share/dotfiles/config .
 
-tee ${HOME}/.config/hypr/overrides.conf &>/dev/null <<EOF
+if [ "${FLAVOR}" = "arch" ]; then
+    tee ${HOME}/.config/hypr/overrides.conf &>/dev/null <<EOF
 # This file can be used to override monitor settings on a system specific level 
 # See https://wiki.hyprland.org/Configuring/Monitors/
 
@@ -31,22 +39,27 @@ tee ${HOME}/.config/hypr/overrides.conf &>/dev/null <<EOF
 # env = GDK_SCALE, 1
 #
 EOF
-
-case "${RESOLUTION}" in
-"2880x1800")
-  echo -e "# Resolution selected from install script\n\nmonitor = , ${RESOLUTION}@60.00, auto, 1.6\nenv= GDK_SCALE, 1.6" >>~/.config/hypr/overrides.conf
-  ;;
-"MULTI")
-  echo -e "# Resolution selected from install script\n\nmonitor = eDP-1, 2880x1800@120.00, auto, 1.6\nmonitor = DP-4, 2560x1440@60.00, auto, 1\nmonitor = DP-5, 2560x1440@60.00, auto, 1" >>~/.config/hypr/overrides.conf
-  ;;
-*)
-  echo -e "# Resolution selected from install script\n\nmonitor = , ${RESOLUTION}@60.00, auto, 1\nenv = GDK_SCALE, 1" >>~/.config/hypr/overrides.conf
-  ;;
-esac
+    case "${RESOLUTION}" in
+    "2880x1800")
+      echo -e "# Resolution selected from install script\n\nmonitor = , ${RESOLUTION}@60.00, auto, 1.6\nenv= GDK_SCALE, 1.6" >>~/.config/hypr/overrides.conf
+      ;;
+    "MULTI")
+      echo -e "# Resolution selected from install script\n\nmonitor = eDP-1, 2880x1800@120.00, auto, 1.6\nmonitor = DP-4, 2560x1440@60.00, auto, 1\nmonitor = DP-5, 2560x1440@60.00, auto, 1" >>~/.config/hypr/overrides.conf
+      ;;
+    *)
+      echo -e "# Resolution selected from install script\n\nmonitor = , ${RESOLUTION}@60.00, auto, 1\nenv = GDK_SCALE, 1" >>~/.config/hypr/overrides.conf
+      ;;
+    esac
+fi 
 
 # Set zsh as default shell
-
 sudo chsh -s $(which zsh) $USER
+
+
+##### TODO 
+# These configuration originate from omarchy,
+# they might be relevant on other distros/flavors
+# but no real decission has been made
 
 # Login directly as user, rely on hyprlock for security
 sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
@@ -55,14 +68,6 @@ sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf >/dev/null <<EOF
 ExecStart=
 ExecStart=-/usr/bin/agetty --autologin $USER --noclear %I \$TERM
 EOF
-
-# Set common git aliases
-git config --global alias.co checkout
-git config --global alias.br branch
-git config --global alias.ci commit
-git config --global alias.st status
-git config --global pull.rebase true
-git config --global init.defaultBranch master
 
 # Set identification from install inputs
 if [[ -n "${USER_NAME//[[:space:]]/}" ]]; then
