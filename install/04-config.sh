@@ -52,6 +52,18 @@ EOF
     esac
 fi 
 
+if [ ! "${PROFILE}" = "headless" ] && [ ! "${RESOLUTION}" = "MULTI" ]; then
+    tee ${HOME}/.setresolution.sh &>/dev/null <<EOF
+#!/usr/bin/env bash
+RESOLUTION=\$1
+declare -a Res=(\$(/usr/bin/cvt \$(echo \${RESOLUTION}|/usr/bin/awk -Fx '{print \$1 " " \$2 " " 60}')|/usr/bin/tail -n 1| /usr/bin/tr -d \\"))
+/usr/bin/xrandr --newmode \${Res[@]/Modeline/}
+MONITOR=\`/usr/bin/xrandr --listmonitors | /usr/bin/grep -v 'Monitor'\`
+MONITOR=\${MONITOR##* }
+/usr/bin/xrandr --addmode \${MONITOR} \${RESOLUTION} 60.00
+EOF
+fi
+
 # Set zsh as default shell
 sudo chsh -s $(which zsh) $USER
 
