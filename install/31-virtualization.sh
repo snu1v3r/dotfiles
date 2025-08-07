@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 if [ "${PROFILE}" = "main"]; then
     # If it is a main machine it is likely that we will use it as a virtualization host
     install_packages virt-manager passt

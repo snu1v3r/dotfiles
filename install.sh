@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 # First we determine some general settings
 BLACK=$'\033[0;30m'

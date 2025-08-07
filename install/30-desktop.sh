@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 if [ ! "${PROFILE}" = "headless" ]; then
     install_packages alacritty playerctl pamixer playerctl pavucontrol wireplumber galculator \
         vlc nautilus fcitx5 evince imv
