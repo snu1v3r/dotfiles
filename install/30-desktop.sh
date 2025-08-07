@@ -22,34 +22,15 @@ if [ ! "${PROFILE}" = "headless" ]; then
     #   obsidian
 
     if [ "$PROFILE" = "main" ]; then
-        install_packages keepassxc brightnessctl gnome-keyring thunderbird virt-manager passt
+        install_packages keepassxc brightnessctl gnome-keyring thunderbird
         case "${FLAVOR}" in
             "arch")
-                install_packages nextcloud-client qt5-wayland qemu-base qemu-desktop
+                install_packages nextcloud-client qt5-wayland
                 ;;
             "debian")
-                install_packages nextcloud-desktop qemu-system-gui qemu-system-q86 \
-                    qemu-user qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
+                install_packages nextcloud-desktop
                 ;;
         esac
-        # Enable virtualization
-        sudo systemctl enable libvirtd.service
-
-        ## Setup portforwarding in VirtManager
-        ## In the interfaces section add the following xml:
-        #
-        # ```xml
-        # <interface type="user">
-        #   <mac address="52:54:00:a4:85:7d"/>
-        #   <portForward proto="tcp">
-        #     <range start="4022" to="22"/>
-        #   </portForward>
-        #   <model type="rtl8139"/>
-        #   <backend type="passt"/>
-        #   <alias name="net0"/>
-        #   <address type="pci" domain="0x0000" bus="0x10" slot="0x01" function="0x0"/>
-        # </interface>
-        # ```
     fi
 
     # Needed to pre-install keepassxc plugin in brave-bin
