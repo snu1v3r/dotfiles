@@ -59,6 +59,8 @@ git clone --depth 1 --recurse-submodules --shallow-submodules https://github.com
 
 install_info "Installation of individual scripts starting..."
 
+install_info "Profile used is: ${FLAVOR}"
+
 # Install everything
 for f in ~/.local/share/dotfiles/install/*.sh; do
   install_info "Starting $f"
