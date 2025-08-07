@@ -7,10 +7,9 @@ if [ "\${COMPOSITOR}" = "x11" ] && [ -f "\${HOME}/.setresolution.sh" ]; then
 fi
 EOF
 
-
-
 # This enables loading an ssh-agent and hyprland
 tee ${HOME}/.zshenv &>/dev/null <<EOF
+#!/usr/bin/env zsh
 # Loading the agent in the .zshenv makes it available during all sessions
 
 if [ -z "\$SSH_AUTH_SOCK" ] ; then
