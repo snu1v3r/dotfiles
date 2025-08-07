@@ -56,7 +56,7 @@ case "${FLAVOR}" in
     "arch")
         install_packages fd eza zoxide bat bat-extras openssh \
           wl-clipboard fastfetch btop \
-          nvim yazi swappy mc fzf
+          nvim yazi swappy fzf
         ;;
 esac
 
