@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 # This enables auto creation of modelines within X11
 tee ${HOME}/.profile &>/dev/null <<EOF
-COMPOSITOR=\$(loginctl show-session \$(awk '/tty/ {print $1}' <(loginctl)) -p Type | awk -F= '{print $2}')
-if [ "\${COMPOSITOR}" = "x11" ] && [ -f "~/.setresolution ]; then
-    ~/.setresolution.sh ${RESOLUTION}
+COMPOSITOR=\$(loginctl show-session -p Type \$(loginctl list-sessions -o json | jq '.[0].session|tonumber') |cut -d= -f2)
+if [ "\${COMPOSITOR}" = "x11" ] && [ -f "\${HOME}/.setresolution.sh" ]; then
+    \${HOME}/.setresolution.sh ${RESOLUTION}
 fi
 EOF
+
+
 
 # This enables loading an ssh-agent and hyprland
 tee ${HOME}/.zshenv &>/dev/null <<EOF
@@ -23,4 +25,3 @@ if [ -f "/usr/bin/Hyprland" ]; then
     [[ -z \$DISPLAY && \$(tty) == /dev/tty1 ]] && exec Hyprland &>/dev/null
 fi
 EOF
-

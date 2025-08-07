@@ -60,7 +60,7 @@ declare -a Res=(\$(/usr/bin/cvt \$(echo \${RESOLUTION}|/usr/bin/awk -Fx '{print 
 /usr/bin/xrandr --newmode \${Res[@]/Modeline/}
 MONITOR=\`/usr/bin/xrandr --listmonitors | /usr/bin/grep -v 'Monitor'\`
 MONITOR=\${MONITOR##* }
-/usr/bin/xrandr --addmode \${MONITOR} \${RESOLUTION} 60.00
+/usr/bin/xrandr --addmode \${MONITOR} \${RESOLUTION}_60.00
 EOF
 fi
 
