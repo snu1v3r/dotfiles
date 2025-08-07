@@ -12,6 +12,7 @@ if [ "${PROFILE}" = "hacking" ] || [ "${PROFILE}" = "basevm" ]; then
             ;;
         "debian")
             install_packages syncthing syncthingtray
+            sudo systemctl enable syncthing@${USER_NAME}.service
             ;;
     esac
 
