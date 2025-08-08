@@ -25,10 +25,10 @@ if [ "${PROFILE}" = "main"]; then
     # ```
     case "${FLAVOR}" in
         "arch")
-            install_packages qemu-base qemu-desktop
+            install_packages qemu-base qemu-desktop dnsmasq
             ;;
         "debian")
-            install_packages qemu-system-gui qemu-system-q86 \
+            install_packages qemu-system-gui qemu-system-q86 dnsmasq \
                 qemu-user qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
             ;;
     esac
