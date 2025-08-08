@@ -2,7 +2,7 @@
 
 install_packages wget curl unzip ripgrep zoxide bat \
     btop man tldr less whois plocate zsh \
-    stow tmux luarocks mc npm openvpn
+    tmux luarocks mc npm openvpn
 
 case "${FLAVOR}" in
     "debian")
