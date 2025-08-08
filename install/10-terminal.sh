@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
-install_packages wget curl unzip ripgrep zoxide bat btop man tldr less whois plocate zsh stow tmux luarocks mc npm openvpn
+install_packages wget curl unzip ripgrep zoxide bat \
+    btop man tldr less whois plocate zsh \
+    stow tmux luarocks mc npm openvpn
 
 case "${FLAVOR}" in
     "debian")
-        install_packages fd-find openssh-client openssh-server p7zip python3-venv
+        install_packages fd-find openssh-client openssh-server p7zip python3-venv \
+            network-manager-openvpn-gnome network-manager-openvpn
         
         # Sometimes bat is named batcat. if batcat exists we make a symbolic link to bat
         if [ -f /usr/bin/batcat ]; then
@@ -56,7 +59,8 @@ case "${FLAVOR}" in
     "arch")
         install_packages fd eza zoxide bat bat-extras openssh \
           wl-clipboard fastfetch btop \
-          nvim yazi swappy fzf
+          nvim yazi swappy fzf \
+          networkmanager-openvpn
         ;;
 esac
 
