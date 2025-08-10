@@ -61,4 +61,7 @@ The following resources where used for pieces of code or more general idea's
 * <https://github.com/samoshkin/tmux-config>: For most of the *Tmux* related configuration
 * <https://github.com/olivierverdier/zsh-git-prompt>: For the *Git* prompt idea's
 
+- [ ] replace swappy with satty
+- [ ] replace screenshot with script
+- [ ] modify volume control
 
