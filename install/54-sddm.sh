@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
-if [ "${PROFILE}" = "main" ] && [ "${FLAVOR}" = "arch" ]; then
-    install_packages sddm sddm-theme-mountain-git weston
+# SDDM as a login manager is only used on the main Arch machine. In other (vm) variants automatic login is used
+if [ "${PROFILE}" = "main" ] && [ "${DISTRO}" = "arch" ]; then
+    install_packages sddm weston
+    sudo mkdir -p /usr/share/sddm/themes
+    sudo cp -r ~/.local/share/themes/static/sddm/* /usr/share/sddm/themes
     sudo cp /usr/lib/sddm/sddm.conf.d/default.conf /etc/sddm.conf
     sudo sed -i "s/^\(Current=\).*/\\1mountain/" /etc/sddm.conf
     sudo systemctl enable sddm.service

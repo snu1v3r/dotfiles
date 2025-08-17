@@ -1,0 +1,15 @@
+[SddmGreeterTheme]
+Name=Mountain Theme
+Description=Theme for SDDM with lots of mountains
+Author=Arthur Deierlein
+License=GPL-3.0-or-later
+Type=sddm-theme
+Version=1.1
+Website=https://github.com/c0rydoras/sddm-mountain-theme
+Screenshot=Previews/PartialBlur.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Email=arthur.deierlein@adfinis.com
+Theme-Id=mountain
+Theme-API=2.11
