@@ -109,11 +109,9 @@ disabled = false
 time_format = "%T" # Hour:Minute Format
 format = '[](bg:prev_bg fg:terminalfront )[ $time 󱑍 ](fg:terminalback bg:terminalfront)'
 
-# ~/.config/starship.toml
 [fill]
 symbol = '─'
 style = 'bg:terminalback fg:terminalfront'
-# ~/.config/starship.toml
 
 [status]
 symbol = '$int ✘ '
