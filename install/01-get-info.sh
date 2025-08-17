@@ -22,7 +22,7 @@ install_info "Using e-mail: $USER_EMAIL"
 
 # Select profile
 if [ "$PROFILE" = "" ]; then
-  RESULT=$(gum choose Main BaseVM HackingVM Headless --header="Select the target profile:")
+  RESULT=$(gum choose Main BaseVM Headless --header="Select the target profile:")
   if [ "$RESULT" = "" ]; then
     PROFILE="main"
   else
