@@ -2,7 +2,7 @@
   border: none;
   border-radius: 0;
   min-height: 0;
-  font-family: JetBrainsMono Nerd Font;
+  font-family: JetBrainsMonoNL Nerd Font Mono;
   font-size: 12px;
 }
 
@@ -16,6 +16,16 @@
   margin-right: 3px;
 }
 
+#custom-hardware-wrap,
+#custom-tasks-wrap {
+    color: #2CC7EA;
+    background-color: #313349;
+    border-radius: 50px;
+    margin: 5px;
+
+}
+
+
 #custom-dropbox,
 #cpu,
 #power-profiles-daemon,
@@ -27,6 +37,9 @@
   min-width: 12px;
   margin-right: 13px;
 }
+
+.warning { color: #eb8934; } 
+.critical { color: #d10606; }
 
 tooltip {
   padding: 2px;
