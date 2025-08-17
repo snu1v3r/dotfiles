@@ -1,0 +1,139 @@
+
+palette = "snu1v3r" 
+
+format = """\
+[╭─](bg:terminalback fg:terminalfront)\
+[ ](fg:prev_bg bg:prev_fg)\
+[$os]()\
+[ ](fg:terminalback bg:terminalfront)\
+[](fg:terminalfront bg:pathback)\
+$directory\
+$git_branch\
+$git_status\
+[](bg:terminalback fg:prev_bg)\
+$fill\
+[](bg:terminalback fg:statusfront)\
+$status\
+$cmd_duration\
+$time\
+[─╮ ](bg:terminalback fg:terminalfront)\
+$line_break\
+[╰─](bg:terminalback fg:terminalfront)\
+$character\
+"""
+
+right_format = """\
+[](bg:terminalback fg:pathback)\
+[$localip 󰩠 ${custom.interface}](fg:terminalback bg:pathback)\
+[](bg:terminalback fg:pathback)\
+[─╯](bg:terminalback fg:terminalfront)\
+"""
+
+
+[os]
+disabled = false
+style = "fg:terminalback bg:terminalfront"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+SUSE = ""
+Raspbian = "󰐿"
+Mint = "󰣭"
+Macos = "󰀵"
+Manjaro = ""
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Amazon = ""
+Android = ""
+Arch = "󰣇"
+Artix = "󰣇"
+EndeavourOS = ""
+CentOS = ""
+Debian = "󰣚"
+Redhat = "󱄛"
+RedHatEnterprise = "󱄛"
+Pop = ""
+
+[localip]
+format = '$localipv4'
+ssh_only = false
+disabled = false
+
+[directory]
+format = "[( $read_only) $path]($style)"
+truncation_length = 3
+truncate_to_repo = false
+truncation_symbol = "…/"
+style = "fg:pathfront bg:pathback"
+
+[git_branch]
+format = '[](bg:gitback fg:prev_bg)[ $symbol$branch(:$remote_branch) ]($style)'
+symbol = "  "
+style = "fg:terminalback bg:gitback"
+
+[git_status]
+conflicted = '=${count} '
+untracked = '?${count} '
+modified = '!${count} '
+ahead = '⇡${count} '
+behind = '⇣${count} '
+diverged = '⇕${count} '
+stashed = '$${count} '
+deleted = '${count} '
+staged = '+${count} '
+renamed = '»${count} '
+style = "fg:terminalback bg:gitback"
+format = '[${ahead_behind}${all_status}]($style)'
+use_git_executable = false
+
+
+[hg_branch]
+format = "[ $symbol$branch ]($style)"
+symbol = " "
+
+[cmd_duration]
+min_time = 500
+format = "[](fg:gitback bg:prev_bg )[ $duration  ]($style)"
+#format = "[](bg:terminalback fg:terminalfront)[ $duration  ]($style)[](bg:gitback fg:terminalfront)"
+style = "fg:terminalback bg:gitback"
+
+[character]
+success_symbol = '[❯](successfront)'
+error_symbol = '[✗](errorfront)'
+
+[time]
+disabled = false
+time_format = "%T" # Hour:Minute Format
+format = '[](bg:prev_bg fg:terminalfront )[ $time 󱑍 ](fg:terminalback bg:terminalfront)'
+
+# ~/.config/starship.toml
+[fill]
+symbol = '─'
+style = 'bg:terminalback fg:terminalfront'
+# ~/.config/starship.toml
+
+[status]
+symbol = '$int ✘ '
+success_symbol = '✔ '
+success_style = 'fg:successfront bg:statusfront'
+failure_style = 'fg:errorfront bg:statusfront'
+format = '[$symbol]($style)'
+disabled = false
+
+[custom.interface]
+command = "ip route get 1 | awk '{print $5; exit}'"
+when = true
+style = 'fg:terminalback bg:pathback'
+
+[palettes.snu1v3r]
+terminalback = '#1A1B26' 
+terminalfront = '#707691'
+pathback = '#7299E5' 
+pathfront = '#D1D4D4'
+gitback = '#CFA466'
+statusfront = '#31344A'
+successfront = '#98C86B'
+errorfront = '#E84D44'
