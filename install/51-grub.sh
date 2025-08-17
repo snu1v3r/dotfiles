@@ -14,7 +14,7 @@ if [ "${PROFILE}" = "headless" ]; then
     fi
 
     # This ensures that the theme is configured
-    sudo sed -i "s/^#\?\(GRUB_THEME=\).*$/\\1\"\/boot\/grub\/themes\/SekiroShadow\/theme.txt\"/" /etc/default/grub
+    sudo sed -i "s/^#\?\(GRUB_THEME=\).*$/\\1\"\/boot\/grub\/themes\/Mountain\/theme.txt\"/" /etc/default/grub
 
     sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash/" /etc/default/grub
     # Update grub to enable updates
