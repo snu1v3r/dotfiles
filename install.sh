@@ -22,6 +22,10 @@ install_info() {
   echo -e "$(date +%T) $BLUE[i]$CLEAR $1" | tee -a ${HOME}/install.log
 }
 
+install_error() {
+  echo -e "$(date +%T) $RED[E]$CLEAR $1" | tee -a ${HOME}/install.log
+}
+
 install_warning() {
   echo -e "$(date +%T) $ORANGE[!]$CLEAR $1" | tee -a ${HOME}/install.log
 }
