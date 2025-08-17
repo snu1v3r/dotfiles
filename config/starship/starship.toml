@@ -5,12 +5,14 @@ format = """\
 [╭─](bg:terminalback fg:terminalfront)\
 [ ](fg:prev_bg bg:prev_fg)\
 [$os]()\
-[ ](fg:terminalback bg:terminalfront)\
+$sudo\
+[](fg:terminalback bg:terminalfront)\
 [](fg:terminalfront bg:pathback)\
 $directory\
-$git_branch\
+${custom.gitclean}\
+${custom.gitdirty}\
 $git_status\
-[](bg:terminalback fg:prev_bg)\
+[](fg:prev_bg bg:terminalback)\
 $fill\
 [](bg:terminalback fg:statusfront)\
 $status\
@@ -63,16 +65,21 @@ ssh_only = false
 disabled = false
 
 [directory]
-format = "[( $read_only) $path]($style)"
+format = "[ ](fg:pathfront bg:pathback)([$read_only]($read_only_style))[$path]($style)"
+read_only_style = "fg:errorfront bg:prev_bg"
 truncation_length = 3
 truncate_to_repo = false
 truncation_symbol = "…/"
-style = "fg:pathfront bg:pathback"
+style = "fg:prev_fg bg:prev_bg"
+#style = "fg:pathfront bg:pathback"
 
 [git_branch]
-format = '[](bg:gitback fg:prev_bg)[ $symbol$branch(:$remote_branch) ]($style)'
+#format = '[](bg:gitback fg:prev_bg)[ $symbol$branch(:$remote_branch) ]($style)'
+format = '[](bg:gitback fg:prev_fg)[ $symbol$branch(:$remote_branch) ]($style)'
 symbol = "  "
-style = "fg:terminalback bg:gitback"
+#style = "fg:terminalback bg:gitback"
+disabled = true
+style = "fg:terminalback bg:prev_fg"
 
 [git_status]
 conflicted = '=${count} '
@@ -81,11 +88,11 @@ modified = '!${count} '
 ahead = '⇡${count} '
 behind = '⇣${count} '
 diverged = '⇕${count} '
-stashed = '$${count} '
+stashed = '${count} '
 deleted = '${count} '
 staged = '+${count} '
 renamed = '»${count} '
-style = "fg:terminalback bg:gitback"
+style = "fg:prev_fg bg:prev_bg"
 format = '[${ahead_behind}${all_status}]($style)'
 use_git_executable = false
 
@@ -95,7 +102,7 @@ format = "[ $symbol$branch ]($style)"
 symbol = " "
 
 [cmd_duration]
-min_time = 500
+min_time = 5000
 format = "[](fg:gitback bg:prev_bg )[ $duration  ]($style)"
 #format = "[](bg:terminalback fg:terminalfront)[ $duration  ]($style)[](bg:gitback fg:terminalfront)"
 style = "fg:terminalback bg:gitback"
@@ -115,11 +122,32 @@ style = 'bg:terminalback fg:terminalfront'
 
 [status]
 symbol = '$int ✘ '
+not_found_symbol = '$int  '
 success_symbol = '✔ '
 success_style = 'fg:successfront bg:statusfront'
 failure_style = 'fg:errorfront bg:statusfront'
 format = '[$symbol]($style)'
+signal_symbol ='󱐋'
+map_symbol = true
 disabled = false
+
+[sudo]
+symbol = '󱐋'
+style = 'fg:prev_fg bg:prev_bg'
+format ='[ $symbol]($style)'
+disabled = false
+
+[custom.gitclean]
+command = "git branch --show-current"
+when = "git status | grep -q 'nothing to commit'"
+format = "([](fg:prev_bg bg:successfront)[(   $output )]($style))"
+style = 'fg:terminalback bg:prev_bg'
+
+[custom.gitdirty]
+command = "git branch --show-current"
+when = "! git status | grep -q 'nothing to commit'"
+format = "([](fg:prev_bg bg:gitback)[   $output ]($style))"
+style = 'fg:terminalback bg:prev_bg'
 
 [custom.interface]
 command = "ip route get 1 | awk '{print $5; exit}'"
