@@ -6,8 +6,7 @@ vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.numberwidth = 4
 
-
--- Convert tabs to spaces and improve tab behaviour 
+-- Convert tabs to spaces and improve tab behaviour
 vim.opt.expandtab = true -- Convert tabs to spaces
 vim.opt.shiftwidth = 4 -- Amount to indent with << and >>
 vim.opt.tabstop = 4 -- How many spaces are shown per Tab
@@ -17,7 +16,6 @@ vim.opt.smarttab = true
 vim.opt.smartindent = true
 vim.opt.autoindent = true -- Keep identation from previous line
 vim.opt.breakindent = true
-
 
 -- Store undos between sessions
 vim.opt.undofile = true
@@ -35,3 +33,4 @@ vim.g.have_nerd_font = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.opt.splitright = true
