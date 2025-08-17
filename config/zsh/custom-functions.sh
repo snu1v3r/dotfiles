@@ -110,22 +110,22 @@ colorlog() {
 
 log_info() {
   colorlog
-  echo -e "$BLUE[i]$CLEAR $1"
+  echo -e "${BLUE}[i]${CLEAR} $1"
 }
 
 log_warning() {
   colorlog
-  echo -e "$ORANGE[!]$CLEAR $1"
+  echo -e "${ORANGE}[!]${CLEAR} $1"
 }
 
 log_success() {
   colorlog
-  echo -e "$GREEN[*]$CLEAR $1"
+  echo -e "${GREEN}[*]${CLEAR} $1"
 }
 
 log_error() {
   colorlog
-  echo -e "$RED[E]$CLEAR $1"
+  echo -e "${RED}[E]${CLEAR} $1"
 }
 
 saveclip() {
