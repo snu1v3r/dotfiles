@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=mountain
+Description=Mountain
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/mountain
+ScriptFile=/usr/share/plymouth/themes/mountain/mountain.script
