@@ -17,7 +17,7 @@ return {
 		quickfile = { enabled = true },
 		scope = { enabled = true },
 		scroll = { enabled = true },
---		statuscolumn = { enabled = true },
+		--		statuscolumn = { enabled = true },
 		words = { enabled = true },
 		terminal = { enabled = false },
 	},
@@ -28,6 +28,14 @@ return {
 				Snacks.picker.explorer()
 			end,
 			desc = "E[x]plorer [f]iles",
+		},
+		{
+			"<leader>xc",
+			function()
+				Snacks.dashboard.pick("files", { cwd = vim.fn.stdpath("config") })
+				-- Snacks.picker.explorer()
+			end,
+			desc = "E[x]plore [c]onfiguration",
 		},
 		{
 			"<C-\\>",
