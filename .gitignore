@@ -19,3 +19,6 @@ config/bat/themes/bat-theme.tmTheme
 config/btop/themes/current.theme
 config/nvim/lazy-lock.json
 
+local/share/mc/filepos
+local/share/mc/history
+config/qalculate/qalc.history
