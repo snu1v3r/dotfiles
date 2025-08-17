@@ -2,7 +2,7 @@
 
 # Use dark mode for QT apps too (like VLC and kdenlive)
 if [ ! "${PROFILE}" = "headless" ]; then
-    case "${FLAVOR}" in
+    case "${DISTRO}" in
         "arch")
             install_packages kvantum-qt5 gnome-themes-extra
             ;;

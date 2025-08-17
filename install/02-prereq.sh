@@ -4,7 +4,7 @@
 install_packages stow
 
 # yay is used for the aur repo
-if [ ${FLAVOR} = "arch" ]; then
+if [ ${DISTRO} = "arch" ]; then
     install_packages base-devel
     if ! command -v yay &>/dev/null; then
       git clone https://aur.archlinux.org/yay-bin.git

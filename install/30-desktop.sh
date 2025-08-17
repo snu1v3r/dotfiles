@@ -3,7 +3,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
     install_packages alacritty playerctl pamixer playerctl pavucontrol wireplumber galculator \
         vlc nautilus fcitx5 evince imv
 
-    case "${FLAVOR}" in
+    case "${DISTRO}" in
         "arch")
             install_packages brave-bin \
                 fcitx5-configtool fcitx5-gtk fcitx5-qt \
@@ -22,7 +22,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
 
     if [ "$PROFILE" = "main" ]; then
         install_packages keepassxc brightnessctl gnome-keyring thunderbird
-        case "${FLAVOR}" in
+        case "${DISTRO}" in
             "arch")
                 install_packages nextcloud-client qt5-wayland
                 ;;

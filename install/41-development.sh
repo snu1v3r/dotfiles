@@ -3,14 +3,14 @@
 install_packages imagemagick
 
 if [ "${PROFILE}" = "develop" ]; then
-    case "${FLAVOR}" in
+    case "${DISTRO}" in
         "arch")
             install_packages mariadb-libs postgresql-libs github-cli cargo clang llvm
             ;;
     esac
 fi        
 
-case "${FLAVOR}" in
+case "${DISTRO}" in
     "arch")
         install_packages lazygit lazydocker
         ;;

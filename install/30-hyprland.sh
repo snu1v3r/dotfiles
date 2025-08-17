@@ -1,4 +1,4 @@
-if [ "${FLAVOR}" = "arch" ] && [ ! "${PROFILE}" = "headless" ]; then
+if [ "${DISTRO}" = "arch" ] && [ ! "${PROFILE}" = "headless" ]; then
     install_packages \
       hyprland hyprshot hyprpicker hyprlock hypridle hyprpolkitagent hyprland-qtutils \
       waybar mako swaybg swayosd \

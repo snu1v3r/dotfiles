@@ -11,7 +11,7 @@
 # ==============================================================================
 
 # --- GPU Detection ---
-if [ -n "$(lspci | grep -i 'nvidia')" ] && [ "${FLAVOR}" = "arch" ]; then
+if [ -n "$(lspci | grep -i 'nvidia')" ] && [ "${DISTRO}" = "arch" ]; then
   # --- Driver Selection ---
   # Turing (16xx, 20xx), Ampere (30xx), Ada (40xx), and newer recommend the open-source kernel modules
   if echo "$gpu_info" | grep -q -E "RTX [2-9][0-9]|GTX 16"; then

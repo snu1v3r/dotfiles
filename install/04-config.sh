@@ -8,7 +8,7 @@ stow --target=${HOME}/.local --dir=${HOME}/.local/share/dotfiles/local .
 mkdir -p ${HOME}/.config
 stow --target=${HOME}/.config --dir=${HOME}/.local/share/dotfiles/config .
 
-if [ "${FLAVOR}" = "arch" ]; then
+if [ "${DISTRO}" = "arch" ]; then
     tee ${HOME}/.config/hypr/overrides.conf &>/dev/null <<EOF
 # This file can be used to override monitor settings on a system specific level 
 # See https://wiki.hyprland.org/Configuring/Monitors/

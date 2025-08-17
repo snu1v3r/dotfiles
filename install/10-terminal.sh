@@ -4,7 +4,7 @@ install_packages wget curl unzip ripgrep zoxide bat \
     btop man tldr less whois plocate zsh \
     tmux luarocks mc npm openvpn
 
-case "${FLAVOR}" in
+case "${DISTRO}" in
     "debian")
         install_packages fd-find openssh-client openssh-server p7zip python3-venv \
             network-manager-openvpn-gnome network-manager-openvpn

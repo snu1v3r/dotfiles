@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-case "${FLAVOR}" in
+case "${DISTRO}" in
     "debian")
         install_packages fonts-noto fonts-noto-color-emoji fonts-noto-cjk fonts-noto-extra 
         if ! fc-list | grep -qi "JetBrainsMono Nerd Font"; then

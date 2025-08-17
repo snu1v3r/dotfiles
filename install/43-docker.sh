@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ ! "${PROFILE}" = "main" ]; then
-    case "${FLAVOR}" in
+    case "${DISTRO}" in
         "arch")
             install_packages docker docker-compose
             ;;

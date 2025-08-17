@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 if [ "${PROFILE}" = "hacking" ] || [ "${PROFILE}" = "basevm" ]; then
-    case "${FLAVOR}" in
+    case "${DISTRO}" in
         "arch")
             echo -e "[ownstuff]\nServer = https://ftp.f3l.de/~martchus/\$repo/os/\$arch\nServer = https://martchus.dyn.f3l.de/repo/arch/\$repo/os/\$arch" | sudo tee -a /etc/pacman.conf
             sudo pacman-key --keyserver keyserver.ubuntu.com --recv-keys B9E36A7275FC61B464B67907E06FE8F53CDC6A4C # import key

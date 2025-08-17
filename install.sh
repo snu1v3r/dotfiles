@@ -13,7 +13,8 @@ WHITE=$'\033[1;37m'
 CLEAR=$'\033[0m'
 
 if [ -f /etc/os-release ]; then
-    FLAVOR=$(grep "^ID" /etc/os-release| cut -d"=" -f2)
+    source /etc/os-release
+    DISTRO=${ID}
 fi
 
 
@@ -26,7 +27,7 @@ install_warning() {
 }
 
 install_packages() {
-    case "${FLAVOR}" in 
+    case "${DISTRO}" in 
         "debian")
             sudo apt-get install -y $@
             ;;
@@ -60,7 +61,7 @@ git clone --depth 1 --recurse-submodules --shallow-submodules https://github.com
 
 install_info "Installation of individual scripts starting..."
 
-install_info "Profile used is: ${FLAVOR}"
+install_info "Distribution used is: ${DISTRO}"
 
 # Install everything
 for f in ~/.local/share/dotfiles/install/*.sh; do

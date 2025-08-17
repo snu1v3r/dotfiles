@@ -23,7 +23,7 @@ if [ "${PROFILE}" = "main"]; then
     #   <address type="pci" domain="0x0000" bus="0x10" slot="0x01" function="0x0"/>
     # </interface>
     # ```
-    case "${FLAVOR}" in
+    case "${DISTRO}" in
         "arch")
             install_packages qemu-base qemu-desktop dnsmasq
             ;;
