@@ -106,4 +106,3 @@ else
     source ${HOME}/.local/share/themes/static/powerlevel10k/powerlevel10k.zsh-theme
     [[ ! -f ${ZDOTDIR}/p10k.zsh ]] || source ${ZDOTDIR}/p10k.zsh
 fi
-

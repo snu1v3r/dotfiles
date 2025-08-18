@@ -14,27 +14,28 @@ ${custom.gitdirty}\
 $git_status\
 [](fg:prev_bg bg:terminalback)\
 $fill\
-[](bg:terminalback fg:statusfront)\
-$status\
-$cmd_duration\
-$time\
-[─╮ ](bg:terminalback fg:terminalfront)\
+[${custom.interface}](fg:terminalback bg:pathback)\
+[](bg:terminalback fg:prev_bg)\
+[─╮ ](bg:terminalback fg:terminalfront)\
 $line_break\
 [╰─](bg:terminalback fg:terminalfront)\
 $character\
 """
 
 right_format = """\
-[](bg:terminalback fg:pathback)\
-[$localip 󰩠 ${custom.interface}](fg:terminalback bg:pathback)\
-[](bg:terminalback fg:pathback)\
+[](bg:terminalback fg:statusfront)\
+$status\
+$cmd_duration\
+$time\
+${custom.vpn}\
+[](bg:terminalback fg:prev_bg)\
 [─╯](bg:terminalback fg:terminalfront)\
 """
 
 
 [os]
 disabled = false
-style = "fg:terminalback bg:terminalfront"
+style = "fg:textfront bg:terminalfront"
 
 [os.symbols]
 Windows = "󰍲"
@@ -59,18 +60,13 @@ Redhat = "󱄛"
 RedHatEnterprise = "󱄛"
 Pop = ""
 
-[localip]
-format = '$localipv4'
-ssh_only = false
-disabled = false
-
 [directory]
 format = "[ ](fg:pathfront bg:pathback)([$read_only]($read_only_style))[$path]($style)"
 read_only_style = "fg:errorfront bg:prev_bg"
 truncation_length = 3
 truncate_to_repo = false
 truncation_symbol = "…/"
-style = "fg:prev_fg bg:prev_bg"
+style = "fg:textfront bg:prev_bg"
 #style = "fg:pathfront bg:pathback"
 
 [git_branch]
@@ -79,7 +75,7 @@ format = '[](bg:gitback fg:prev_fg)[ $symbol$branch(:$remote_branch) ]($style
 symbol = "  "
 #style = "fg:terminalback bg:gitback"
 disabled = true
-style = "fg:terminalback bg:prev_fg"
+style = "fg:textfront bg:prev_fg"
 
 [git_status]
 conflicted = '=${count} '
@@ -105,7 +101,7 @@ symbol = " "
 min_time = 5000
 format = "[](fg:gitback bg:prev_bg )[ $duration  ]($style)"
 #format = "[](bg:terminalback fg:terminalfront)[ $duration  ]($style)[](bg:gitback fg:terminalfront)"
-style = "fg:terminalback bg:gitback"
+style = "fg:textfront bg:gitback"
 
 [character]
 success_symbol = '[❯](successfront)'
@@ -114,7 +110,7 @@ error_symbol = '[✗](errorfront)'
 [time]
 disabled = false
 time_format = "%T" # Hour:Minute Format
-format = '[](bg:prev_bg fg:terminalfront )[ $time 󱑍 ](fg:terminalback bg:terminalfront)'
+format = '[](bg:prev_bg fg:terminalfront )[ $time 󱑍 ](fg:textfront bg:terminalfront)'
 
 [fill]
 symbol = '─'
@@ -141,25 +137,35 @@ disabled = false
 command = "git branch --show-current"
 when = "git status | grep -q 'nothing to commit'"
 format = "([](fg:prev_bg bg:successfront)[(   $output )]($style))"
-style = 'fg:terminalback bg:prev_bg'
+style = 'fg:textfront bg:prev_bg'
 
 [custom.gitdirty]
 command = "git branch --show-current"
 when = "! git status | grep -q 'nothing to commit'"
 format = "([](fg:prev_bg bg:gitback)[   $output ]($style))"
-style = 'fg:terminalback bg:prev_bg'
+style = 'fg:textfront bg:prev_bg'
 
 [custom.interface]
-command = "ip route get 1 | awk '{print $5; exit}'"
+command = "ip route | grep -m1 default | awk '{print $9 \" 󰩠 \" $5}'"
 when = true
-style = 'fg:terminalback bg:pathback'
+format = "[](bg:prev_bg fg:pathback)[$output ]($style)"
+style = 'fg:textfront bg:pathback'
+
+[custom.vpn]
+command = "ip route | head -n1 | awk '{print $3 \" 󱠾 \" $5}'"
+when = "ip route | head -n1 | grep -qE '(tun|tap)'"
+format = "[](bg:prev_bg fg:vpnback)[$output ]($style)"
+style = 'fg:textfront bg:vpnback'
 
 [palettes.snu1v3r]
 terminalback = '#1A1B26' 
+textfront = '#1A1B26' 
 terminalfront = '#707691'
 pathback = '#7299E5' 
+#pathback = '#3465a4'
 pathfront = '#D1D4D4'
 gitback = '#CFA466'
 statusfront = '#31344A'
 successfront = '#98C86B'
 errorfront = '#E84D44'
+vpnback='#F1C0E4'
