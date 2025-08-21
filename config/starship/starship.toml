@@ -15,6 +15,8 @@ $git_status\
 [](fg:prev_bg bg:terminalback)\
 $fill\
 [${custom.interface}](fg:terminalback bg:pathback)\
+$hostname\
+[](bg:terminalback fg:prev_bg)\
 [─╮ ](bg:terminalback fg:terminalfront)\
 $line_break\
 [╰─](bg:terminalback fg:terminalfront)\
@@ -31,6 +33,12 @@ ${custom.vpn}\
 [─╯](bg:terminalback fg:terminalfront)\
 """
 
+
+[hostname]
+ssh_only = false
+disabled = false
+format = "[](bg:prev_bg fg:hostback)[ 💻 $hostname]($style)"
+style = "fg:terminalback bg:hostback"
 
 [os]
 disabled = false
@@ -147,7 +155,7 @@ style = 'fg:textfront bg:prev_bg'
 [custom.interface]
 command = "ip route | grep -m1 default | awk '{print $9 \" 󰩠 \" $5}'"
 when = true
-format = "([](bg:prev_bg fg:pathback)[$output ]($style)[](bg:terminalback fg:prev_bg))"
+format = "([](bg:prev_bg fg:pathback)[$output ]($style))"
 style = 'fg:textfront bg:pathback'
 
 [custom.vpn]
@@ -168,3 +176,4 @@ statusfront = '#31344A'
 successfront = '#98C86B'
 errorfront = '#E84D44'
 vpnback='#F1C0E4'
+hostback='#F4B186'
