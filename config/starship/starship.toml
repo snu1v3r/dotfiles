@@ -15,7 +15,6 @@ $git_status\
 [](fg:prev_bg bg:terminalback)\
 $fill\
 [${custom.interface}](fg:terminalback bg:pathback)\
-[](bg:terminalback fg:prev_bg)\
 [─╮ ](bg:terminalback fg:terminalfront)\
 $line_break\
 [╰─](bg:terminalback fg:terminalfront)\
@@ -148,7 +147,7 @@ style = 'fg:textfront bg:prev_bg'
 [custom.interface]
 command = "ip route | grep -m1 default | awk '{print $9 \" 󰩠 \" $5}'"
 when = true
-format = "[](bg:prev_bg fg:pathback)[$output ]($style)"
+format = "([](bg:prev_bg fg:pathback)[$output ]($style)[](bg:terminalback fg:prev_bg))"
 style = 'fg:textfront bg:pathback'
 
 [custom.vpn]
