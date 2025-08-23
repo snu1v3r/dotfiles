@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "${PROFILE}" = "hacking" ] || [ "${PROFILE}" = "basevm" ]; then
+if [ "${PROFILE}" = "basevm" ]; then
     case "${DISTRO}" in
         "arch")
             echo -e "[ownstuff]\nServer = https://ftp.f3l.de/~martchus/\$repo/os/\$arch\nServer = https://martchus.dyn.f3l.de/repo/arch/\$repo/os/\$arch" | sudo tee -a /etc/pacman.conf
