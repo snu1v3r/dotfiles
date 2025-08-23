@@ -2,17 +2,9 @@
 
 install_packages imagemagick
 
-if [ "${PROFILE}" = "develop" ]; then
-    case "${DISTRO}" in
-        "arch")
-            install_packages mariadb-libs postgresql-libs github-cli cargo clang llvm
-            ;;
-    esac
-fi        
-
 case "${DISTRO}" in
     "arch")
-        install_packages lazygit lazydocker
+        install_packages lazygit
         ;;
     "debian")
         SUFFIX=Linux_x86_64
