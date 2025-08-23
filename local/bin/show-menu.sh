@@ -61,10 +61,11 @@ show_learn_menu() {
 }
 
 show_style_menu() {
-  case $(menu "Style" "󰸌  Theme\n  Font\n  Background") in
+  case $(menu "Style" "󰸌  Theme\n  Font\n  Background\n   Shell") in
   *Theme*) show_theme_menu ;;
   *Font*) show_font_menu ;;
   *Background*) $BIN_PATH/omarchy-theme-bg-next ;;
+  *Shell*) present_terminal $BIN_PATH/set-prompt.sh ;;
   *) show_main_menu ;;
   esac
 }
