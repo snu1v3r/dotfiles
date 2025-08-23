@@ -6,6 +6,7 @@ fi
 
 export LANG=en_US.UTF-8
 export LC_ALL="C.UTF-8"
+export PATH=$HOME/.local/bin:$PATH
 
 
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && [ "${PROMPT_APP}" = "p10k" ];  then
