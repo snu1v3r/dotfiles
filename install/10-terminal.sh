@@ -2,7 +2,7 @@
 
 install_packages wget curl unzip ripgrep zoxide bat \
     btop man tldr less whois plocate zsh \
-    tmux luarocks mc npm openvpn
+    tmux luarocks mc npm openvpn jq
 
 case "${DISTRO}" in
     "debian")
@@ -55,7 +55,18 @@ case "${DISTRO}" in
         else
             install_warning "bat-extras couldn't be installed because a valid url was not found"
         fi
+        # Install oh-my-posh
+        TAGNAME=$(wget -qO- https://api.github.com/repos/JanDeDobbeleer/oh-my-posh/releases/latest | jq -r .name | cut -c2-)
+        wget -qO /tmp/omp "https://github.com/JanDeDobbeleer/oh-my-posh/releases/download/v${TAGNAME}/posh-linux-amd64"
+        chmod +x /tmp/omp
+        sudo mv /tmp/omp /usr/bin/oh-my-posh
+
+        # Install starship
+        TAGNAME=$(wget -qO- https://api.github.com/repos/starship/starship/releases/latest | jq -r .name | cut -c2-)
+        wget -qO- "https://github.com/starship/starship/releases/download/v${TAGNAME}/starship-x86_64-unknown-linux-musl.tar.gz" | tar xz -C /tmp
+        sudo mv /tmp/starship /usr/bin/starship
         ;;
+
     "arch")
         install_packages fd eza zoxide bat bat-extras openssh \
           wl-clipboard fastfetch btop \
