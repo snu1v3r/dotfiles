@@ -1,26 +1,9 @@
-# First check if tmux is installed
-# Next check if tmux is not disabled
-# Next check that we are not sourcing .zshrc as part of tmux initialization
-# Last check that we are not a vscode terminal
-# Otherwise attach to existing tmux session
+#!/usr/bin/env zsh
 
 if [ -f "$HOME/.config/zsh/environment_overrides.zsh" ]; then
     source "$HOME/.config/zsh/environment_overrides.zsh"
 fi
 
-if [ -d "$HOME/.local/bin" ] ; then
-    PATH="$HOME/.local/bin:$PATH"
-fi
-
-if [ -d "$HOME/.local/sbin" ] ; then
-    PATH="$HOME/.local/sbin:$PATH"
-fi
-
-if [ -d "$HOME/opt/bin" ] ; then
-    PATH="$HOME/opt/bin:$PATH"
-fi
-
-# export DISABLE_TMUX=true
 export LANG=en_US.UTF-8
 export LC_ALL="C.UTF-8"
 
@@ -28,8 +11,6 @@ export LC_ALL="C.UTF-8"
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]] && [ "${PROMPT_APP}" = "p10k" ];  then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-
 
 if command -v tmux>/dev/null; then
 	if [ "$DISABLE_TMUX" = "true" ]; then
@@ -72,24 +53,8 @@ source ${ZDOTDIR}/zsh-autosuggestions.zsh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 
-
-
-
-# Set bat as the manpager when it is installed
-if type "bat" > /dev/null; then
-  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-fi
-
-# Modification to include sbin directories
-
-export PATH=$PATH:/sbin/:/usr/sbin
-
-
 # Enables improved vim motions
 source ${ZDOTDIR}/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
 
 
 function yz() {
