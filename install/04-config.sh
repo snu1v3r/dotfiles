@@ -21,6 +21,8 @@ MONITOR=\${MONITOR##* }
 EOF
 fi
 
+install_packages zsh
+
 # Set zsh as default shell
 sudo chsh -s $(which zsh) $USER
 
