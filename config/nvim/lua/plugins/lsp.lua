@@ -58,27 +58,27 @@ return {
 				-- Jump to the definition of the word under your cursor.
 				--  This is where a variable was first declared, or where a function is defined, etc.
 				--  To jump back, press <C-t>.
-				map("gd", require("fzf-lua").lsp_definitions, "[G]oto [D]efinition")
+				map("gd", require("snacks").picker.lsp_definitions, "[G]oto [D]efinition")
 
 				-- Find references for the word under your cursor.
-				map("gr", require("fzf-lua").lsp_references, "[G]oto [R]eferences")
+				map("gr", require("snacks").picker.lsp_references, "[G]oto [R]eferences")
 
 				-- Jump to the implementation of the word under your cursor.
 				--  Useful when your language has ways of declaring types without an actual implementation.
-				map("gI", require("fzf-lua").lsp_implementations, "[G]oto [I]mplementation")
+				map("gI", require("snacks").picker.lsp_implementations, "[G]oto [I]mplementation")
 
 				-- Jump to the type of the word under your cursor.
 				--  Useful when you're not sure what type a variable is and you want to see
 				--  the definition of its *type*, not where it was *defined*.
-				map("<leader>D", require("fzf-lua").lsp_typedefs, "Type [D]efinition")
+				map("<leader>D", require("snacks").picker.lsp_type_definitions, "Type [D]efinition")
 
 				-- Fuzzy find all the symbols in your current document.
 				--  Symbols are things like variables, functions, types, etc.
-				map("<leader>ds", require("fzf-lua").lsp_document_symbols, "[D]ocument [S]ymbols")
+				map("<leader>ds", require("snacks").picker.lsp_symbols, "[D]ocument [S]ymbols")
 
 				-- Fuzzy find all the symbols in your current workspace.
 				--  Similar to document symbols, except searches over your entire project.
-				map("<leader>ws", require("fzf-lua").lsp_live_workspace_symbols, "[W]orkspace [S]ymbols")
+				map("<leader>ws", require("snacks").picker.lsp_workspace_symbols, "[W]orkspace [S]ymbols")
 
 				-- Rename the variable under your cursor.
 				--  Most Language Servers support renaming across files, etc.
@@ -221,20 +221,21 @@ return {
 			eslint = {},
 			ts_ls = { filetypes = { "html" } },
 
-			lua_ls = {
-				-- cmd = { ... },
-				-- filetypes = { ... },
-				-- capabilities = {},
-				-- settings = {
-				--   Lua = {
-				--     completion = {
-				--       callSnippet = 'Replace',
-				--     },
-				--     -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-				--     -- diagnostics = { disable = { 'missing-fields' } },
-				--   },
-				-- },
-			},
+			-- lua_ls = {
+			-- -- 	-- cmd = { ... },
+			--  	 filetypes = { 'lua' },
+			-- -- 	-- capabilities = {},
+			--  	settings = {
+			--  		Lua = {
+			-- -- 			-- completion = {
+			-- -- 			--   callSnippet = 'Replace',
+			-- -- 			-- },
+			-- -- 			-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+			-- -- 			-- diagnostics = { disable = { 'missing-fields' } },
+			--  			diagnostics = { disable = { "missing-fields" , "undefine-global" }, globals = { "vim" } },
+			--  		},
+			--  	},
+			-- },
 		}
 
 		-- Ensure the servers and tools above are installed
@@ -276,6 +277,18 @@ return {
 		require("lspconfig").html.setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+		})
+		vim.lsp.config("lua_ls", {
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = {
+							"vim",
+							"builtin",
+						},
+					},
+				},
+			},
 		})
 	end,
 }
