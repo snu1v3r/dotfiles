@@ -11,3 +11,6 @@ update-desktop-database ~/.local/share/applications
 # This ensures that the font cache is updated
 fc-cache
 sudo updatedb
+
+# This removes directory's I never use
+rm -rf Desktop Documents Music Pictures Public Templates Videos
