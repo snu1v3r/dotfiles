@@ -60,7 +60,8 @@ case "${DISTRO}" in
         install_packages fd eza zoxide bat bat-extras openssh \
           wl-clipboard fastfetch btop \
           nvim yazi swappy fzf \
-          networkmanager-openvpn
+          networkmanager-openvpn \
+          oh-my-posh-bin starship
         ;;
 esac
 
