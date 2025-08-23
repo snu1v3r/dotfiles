@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "${PROFILE}" = "headless" ]; then
+if [ ! "${PROFILE}" = "headless" ]; then
     sudo mkdir -p /boot/grub/themes
     sudo cp -r ~/.local/share/themes/static/grub/* /boot/grub/themes
 
