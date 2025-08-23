@@ -36,6 +36,7 @@ vim.keymap.set("n", "<leader>sd", snacks.picker.diagnostics, { desc = "[S]earch 
 vim.keymap.set("n", "<leader>sr", snacks.picker.resume, { desc = "[S]earch [R]esume" })
 vim.keymap.set("n", "<leader>s.", snacks.picker.recent, { desc = '[S]earch Recent Files ("." for repeat)' })
 vim.keymap.set("n", "<leader><leader>", snacks.picker.buffers, { desc = "[ ] Find existing buffers" })
+vim.keymap.set("n", "<leader>lg", snacks.lazygit.open, { desc = "[L]azy [G]it" })
 
 -- Slightly advanced example of overriding default behavior and theme
 vim.keymap.set("n", "<leader>/", function()
