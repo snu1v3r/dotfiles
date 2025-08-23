@@ -4,4 +4,3 @@
 0="${${(M)0:#/*}:-$PWD/$0}"
 
 source ${0:h}/zsh-vi-mode.zsh
-
