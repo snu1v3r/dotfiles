@@ -34,7 +34,7 @@ install_info "The following profile is used: $PROFILE"
 
 if [ ! "${PROFILE}" = "headless" ]; then
     # Select target resolution
-    RESOLUTION=$(gum choose "2880x1800" "2560x1440" "1920x1080" "MULTI" --header="Select the target resolution:")
+    RESOLUTION=$(gum choose "3440x1440" "2880x1800" "2560x1440" "1920x1080" "MULTI" --header="Select the target resolution:")
     install_info "The following resolution is used: $RESOLUTION"
 fi
 

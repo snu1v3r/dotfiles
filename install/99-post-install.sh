@@ -13,4 +13,4 @@ fc-cache
 sudo updatedb
 
 # This removes directory's I never use
-rm -rf Desktop Documents Music Pictures Public Templates Videos
+cd ~ && rm -rf Desktop Documents Music Pictures Public Templates Videos

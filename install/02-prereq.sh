@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+sudo sed -i 's/#\(\[multilib\]\)/\1\nInclude = \/etc\/pacmand.d\/mirrorlist/g' /etc/pacman.conf
+sudo pacman -Syyu
+
 # stow is needed for activating the configuration directories
 install_packages stow
 
