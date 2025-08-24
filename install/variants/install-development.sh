@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source "~/.local/bin/shell-utils.sh"
+source "${HOME}/.local/bin/shell-utils.sh"
 
 install_packages imagemagick
 
