@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 if [ ! "${PROFILE}" = "headless" ]; then
+    install_packages os-prober
     sudo mkdir -p /boot/grub/themes
     sudo cp -r ~/.local/share/themes/static/grub/* /boot/grub/themes
 
@@ -17,6 +18,8 @@ if [ ! "${PROFILE}" = "headless" ]; then
     sudo sed -i "s/^#\?\(GRUB_THEME=\).*$/\\1\"\/boot\/grub\/themes\/Mountain\/theme.txt\"/" /etc/default/grub
 
     sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash/" /etc/default/grub
+
+    sudo sed -i "s/#\(GRUB_DISABLE_OS_PROBER=\).*/\1false/g" /etc/default/grub
     # Update grub to enable updates
     sudo grub-mkconfig -o /boot/grub/grub.cfg
 fi
