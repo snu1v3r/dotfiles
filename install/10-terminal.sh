@@ -61,18 +61,13 @@ case "${DISTRO}" in
         chmod +x /tmp/omp
         sudo mv /tmp/omp /usr/bin/oh-my-posh
 
-        # Install starship
-        TAGNAME=$(wget -qO- https://api.github.com/repos/starship/starship/releases/latest | jq -r .name | cut -c2-)
-        wget -qO- "https://github.com/starship/starship/releases/download/v${TAGNAME}/starship-x86_64-unknown-linux-musl.tar.gz" | tar xz -C /tmp
-        sudo mv /tmp/starship /usr/bin/starship
-        ;;
 
     "arch")
         install_packages fd eza zoxide bat bat-extras openssh \
           wl-clipboard fastfetch btop \
           nvim yazi swappy fzf \
           networkmanager-openvpn \
-          oh-my-posh-bin starship
+          oh-my-posh-bin
         ;;
 esac
 
