@@ -60,8 +60,7 @@ case "${DISTRO}" in
         wget -qO /tmp/omp "https://github.com/JanDeDobbeleer/oh-my-posh/releases/download/v${TAGNAME}/posh-linux-amd64"
         chmod +x /tmp/omp
         sudo mv /tmp/omp /usr/bin/oh-my-posh
-
-
+        ;;
     "arch")
         install_packages fd eza zoxide bat bat-extras openssh \
           wl-clipboard fastfetch btop \
