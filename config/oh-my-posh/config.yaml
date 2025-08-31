@@ -100,7 +100,7 @@ blocks:
           style: powerline
     - type: prompt
       alignment: right
-      filler: <p:terminal-foreground,p:terminal-background>─</>
+      filler: <p:terminal-foreground,transparent>─</>
       segments:
         - properties:
             command: "ip route | head -n1 |grep -E '(tun|tap)' | awk '{print $3 \" \U000F183E \" $5}' "
