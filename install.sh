@@ -15,6 +15,8 @@ CLEAR=$'\033[0m'
 if [ -f /etc/os-release ]; then
     source /etc/os-release
     DISTRO=${ID}
+elif [ -f /etc/debian_version ]; then
+    DISTRO=$(cat /etc/debian_version)
 fi
 
 
@@ -32,7 +34,7 @@ install_warning() {
 
 install_packages() {
     case "${DISTRO}" in 
-        "debian")
+        "debian"|"kali")
             sudo apt-get install -y $@
             ;;
         "macos")
