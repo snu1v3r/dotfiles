@@ -7,8 +7,8 @@ if ! command -v gum &>/dev/null ; then
         wget -q -O /tmp/gum.deb https://github.com/charmbracelet/gum/releases/download/v${GUMTAG}/gum_${GUMTAG}_amd64.deb
         sudo dpkg -i /tmp/gum.deb
         rm /tmp/gum.deb
-    elif [ "${DISTRO}" = "arch" ]; then
-        sudo pacman -Sy --noconfirm --needed gum
+    else
+        install_packages jq gum
     fi
 fi
 
