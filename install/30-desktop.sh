@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 if [ ! "${PROFILE}" = "headless" ]; then
     install_packages alacritty playerctl pamixer playerctl pavucontrol wireplumber qalculate-gtk \
-        vlc nautilus fcitx5 evince imv
+        vlc nautilus evince imv
 
     case "${DISTRO}" in
         "arch")
             install_packages brave-bin \
-                fcitx5-configtool fcitx5-gtk fcitx5-qt \
+                fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt \
                 wl-clip-persist clipse sushi \
                 networkmanager network-manager-applet
             ;;

@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 install_packages wget curl unzip ripgrep zoxide bat \
-    btop man tldr less whois plocate zsh \
-    tmux luarocks mc npm openvpn jq
+    btop man less whois plocate zsh \
+    tmux luarocks mc npm openvpn
 
 case "${DISTRO}" in
-    "debian")
+    "debian"|"kali")
         install_packages fd-find openssh-client openssh-server p7zip python3-venv \
             network-manager-openvpn-gnome network-manager-openvpn
-        
+        #
         # Sometimes bat is named batcat. if batcat exists we make a symbolic link to bat
         if [ -f /usr/bin/batcat ]; then
             sudo ln -snf /usr/bin/batcat /usr/bin/bat
@@ -66,7 +66,16 @@ case "${DISTRO}" in
           wl-clipboard fastfetch btop \
           nvim yazi swappy fzf \
           networkmanager-openvpn \
-          oh-my-posh-bin
+          tldr oh-my-posh-bin
+        ;;
+esac
+
+case "${DISTRO}" in
+    "debian")
+        install_packages tldr
+        ;;
+    "kali")
+        install_packages tealdeer tldr-py
         ;;
 esac
 

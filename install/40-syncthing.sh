@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 if [ "${PROFILE}" = "basevm" ]; then
     case "${DISTRO}" in
         "arch")
@@ -15,6 +13,9 @@ if [ "${PROFILE}" = "basevm" ]; then
             install_packages syncthing syncthingtray
             sudo systemctl enable syncthing@${USER_NAME}.service
             ;;
+        "kali")
+            install_packages syncthing syncthingtray syncthingtray-kde-plasma
+            sudo systemctl enable syncthing@${USER_NAME}.service
+            ;;
     esac
-
 fi

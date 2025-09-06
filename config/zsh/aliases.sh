@@ -62,3 +62,7 @@ alias clean_codes='sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"'
 
 # Find packages without leaving the terminal
 alias yayf="yay -Slq | fzf --multi --preview 'yay -Sii {1}' --preview-window=down:75% | xargs -ro yay -S"
+
+if command -v fdfind &>/dev/null && ! command -v fd &>/dev/null; then
+    alias fd=fdfind
+fi
