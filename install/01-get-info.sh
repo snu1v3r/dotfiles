@@ -12,29 +12,39 @@ if ! command -v gum &>/dev/null ; then
     fi
 fi
 
-# Configure identification
-echo -e "\nEnter identification for git and autocomplete..."
-USER_NAME=$(gum input --placeholder "Enter full name" --prompt "Name> ")
-USER_EMAIL=$(gum input --placeholder "Enter email address" --prompt "Email> ")
+if [ -f "${HOME}/install.conf" ]; then
+    install_info "Continueing from previous install taking settings form install.conf"
+    source "${HOME}/install.conf"
+else
+    # Configure identification
+    echo -e "\nEnter identification for git and autocomplete..."
+    USER_NAME=$(gum input --placeholder "Enter full name" --prompt "Name> ")
+    USER_EMAIL=$(gum input --placeholder "Enter email address" --prompt "Email> ")
 
-install_info "Installing for user: $USER_NAME"
-install_info "Using e-mail: $USER_EMAIL"
+    install_info "Installing for user: $USER_NAME"
+    install_info "Using e-mail: $USER_EMAIL"
 
-# Select profile
-if [ "$PROFILE" = "" ]; then
-  RESULT=$(gum choose Main BaseVM Headless --header="Select the target profile:")
-  if [ "$RESULT" = "" ]; then
-    PROFILE="main"
-  else
-    PROFILE=$(echo "$RESULT" | tr '[:upper:]' '[:lower:]')
-  fi
+    # Select profile
+    if [ "$PROFILE" = "" ]; then
+      RESULT=$(gum choose Main BaseVM Headless --header="Select the target profile:")
+      if [ "$RESULT" = "" ]; then
+        PROFILE="main"
+      else
+        PROFILE=$(echo "$RESULT" | tr '[:upper:]' '[:lower:]')
+      fi
+    fi
+
+    install_info "The following profile is used: $PROFILE"
+
+    if [ ! "${PROFILE}" = "headless" ]; then
+        # Select target resolution
+        RESOLUTION=$(gum choose "3440x1440" "2880x1800" "2560x1440" "1920x1080" "MULTI" --header="Select the target resolution:")
+        install_info "The following resolution is used: $RESOLUTION"
+    fi
+    tee ${HOME}/install.conf &>/dev/null <<EOF
+    USER_NAME=${USER_NAME}
+    USER_EMAIL=${USER_EMAIL}
+    PROFILE=${PROFILE}
+    RESOLUTION=${RESOLUTION}
+EOF
 fi
-
-install_info "The following profile is used: $PROFILE"
-
-if [ ! "${PROFILE}" = "headless" ]; then
-    # Select target resolution
-    RESOLUTION=$(gum choose "3440x1440" "2880x1800" "2560x1440" "1920x1080" "MULTI" --header="Select the target resolution:")
-    install_info "The following resolution is used: $RESOLUTION"
-fi
-

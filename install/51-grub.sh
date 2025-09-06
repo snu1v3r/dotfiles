@@ -9,15 +9,15 @@ if [ ! "${PROFILE}" = "headless" ]; then
     # This ensures that grub uses a higher graphix resolution
     if [[ "${RESOLUTION}" =~ "MULTI" ]]; then
         sudo sed -i "s/^#\?\(GRUB_GFXMODE=\).*$/\\11920x1080/" /etc/default/grub
+        sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash video=1920x1080/" /etc/default/grub
     else
         sudo sed -i "s/^#\?\(GRUB_GFXMODE=\).*$/\\1${RESOLUTION}/" /etc/default/grub
-        sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash/" /etc/default/grub
+        sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash video=${RESOLUTION}/" /etc/default/grub
     fi
 
     # This ensures that the theme is configured
     sudo sed -i "s/^#\?\(GRUB_THEME=\).*$/\\1\"\/boot\/grub\/themes\/Mountain\/theme.txt\"/" /etc/default/grub
 
-    sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash/" /etc/default/grub
 
     sudo sed -i "s/#\(GRUB_DISABLE_OS_PROBER=\).*/\1false/g" /etc/default/grub
     # Update grub to enable updates

@@ -1,3 +1,9 @@
+# Some cleanup to enable stow
+
+if [ -f "${HOME}/.config/kglobalshortcutsrc" ] && [ ! -L "${HOME}/.config/kglobalshortcutsrc" ]; then
+    rm ${HOME}/.config/kglobalshortcutsrc ${HOME}/.config/kwinrc &>/dev/null
+fi
+
 # stow is needed for activating the configuration directories
 install_packages stow
 
