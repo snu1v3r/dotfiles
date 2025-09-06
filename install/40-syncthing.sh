@@ -9,6 +9,7 @@ if [ "${PROFILE}" = "basevm" ]; then
             sudo pacman-key --lsign-key B9E36A7275FC61B464B67907E06FE8F53CDC6A4C # sign imported key locally
             sudo pacman -Sy --noconfirm
             sudo pacman -S --noconfirm syncthing syncthingtray-qt6
+            sudo systemctl enable syncthing@${USER_NAME}.service
             ;;
         "debian")
             install_packages syncthing syncthingtray
