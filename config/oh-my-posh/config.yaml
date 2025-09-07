@@ -21,10 +21,10 @@ palette:
     vpn-background: '#F1C0E4'
     transient-foreground: '#ffffaa'
     keyring-background: '#68B8BE'
-transient_prompt:
-    template: '  ❯ '
-    foreground: 'p:transient-foreground'
-    background: transparent
+# transient_prompt:
+#     template: '  ❯ '
+#     foreground: 'p:transient-foreground'
+#     background: transparent
 upgrade:
     source: cdn
     interval: 168h
