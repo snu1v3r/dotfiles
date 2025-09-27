@@ -261,3 +261,9 @@ _launch=Meta+Return
 
 [services][org.kde.konsole.desktop]
 _launch=
+
+[service][net.local.flameshot.desktop]
+_launch=Print
+
+[services][org.kde.spectacle.desktop]
+_launch=Meta+Shift+S

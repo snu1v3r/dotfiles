@@ -11,7 +11,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
                 networkmanager network-manager-applet
             ;;
         "debian")
-            install_packages network-manager gnome-sushi fcitx5-config-qt
+            install_packages network-manager gnome-sushi fcitx5-config-qt flameshot
             ;;
     esac
 
