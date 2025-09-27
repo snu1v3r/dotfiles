@@ -85,7 +85,7 @@ saveclip() {
       return 1
     fi
   else
-    if [[ $(xclip -o -t TARGETS) =~ 'image/png' ]]; then
+    if [[ $(xclip -selection clipboard -o -t TARGETS) =~ 'image/png' ]]; then
       xclip -selection clipboard -t image/png -o >$1
       log_info "Image saved to $(pwd)/$1"
       return 0
