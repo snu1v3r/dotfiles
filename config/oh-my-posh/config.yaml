@@ -103,7 +103,7 @@ blocks:
       filler: <p:terminal-foreground,transparent>─</>
       segments:
         - properties:
-            command: "ip route | head -n1 |grep -E '(tun|tap)' | awk '{print $3 \" \U000F183E \" $5}' "
+            command: "ip route | grep -E 'dev (tun|tap).*proto' | awk '{print $9 \" \U000F183E \" $3}' "
             shell: bash
           foreground: p:text-foreground
           powerline_symbol: 
