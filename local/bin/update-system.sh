@@ -35,7 +35,7 @@ if [ ${#UPDATES[@]} -ne 0 ]; then
     #     echo -e "\t${line}"
     # done
     if gum confirm "Update ${COUNT} system packages"; then
-        yay -Syu --noconfirm
+        yay -Syu --noconfirm || echo -e "\e[32m\n There was an error. Manual intervention needed"
 
         # Offer to reboot if the kernel has been changed
         if [ "$(uname -r | sed 's/-arch/\.arch/')" != "$(pacman -Q linux | awk '{print $2}')" ]; then
