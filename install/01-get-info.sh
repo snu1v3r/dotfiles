@@ -36,7 +36,7 @@ else
 	
 	# Select DM
 	if [ "${DISTRO}" = "arch" ] && [ ! "${PROFILE}" = "headless" ]; then
-		RESULT=$(gum choose Hyprland KDE --header="Select Displaymanager:")
+		RESULT=$(gum choose Hyprland Plasma Gnome --header="Select Displaymanager:")
 		if [ "${RESULT}" = "" ]; then
 			DISPLAYMANAGER="hyprland"
 		else
