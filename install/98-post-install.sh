@@ -2,7 +2,7 @@
 
 # Icons are placed in the correct location using the stow functionality
 # This only ensures that the database is updated
-gtk-update-icon-cache ~/.local/share/icons/hicolor &>/dev/null
+gtk-update-icon-cache ~/.local/share/icons/hicolor &>/dev/null || true # This catches a possible fail of the command
 
 # Desktop files are placed in the correct location using the stow functionality
 # This only ensures that the database is updated
