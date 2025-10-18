@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 declare -a EXTRAS
-if gum confirm "Install extra's?" --default="no" --timeout=5s;  then
+if gum confirm "Install extra's?" --default="no";  then
 	for FILE in ~/.local/share/dotfiles/install/extras/*; do
 		TMP="${FILE%.*}"
 		EXTRAS+=("${TMP##*/}")
