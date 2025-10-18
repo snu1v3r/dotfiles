@@ -6,7 +6,7 @@ if gum confirm "Install extra's?" --default="no";  then
 		EXTRAS+=("${TMP##*/}")
 	done;
 	RESULT=$(gum choose "${EXTRAS[@]}" --no-limit --header="Choose the desired extras")
-	for EXTRA in "${RESULT}"; do
-		source ~/.local/share/dotfiles/install/extra${EXTRA}.sh
+	for EXTRA in ${RESULT[@]}; do
+		source ~/.local/share/dotfiles/install/extras/${EXTRA}.sh
 	done;
 fi
