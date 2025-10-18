@@ -33,7 +33,16 @@ else
         PROFILE=$(echo "$RESULT" | tr '[:upper:]' '[:lower:]')
       fi
     fi
-
+	
+	# Select DM
+	if [ "${DISTRO}" = "arch" ] && [ ! "${PROFILE}" = "headless" ]; then
+		RESULT=$(gum choose Hyprland KDE --header="Select Displaymanager:")
+		if [ "${RESULT}" = "" ]; then
+			DISPLAYMANAGER="hyprland"
+		else
+			DISPLAYMANAGER=$(echo "${RESULT" | tr '[:upper:]' '[:lower:]')
+		fi
+	fi
     install_info "The following profile is used: $PROFILE"
 
     if [ ! "${PROFILE}" = "headless" ]; then
@@ -41,10 +50,10 @@ else
         RESOLUTION=$(gum choose "3440x1440" "2880x1800" "2560x1440" "1920x1080" "MULTI" --header="Select the target resolution:")
         install_info "The following resolution is used: $RESOLUTION"
     fi
-    tee ${HOME}/install.conf &>/dev/null <<EOF
-    USER_NAME=${USER_NAME}
-    USER_EMAIL=${USER_EMAIL}
-    PROFILE=${PROFILE}
-    RESOLUTION=${RESOLUTION}
-EOF
+    tee ${HOME}/install.conf &>/dev/null <<- EOF
+	USER_NAME=${USER_NAME}
+	USER_EMAIL=${USER_EMAIL}
+	PROFILE=${PROFILE}
+	RESOLUTION=${RESOLUTION}
+	EOF
 fi

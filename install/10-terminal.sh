@@ -63,8 +63,8 @@ case "${DISTRO}" in
         ;;
     "arch")
         install_packages fd eza zoxide bat bat-extras openssh \
-          wl-clipboard fastfetch btop \
-          nvim yazi swappy fzf \
+          fastfetch btop \
+          nvim yazi fzf \
           networkmanager-openvpn \
           tldr oh-my-posh-bin
         ;;

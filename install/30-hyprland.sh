@@ -1,4 +1,4 @@
-if [ "${DISTRO}" = "arch" ] && [ ! "${PROFILE}" = "headless" ]; then
+if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "hyprland" ] && [ ! "${PROFILE}" = "headless" ]; then
     tee ${HOME}/.config/hypr/overrides.conf &>/dev/null <<EOF
 # This file can be used to override monitor settings on a system specific level 
 # See https://wiki.hyprland.org/Configuring/Monitors/
@@ -43,6 +43,7 @@ EOF
     install_packages \
       hyprland hyprshot hyprpicker hyprlock hypridle hyprpolkitagent hyprland-qtutils \
       waybar mako swaybg swayosd \
-    xdg-desktop-portal-hyprland xdg-desktop-portal-gtk uwsm wiremix walker-bin
+    xdg-desktop-portal-hyprland xdg-desktop-portal-gtk uwsm wiremix walker-bin \
+	wl-clipboard wl-clip-persist swappy
 fi
 

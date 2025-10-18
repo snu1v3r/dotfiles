@@ -7,7 +7,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
         "arch")
             install_packages brave-bin \
                 fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt \
-                wl-clip-persist clipse sushi \
+                clipse sushi \
                 networkmanager network-manager-applet
             ;;
         "debian")
