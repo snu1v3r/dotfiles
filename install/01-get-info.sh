@@ -40,7 +40,7 @@ else
 		if [ "${RESULT}" = "" ]; then
 			DISPLAYMANAGER="hyprland"
 		else
-			DISPLAYMANAGER=$(echo "${RESULT" | tr '[:upper:]' '[:lower:]')
+			DISPLAYMANAGER=$(echo "${RESULT}" | tr '[:upper:]' '[:lower:]')
 		fi
 	fi
     install_info "The following profile is used: $PROFILE"
@@ -55,5 +55,6 @@ else
 	USER_EMAIL=${USER_EMAIL}
 	PROFILE=${PROFILE}
 	RESOLUTION=${RESOLUTION}
+	DISPLAYMANAGER=${DISPLAYMANAGER}
 	EOF
 fi
