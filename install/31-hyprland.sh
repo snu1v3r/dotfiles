@@ -44,6 +44,6 @@ EOF
       hyprland hyprshot hyprpicker hyprlock hypridle hyprpolkitagent hyprland-qtutils \
       waybar mako swaybg swayosd \
     xdg-desktop-portal-hyprland xdg-desktop-portal-gtk uwsm wiremix walker-bin \
-	wl-clipboard wl-clip-persist swappy
+	wl-clipboard wl-clip-persist swappy elephant-desktopapplications
 fi
 

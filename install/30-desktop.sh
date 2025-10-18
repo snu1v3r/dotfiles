@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 if [ ! "${PROFILE}" = "headless" ]; then
     install_packages alacritty playerctl pamixer playerctl pavucontrol wireplumber qalculate-gtk \
-        vlc nautilus evince imv kitty elephant-desktopapplications
+        vlc nautilus evince imv kitty
 
     case "${DISTRO}" in
         "arch")
