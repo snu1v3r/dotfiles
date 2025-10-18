@@ -82,3 +82,4 @@ case "${PROMPT_APP}" in
         eval "$(oh-my-posh init zsh --config ~/.config/oh-my-posh/config.yaml)"
         ;;
 esac
+export GDK_BACKEND=wayland,x11
