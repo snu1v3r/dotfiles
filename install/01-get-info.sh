@@ -30,7 +30,7 @@ else
       if [ "$RESULT" = "" ]; then
         PROFILE="main"
       else
-        PROFILE=$(echo "$RESULT" | tr '[:upper:]' '[:lower:]')
+        PROFILE=${RESULT,,}
       fi
     fi
 	
@@ -40,7 +40,7 @@ else
 		if [ "${RESULT}" = "" ]; then
 			DISPLAYMANAGER="hyprland"
 		else
-			DISPLAYMANAGER=$(echo "${RESULT}" | tr '[:upper:]' '[:lower:]')
+			DISPLAYMANAGER=${RESULT,,}
 		fi
 	fi
     install_info "The following profile is used: $PROFILE"
