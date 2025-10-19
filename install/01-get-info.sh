@@ -33,6 +33,7 @@ else
         PROFILE=${RESULT,,}
       fi
     fi
+    install_info "The following profile is used: $PROFILE"
 	
 	# Select DM
 	if [ "${DISTRO}" = "arch" ] && [ ! "${PROFILE}" = "headless" ]; then
@@ -42,8 +43,8 @@ else
 		else
 			DISPLAYMANAGER=${RESULT,,}
 		fi
+		install_info "The following displaymanager is used: $DISPLAYMANAGER"
 	fi
-    install_info "The following profile is used: $PROFILE"
 
     if [ ! "${PROFILE}" = "headless" ]; then
         # Select target resolution

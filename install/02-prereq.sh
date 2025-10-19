@@ -5,7 +5,7 @@ if [ -f "${HOME}/.config/kglobalshortcutsrc" ] && [ ! -L "${HOME}/.config/kgloba
 fi
 
 # stow is needed for activating the configuration directories
-install_packages stow
+install_packages stow filesystem
 
 # yay is used for the aur repo
 if [ ${DISTRO} = "arch" ]; then

@@ -6,9 +6,11 @@ if [ ! "${PROFILE}" = "headless" ]; then
     case "${DISTRO}" in
         "arch")
             install_packages brave-bin \
-                fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt \
                 clipse sushi \
                 networkmanager network-manager-applet
+			if [ ! "${DISPLAYMANAGER}" = "gnome" ]; then
+                install_packages fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt
+			fi
             ;;
         "debian")
             install_packages network-manager gnome-sushi fcitx5-config-qt flameshot
