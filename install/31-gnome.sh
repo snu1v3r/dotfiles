@@ -33,6 +33,8 @@ if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFI
 	[org/gnome/desktop/wm/keybindings]
 	close=['<Super>w']
 	toggle-maximized=['<Alt>Return']
+	[org/gnome/mutter]
+	workspaces-only-on-primary=false
 	EOF
 fi
 
