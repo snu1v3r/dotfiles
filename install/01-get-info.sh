@@ -30,11 +30,11 @@ else
       if [ "$RESULT" = "" ]; then
         PROFILE="main"
       else
-        PROFILE=${RESULT,,}
+        PROFILE=${RESULT,,} # This lowercases the argument
       fi
     fi
     install_info "The following profile is used: $PROFILE"
-	
+
 	# Select DM
 	if [ "${DISTRO}" = "arch" ] && [ ! "${PROFILE}" = "headless" ]; then
 		RESULT=$(gum choose Hyprland Plasma Gnome --header="Select Displaymanager:")

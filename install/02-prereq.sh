@@ -4,9 +4,6 @@ if [ -f "${HOME}/.config/kglobalshortcutsrc" ] && [ ! -L "${HOME}/.config/kgloba
     rm ${HOME}/.config/kglobalshortcutsrc ${HOME}/.config/kwinrc &>/dev/null
 fi
 
-# stow is needed for activating the configuration directories
-install_packages stow filesystem
-
 # yay is used for the aur repo
 if [ ${DISTRO} = "arch" ]; then
     sudo sed -i 's/#\(\[multilib\]\)/\1\nInclude = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
@@ -20,3 +17,6 @@ if [ ${DISTRO} = "arch" ]; then
       rm -rf yay-bin
     fi
 fi
+
+# stow is needed for activating the configuration directories
+install_packages stow

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-if [ ! "${PROFILE}" = "headless" ]; then
+if [ ! "${PROFILE}" = "headless" ] && [ -f /boot/grub/grub.cfg ]; then
+	# Only install Grub theme when Grub is used
     install_packages os-prober
     sudo mkdir -p /boot/grub/themes
     sudo cp -r ~/.local/share/themes/static/grub/* /boot/grub/themes
