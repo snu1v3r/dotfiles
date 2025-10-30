@@ -1,5 +1,5 @@
 if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFILE}" = "headless" ]; then
-	install_packages gdm gnome xorg-xserver xorg-xinit
+	install_packages gdm gnome xorg-xserver xorg-xinit gnome-tweaks iwd openssh smartmontools wget wireless_tools wpa_supplicant xdg-utils
 	sudo systemctl enable gdm.service
 	gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us+dvorak')]"
 	# Clear existing use for <Meta>+number
