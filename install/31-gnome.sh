@@ -16,12 +16,22 @@ if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFI
 	done
 	dconf load '/' <<- EOF
 	[org/gnome/settings-daemon/plugins/media-keys]
-	custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
+	custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
+	home=['<Super>f']
+	www=['<Super>b']
 	[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
 	binding='<Super>Return'
 	command='/usr/bin/kitty'
 	name='Terminal'
+	[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+	binding='<Super>c'
+	command='/usr/bin/qalculate-gtk'
+	name='Calculator'
+	[org/gnome/shell]
+	favorite-apps=['brave-browser.desktop', 'org.gnome.Nautilus.desktop', 'kitty.desktop']
+	welcome-dialog-last-shown-version='49.1'
 	[org/gnome/desktop/wm/keybindings]
+	close=['<Super>w']
 	toggle-maximized=['<Alt>Return']
 	EOF
 fi
