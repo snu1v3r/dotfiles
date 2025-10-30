@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # SDDM as a login manager is only used on the main Arch machine. In other (vm) variants automatic login is used
-if [ "${PROFILE}" = "main" ] && [ "${DISTRO}" = "arch" ]; then
+if [ "${PROFILE}" = "main" ] && [ "${DISTRO}" = "arch" ] && [ ! command -v gdm 2>/dev/null ]; then
     install_packages sddm weston qt5-quickcontrols qt5-quickcontrols2 qt5-graphicaleffects
     sudo mkdir -p /usr/share/sddm/themes
     sudo cp -r ~/.local/share/themes/static/sddm/* /usr/share/sddm/themes
