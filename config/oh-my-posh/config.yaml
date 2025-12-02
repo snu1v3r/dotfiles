@@ -90,7 +90,7 @@ blocks:
           type: go
           style: powerline
         - properties:
-            display_mode: files
+            display_mode: environment
             fetch_virtual_env: true
           template: ' {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}  '
           foreground: p:terminal-background

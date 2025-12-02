@@ -4,6 +4,7 @@ alias fzp="fzf --preview 'bat --style=numbers --colors=always --line-range :500 
 alias fzv="fzf --print0 | xargs -0 -o nvim"
 alias mc="mc --nosubshell"
 alias lg=lazygit
+alias lzd=lazydocker
 alias ls='eza --group-directories-first --icons=auto'
 alias la='ls -a'
 alias ll='ls -lh'
