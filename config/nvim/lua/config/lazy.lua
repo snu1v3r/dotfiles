@@ -20,6 +20,8 @@ vim.opt.rtp:prepend(lazypath)
 -- This is also a good place to setup other settings (vim.opt)
 
 require("config.pre-options")
+-- lua/plugins.lua (or your lazy.nvim spec)
+
 -- Setup lazy.nvim
 vim.g.lazyvim_check_order = false
 require("lazy").setup({
@@ -33,5 +35,7 @@ require("lazy").setup({
 	-- automatically check for plugin updates
 	checker = { enabled = true },
 })
+
+-- Make keymaps buffer-local only when LSP attaches
 require("config.keymaps")
 require("config.post-options")
