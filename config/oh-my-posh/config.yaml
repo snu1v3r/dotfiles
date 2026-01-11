@@ -83,7 +83,7 @@ blocks:
         - properties:
             display_mode: files
             fetch_version: true
-          template: ' {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}  '
+          template: '  {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }} '
           foreground: p:terminal-background
           powerline_symbol: 
           background: p:go-background
@@ -92,7 +92,8 @@ blocks:
         - properties:
             display_mode: environment
             fetch_virtual_env: true
-          template: ' {{ if .Error }}{{ .Error }}{{ else }}{{ .Full }}{{ end }}  '
+            home_enabled: true
+          template: '  {{ if .Venv }}{{ .Venv }}{{ else }}{{ .Full }}{{ end }} '
           foreground: p:terminal-background
           powerline_symbol: 
           background: p:python-background
