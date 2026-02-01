@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 case "${DISTRO}" in
-    "debian"|"kali")
+    "debian"|"kali"|"ubuntu")
         install_packages fonts-noto fonts-noto-color-emoji fonts-noto-cjk fonts-noto-extra 
         # This section is disabled because these fonts are installed through the stowed directory
         # if ! fc-list | grep -qi "JetBrainsMono Nerd Font"; then

@@ -12,7 +12,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
                 install_packages fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt
 			fi
             ;;
-        "debian")
+        "debian"|"ubuntu")
             install_packages network-manager gnome-sushi fcitx5-config-qt flameshot
             ;;
     esac
@@ -28,7 +28,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
             "arch")
                 install_packages nextcloud-client qt5-wayland
                 ;;
-            "debian")
+            "debian"|"ubuntu")
                 install_packages nextcloud-desktop
                 ;;
         esac

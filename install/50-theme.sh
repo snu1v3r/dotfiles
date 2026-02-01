@@ -6,7 +6,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
         "arch")
             install_packages kvantum-qt5 gnome-themes-extra
             ;;
-        "debian")
+        "debian"|"ubuntu")
             install_packages qt5-style-kvantum gnome-themes-extra
             ;;
     esac

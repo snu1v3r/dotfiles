@@ -6,7 +6,7 @@ case "${DISTRO}" in
     "arch")
         install_packages lazygit
         ;;
-    "debian"|"kali")
+    "debian"|"kali"|"ubuntu")
         SUFFIX=Linux_x86_64
         TAGNAME=$(wget -qO- https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r .name | cut -c2-)
         if [ ! -z "${TAGNAME}" ]; then

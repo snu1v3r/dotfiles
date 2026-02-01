@@ -5,7 +5,7 @@ install_packages wget curl unzip ripgrep zoxide bat \
     tmux luarocks mc npm openvpn
 
 case "${DISTRO}" in
-    "debian"|"kali")
+    "debian"|"kali"|"ubuntu")
         install_packages fd-find openssh-client openssh-server p7zip python3-venv \
             network-manager-openvpn-gnome network-manager-openvpn
         #
@@ -71,7 +71,7 @@ case "${DISTRO}" in
 esac
 
 case "${DISTRO}" in
-    "debian")
+    "debian"|"ubuntu")
         install_packages tldr
         ;;
     "kali")

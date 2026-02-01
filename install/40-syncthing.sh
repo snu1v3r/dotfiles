@@ -9,7 +9,7 @@ if [ "${PROFILE}" = "basevm" ]; then
             sudo pacman -S --noconfirm syncthing syncthingtray-qt6
             sudo systemctl enable syncthing@${USER_NAME}.service
             ;;
-        "debian")
+        "debian"|"ubuntu")
             install_packages syncthing syncthingtray
             sudo systemctl enable syncthing@${USER_NAME}.service
             ;;

@@ -5,8 +5,8 @@ case "${DISTRO}" in
     "arch")
         install_packages docker docker-compose lazydocker
         ;;
-    "debian")
-        install_packages docker.io docker-compose
+    "debian"|"ubuntu")
+        install_packages docker.io docker-compose-v2
         SUFFIX=Linux_x86_64
         TAGNAME=$(wget -qO- https://api.github.com/repos/jesseduffield/lazydocker/releases/latest | jq -r .name | cut -c2-)
         if [ ! -z "${TAGNAME}" ]; then

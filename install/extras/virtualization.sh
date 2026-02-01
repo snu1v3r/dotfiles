@@ -28,7 +28,7 @@ case "${DISTRO}" in
     "arch")
         install_packages qemu-base qemu-desktop dnsmasq
         ;;
-    "debian")
+    "debian"|"ubuntu")
         install_packages qemu-system-gui qemu-system-q86 dnsmasq \
             qemu-user qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
         ;;

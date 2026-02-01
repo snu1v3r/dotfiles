@@ -7,7 +7,7 @@ if [ "$PROFILE" = "main" ]; then
             # Install bluetooth controls
             install_packages blueberry
             ;;
-        "debian")
+        "debian"|"ubuntu")
             install_packages bluetooth
             ;;
     esac
