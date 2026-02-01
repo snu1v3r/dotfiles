@@ -34,7 +34,7 @@ install_warning() {
 
 install_packages() {
     case "${DISTRO}" in 
-        "debian"|"kali")
+        "debian"|"kali"|"ubuntu")
             sudo apt-get install -y $@
             ;;
         "macos")
