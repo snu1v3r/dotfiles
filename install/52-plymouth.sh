@@ -7,7 +7,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
 
     sudo mkdir -p /usr/share/plymouth/themes
     sudo cp -r ~/.local/share/themes/static/plymouth/* /usr/share/plymouth/themes
-    sudo plymouth-set-default-theme arch-linux-branded -R
+    sudo ~/.local/bin/plymouth-set-default-theme arch-linux-branded -R
 
     if [ -f /etc/mkinitcpio.conf ]; then
         # This ensures that plymouth is hooked before encrypt
