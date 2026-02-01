@@ -6,7 +6,9 @@ gtk-update-icon-cache ~/.local/share/icons/hicolor &>/dev/null || true # This ca
 
 # Desktop files are placed in the correct location using the stow functionality
 # This only ensures that the database is updated
-update-desktop-database ~/.local/share/applications
+if [ ! "${DISTRO}" = "ubuntu" ]; then
+	update-desktop-database ~/.local/share/applications
+fi
 
 # This ensures that the font cache is updated
 fc-cache

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ ! "${PROFILE}" = "headless" ]; then
+if [ ! "${PROFILE}" = "headless" ] && [ ! "${DISTRO}" = "ubuntu" ]; then
     # This script is used to install and configure plymouth
 
     install_packages plymouth

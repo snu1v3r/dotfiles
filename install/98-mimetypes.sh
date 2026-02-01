@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ ! "${PROFILE}" = "headless" ] && [ ! "${DISTRO}" = "kali" ]; then
+if [ ! "${PROFILE}" = "headless" ] && [ ! "${DISTRO}" = "kali" ] && [ ! "${DISTRO}" = "ubuntu" ]; then
 
     update-desktop-database ~/.local/share/applications
 

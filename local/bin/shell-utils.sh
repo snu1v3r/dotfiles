@@ -34,7 +34,7 @@ log_error() {
 
 install_packages() {
     case "${DISTRO}" in 
-        "debian")
+        "debian"|"ubuntu"|"kali")
             sudo apt-get install -y $@
             ;;
         "macos")
