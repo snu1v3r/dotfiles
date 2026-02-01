@@ -55,16 +55,16 @@ blocks:
           background: p:path-background
           type: path
           style: powerline
-        - properties:
-            command: ssh-add -l | grep -v identities | wc -l
-            shell: zsh
-            interpret: false
-          powerline_symbol: 
-          template: '{{ if ne .Output "0" }} 󱕴{{ .Output }}{{ end }}'
-          type: command
-          style: powerline
-          foreground: p:terminal-background
-          background: p:keyring-background
+        # - properties:
+        #     command: ssh-add -l | grep -v identities | wc -l
+        #     shell: zsh
+        #     interpret: false
+        #   powerline_symbol: 
+        #   template: '{{ if ne .Output "0" }} 󱕴{{ .Output }}{{ end }}'
+        #   type: command
+        #   style: powerline
+        #   foreground: p:terminal-background
+        #   background: p:keyring-background
         - properties:
             branch_icon: '  '
             fetch_status: true
@@ -103,24 +103,20 @@ blocks:
       alignment: right
       filler: <p:terminal-foreground,transparent>─</>
       segments:
-        - properties:
-            command: "ip route | grep -E 'dev (tun|tap).*proto kernel scope' | awk '{print $9 \" \U000F183E \" $3}' "
-            shell: bash
-          foreground: p:text-foreground
+        - foreground: p:text-foreground
           powerline_symbol: 
           background: p:vpn-background
-          type: command
+          type: text
           style: powerline
           invert_powerline: true
-        - properties:
-            command: "ip route | grep -m1 default | awk '{print $9 \" \U000F0A60 \" $5}' || echo ' \U000F0A60 '"
-            shell: bash
-          foreground: p:text-foreground
+          template: ' {{ .Env.POSH_VPN }} '
+        - foreground: p:text-foreground
           powerline_symbol: 
           background: p:path-background
-          type: command
+          type: text
           style: powerline
           invert_powerline: true
+          template: ' {{ .Env.POSH_IP }} '
         - trailing_diamond: 
           template: ' {{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }} '
           foreground: p:text-foreground
