@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 if ! command -v gum &>/dev/null ; then
     install_info "Installing gum..."
-    if [ "${DISTRO}" = "debian" ]; then
+	if [[ "${DISTRO}" =~ ^(debian|ubuntu) ]]; then
         install_packages jq
         GUMTAG=$(wget -qO- https://api.github.com/repos/charmbracelet/gum/releases/latest | jq -r .tag_name | cut -c2-)
         wget -q -O /tmp/gum.deb https://github.com/charmbracelet/gum/releases/download/v${GUMTAG}/gum_${GUMTAG}_amd64.deb
