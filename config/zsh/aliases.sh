@@ -67,3 +67,15 @@ alias yayf="yay -Slq | fzf --multi --preview 'yay -Sii {1}' --preview-window=dow
 if command -v fdfind &>/dev/null && ! command -v fd &>/dev/null; then
     alias fd=fdfind
 fi
+
+if command -v tmuxifier &>/dev/null; then
+	alias tx="tmuxifier"
+	alias txs="tmuxifier load-session"
+	alias txw="tmuxifier load-window"
+	alias txl="tmuxifier list"
+	alias txls="tmuxifier list-sessions"
+	alias txlw="tmuxifier list-windows"
+	alias txes="tmuxifier edit-session"
+	alias txew="tmuxfiier edit-window"
+
+fi

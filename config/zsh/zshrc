@@ -46,6 +46,12 @@ if command -v fzf &> /dev/null; then
   source <(fzf --zsh)
 fi
 
+# Enable shell integration for tmuxifier
+if command -v tmuxifier &> /dev/null; then
+    export TMUXIFIER="${HOME}/.local/share/tmuxifier"
+    eval "$(tmuxifier init -)"
+fi 
+
 source ${ZDOTDIR}/base_config.sh
 source ${ZDOTDIR}/syntax.sh
 source ${ZDOTDIR}/aliases.sh
