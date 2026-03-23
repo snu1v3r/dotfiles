@@ -17,11 +17,11 @@ if initialize_session "ataka"; then
   run_cmd "cd frontend && clear"
   send_keys "npm run dev"
   new_window "ataka"
-  send_keys "docker compose up --build"
+  send_keys "docker compose --profile dev up --build"
   new_window "cli"
-  select_window "runners"
-  split_h 40
-  run_cmd "cd backend && clear"
+  # select_window "runners"
+  # split_h 40
+  # run_cmd "cd backend && clear"
 
   # Load a defined window layout.
   # load_window "ataka"
