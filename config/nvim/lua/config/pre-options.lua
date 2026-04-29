@@ -35,3 +35,14 @@ vim.g.maplocalleader = " "
 
 vim.opt.splitright = true
 
+vim.filetype.add({
+	pattern = {
+		-- Detect files in tasks, roles, or handlers directories
+		[".*/tasks/.*%.ya?ml"] = "yaml.ansible",
+		[".*/roles/.*%.ya?ml"] = "yaml.ansible",
+		-- Or detect by filename pattern
+		["playbook%.ya?ml"] = "yaml.ansible",
+		["site%.ya?ml"] = "yaml.ansible",
+		["main%.ya?ml"] = "yaml.ansible",
+	},
+})

@@ -38,3 +38,7 @@ vim.diagnostic.config({
 		end,
 	},
 })
+vim.lsp.enable("ansiblels")
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("pylsp")
+vim.lsp.enable("ruff")
