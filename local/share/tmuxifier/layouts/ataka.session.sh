@@ -9,8 +9,6 @@ if initialize_session "ataka"; then
   # Create a new window inline within session layout definition.
   new_window "ataka-dev"
   run_cmd "cd ataka && source ../.venv/bin/activate && clear"
-  new_window "backend-dev"
-  run_cmd "cd backend && source .venv/bin/activate && clear"
   new_window "frontend-dev"
   run_cmd "cd frontend && clear"
   new_window "runners"
