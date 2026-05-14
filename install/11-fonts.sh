@@ -21,8 +21,12 @@ case "${DISTRO}" in
         # fi
         ;;
     "arch")
-        install_packages ttf-font-awesome noto-fonts noto-fonts-emoji \
-            noto-fonts-cjk noto-fonts-extra ttf-jetbrains-mono-nerd
+		if [ "$DISPLAYMANAGER" != "niri" ];
+			install_packages ttf-font-awesome noto-fonts noto-fonts-emoji \
+				noto-fonts-cjk noto-fonts-extra
+
+		fi
+        install_packages ttf-jetbrains-mono-nerd
         ;;
 esac
 
