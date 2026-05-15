@@ -24,7 +24,7 @@ EOF
 
 
 # This creates the necessary service file
-tee /etc/systemd/system/first_boot.service &>/dev/null <<EOF
+sudo tee /etc/systemd/system/first_boot.service &>/dev/null <<EOF
 [Unit]
 Description=First Boot Initialization Script
 ConditionPathExists=${HOME}/first_boot.sh
