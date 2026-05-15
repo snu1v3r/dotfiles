@@ -25,7 +25,8 @@ EOF
 
 
 # This creates the necessary service file
-tee ${HOME}/first_boot.service &>/dev/null <<EOF
+mkdir -p "${HOME}/.config/systemd/user"
+tee "${HOME}/.config/systemd/user/first_boot.service" &>/dev/null <<EOF
 [Unit]
 Description=First Boot Initialization Script
 ConditionPathExists=${HOME}/first_boot.sh
@@ -39,7 +40,6 @@ ExecStart=${HOME}/first_boot.sh
 WantedBy=default.target
 EOF
 
-chmod +x "${HOME}/first_boot.sh"
 
 # This starts the necessary service for first boot
 

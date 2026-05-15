@@ -30,5 +30,8 @@ tee -a ${HOME}/first_boot.sh &>/dev/null <<EOF
 #
 # Any necessery first install actions can be added to this script by just adding to the 'first_boot.sh' script
 EOF
+
+chmod +x "${HOME}/first_boot.sh"
+
 # stow is needed for activating the configuration directories
 install_packages stow
