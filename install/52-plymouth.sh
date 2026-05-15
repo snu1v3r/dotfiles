@@ -15,7 +15,7 @@ if [ ! "${PROFILE}" = "headless" ] && [ ! "${DISTRO}" = "ubuntu" ]; then
 
         # Regenerate boot image
 		kernel_version=`ls -t1 /usr/lib/modules/ | head -n 1`
-        sudo mkinitcpio "${kernel_version}" -g /boot/initramfs-linux.img
+        sudo mkinitcpio -k "${kernel_version}" -g /boot/initramfs-linux.img
     fi
 
 fi
