@@ -14,7 +14,7 @@ if [ ! "${PROFILE}" = "headless" ] && [ ! "${DISTRO}" = "ubuntu" ]; then
         sudo sed -i "s/\(^HOOKS=([^)]*\)encrypt/\\1plymouth encrypt/" /etc/mkinitcpio.conf
 
         # Regenerate boot image
-		kernel_version=`ls -t1 /usr/lib/modules/ | head -n 1
+		kernel_version=`ls -t1 /usr/lib/modules/ | head -n 1`
         sudo mkinitcpio "${kernel_version}" -g /boot/initramfs-linux.img
     fi
 
