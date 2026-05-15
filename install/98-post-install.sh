@@ -16,12 +16,12 @@ sudo updatedb
 
 # This removes directory's I never use
 tee -a ${HOME}/first_boot.sh &>/dev/null <<EOF
-sleep 10
+sleep 2 # Sleep is needed to let the system start
 cd ~ && rm -rf Desktop Documents Music Pictures Public Templates Videos
 systemctl --user disable first_boot.service
 echo "Post install" >> ${HOME}/install.log
-#rm "${HOME}/first_boot.service
-#rm "${HOME}/first_boot.sh"
+rm "${HOME}/.config/systemd/user/first_boot.service
+rm "${HOME}/first_boot.sh"
 EOF
 
 
