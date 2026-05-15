@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 if [ ! "${PROFILE}" = "headless" ]; then
     install_packages alacritty playerctl pamixer playerctl pavucontrol wireplumber qalculate-gtk \
-        vlc nautilus evince imv kitty
+        vlc nemo evince imv kitty
 
     case "${DISTRO}" in
         "arch")
@@ -18,9 +18,6 @@ if [ ! "${PROFILE}" = "headless" ]; then
     esac
 
     sudo systemctl enable NetworkManager.service
-    # yay -S --noconfirm --needed \
-    #   spotify \
-    #   obsidian
 
     if [ "$PROFILE" = "main" ]; then
         install_packages keepassxc brightnessctl gnome-keyring thunderbird

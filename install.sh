@@ -65,9 +65,9 @@ rm -rf ~/.local/share/dotfiles/
 
 if [[ -z "${REPO}" ]]; then
 	# This is kept for the final version
-	git clone --depth 1 --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
+	git clone --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
 else
-	git clone -b "${REPO}" --depth 1 --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
+	git clone -b "${REPO}" --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
 fi
 
 

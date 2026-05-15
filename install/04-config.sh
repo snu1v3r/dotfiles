@@ -33,13 +33,13 @@ sudo chsh -s $(which zsh) $USER
 # but no real decission has been made
 
 # Login directly as user, rely on hyprlock for security only used on the basevm, main machine uses SDDM
-sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
 if [ ! "${PROFILE}" = "basevm" ]; then
-    sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf >/dev/null <<EOF
-[Service]
-ExecStart=
-ExecStart=-/usr/bin/agetty --autologin $USER --noclear %I \$TERM
-EOF
+	sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
+    sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf >/dev/null <<- EOF
+	[Service]
+	ExecStart=
+	ExecStart=-/usr/bin/agetty --autologin $USER --noclear %I \$TERM
+	EOF
 fi
 
 # Set identification from install inputs

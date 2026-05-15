@@ -11,7 +11,7 @@
 # ==============================================================================
 
 # --- GPU Detection ---
-if [ -n "$(lspci | grep -i 'nvidia')" ] && [ "${DISTRO}" = "xxarch" ]; then
+if [ -n "$(lspci | grep -i 'nvidia')" ] && [ "${DISTRO}" = "arch" ]; then
   # --- Driver Selection ---
   # Turing (16xx, 20xx), Ampere (30xx), Ada (40xx), and newer recommend the open-source kernel modules
   if echo "$gpu_info" | grep -q -E "RTX [2-9][0-9]|GTX 16"; then
@@ -73,12 +73,12 @@ if [ -n "$(lspci | grep -i 'nvidia')" ] && [ "${DISTRO}" = "xxarch" ]; then
   # Add NVIDIA environment variables to hyprland.conf
   HYPRLAND_CONF="$HOME/.config/hypr/overrides.conf"
   if [ -f "$HYPRLAND_CONF" ]; then
-    cat >>"$HYPRLAND_CONF" <<'EOF'
+    cat >>"$HYPRLAND_CONF" <<- EOF
 
-# NVIDIA environment variables
-env = NVD_BACKEND,direct
-env = LIBVA_DRIVER_NAME,nvidia
-env = __GLX_VENDOR_LIBRARY_NAME,nvidia
-EOF
+	# NVIDIA environment variables
+	env = NVD_BACKEND,direct
+	env = LIBVA_DRIVER_NAME,nvidia
+	env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+	EOF
   fi
 fi

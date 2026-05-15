@@ -1,6 +1,8 @@
 if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFILE}" = "headless" ]; then
-	install_packages gdm gnome xorg-xserver xorg-xinit gnome-tweaks iwd openssh smartmontools wget wireless_tools wpa_supplicant xdg-utils
+	install_packages gdm gnome xorg-xserver xorg-xinit gnome-tweaks iwd openssh smartmontools wget \
+		wireless_tools wpa_supplicant xdg-utils gnome-extensions-cli
 	sudo systemctl enable gdm.service
+	gext install paperwm@paperwm.github.com
 	gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us+dvorak')]"
 	# Clear existing use for <Meta>+number
 	for i in {1..9}; do
@@ -15,6 +17,16 @@ if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFI
 		gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "['<Shift><Super>$((i%10))']";
 	done
 	dconf load '/' <<- EOF
+	[org/gnome/shell/extensions/paperwm]
+	horizontal-margin=6
+	restore-attach-modal-dialogs='true'
+	restore-edge-tiling='true'
+	restore-workspaces-only-on-primary='false'
+	selection-border-radius-top=4
+	selection-border-size=4
+	vertical-margin=6
+	vertical-margin-bottom=6
+	window-gap=6
 	[org/gnome/settings-daemon/plugins/media-keys]
 	custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
 	home=['<Super>f']

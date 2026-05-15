@@ -21,11 +21,11 @@ case "${DISTRO}" in
         # fi
         ;;
     "arch")
-		if [ "$DISPLAYMANAGER" != "niri" ];
-			install_packages ttf-font-awesome noto-fonts noto-fonts-emoji \
-				noto-fonts-cjk noto-fonts-extra
-
-		fi
+		# if [ "$DISPLAYMANAGER" != "niri" ];
+		# 	install_packages ttf-font-awesome noto-fonts noto-fonts-emoji \
+		# 		noto-fonts-cjk noto-fonts-extra
+		#
+		# fi
         install_packages ttf-jetbrains-mono-nerd
         ;;
 esac

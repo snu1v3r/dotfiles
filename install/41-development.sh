@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-install_packages imagemagick
 
 case "${DISTRO}" in
     "arch")
