@@ -16,6 +16,7 @@ sudo updatedb
 
 # This removes directory's I never use
 tee -a ${HOME}/first_boot.sh &>/dev/null <<EOF
+sleep 10
 cd ~ && rm -rf Desktop Documents Music Pictures Public Templates Videos
 systemctl --user disable first_boot.service
 echo "Post install" >> ${HOME}/install.log
