@@ -17,6 +17,18 @@ if [ ${DISTRO} = "arch" ]; then
       rm -rf yay-bin
     fi
 fi
-
+#
+# This creates the first boot script. All other scripts can append post install commands
+tee -a ${HOME}/first_boot.sh &>/dev/null <<EOF
+#!/usr/bin/env bash
+# This script is created for first boot after installation configuration
+# It is started by the 'first_boot.service' service.
+#
+# After execution of this script the service and the script will be removed.
+# 
+# If this script is still available  then something went wrong.
+#
+# Any necessery first install actions can be added to this script by just adding to the 'first_boot.sh' script
+EOF
 # stow is needed for activating the configuration directories
 install_packages stow
