@@ -7,7 +7,7 @@ fi
 # yay is used for the aur repo
 if [ ${DISTRO} = "arch" ]; then
     sudo sed -i 's/#\(\[multilib\]\)/\1\nInclude = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
-    sudo pacman -Syyu
+    sudo pacman -Syyu --noconfirm
     install_packages base-devel
     if ! command -v yay &>/dev/null; then
       git clone https://aur.archlinux.org/yay-bin.git
