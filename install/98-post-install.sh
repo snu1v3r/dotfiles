@@ -37,6 +37,8 @@ ExecStart=${HOME}/first_boot.sh
 WantedBy=multi-user.target
 EOF
 
+chmod +x "${HOME}/first_boot.sh"
+
 # This starts the necessary service for first boot
 
 sudo systemctl daemon-reload
