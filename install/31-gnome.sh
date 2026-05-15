@@ -3,6 +3,7 @@ if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFI
 		wireless_tools wpa_supplicant xdg-utils gnome-extensions-cli
 	sudo systemctl enable gdm.service
 	gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us+dvorak')]"
+	gext -F install paperwm@paperwm.github.com
 	# Clear existing use for <Meta>+number
 	for i in {1..9}; do
 		gsettings set org.gnome.shell.keybindings switch-to-application-$i "[]";
