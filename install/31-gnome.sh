@@ -2,7 +2,6 @@ if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFI
 	install_packages gdm gnome xorg-xserver xorg-xinit gnome-tweaks iwd openssh smartmontools wget \
 		wireless_tools wpa_supplicant xdg-utils gnome-extensions-cli
 	sudo systemctl enable gdm.service
-	gext install paperwm@paperwm.github.com
 	gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us+dvorak')]"
 	# Clear existing use for <Meta>+number
 	for i in {1..9}; do

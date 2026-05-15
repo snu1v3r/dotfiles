@@ -16,3 +16,4 @@ sudo updatedb
 
 # This removes directory's I never use
 cd ~ && rm -rf Desktop Documents Music Pictures Public Templates Videos
+gext install paperwm@paperwm.github.com
