@@ -43,6 +43,8 @@ if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFI
 	name='Browser'
 	[org/gnome/shell/extensions/paperwm/keybindings]
 	new-window=['']
+	[org/gnome/desktop/wm/preferences]
+	num-workspaces=6
 	[org/gnome/desktop/wm/keybindings]
 	close=['<Super>w']
 	toggle-maximized=['<Alt>Return']
@@ -64,6 +66,7 @@ if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFI
 	welcome-dialog-last-shown-version='49.1'
 	[org/gnome/mutter]
 	workspaces-only-on-primary=false
+	dynamic-workspaces=false
 	EOF
 fi
 
