@@ -2,7 +2,7 @@
 
 install_packages wget curl unzip ripgrep zoxide bat \
     btop man less whois plocate zsh \
-    tmux luarocks mc npm openvpn
+    tmux luarocks mc npm openvpn direnv
 
 case "${DISTRO}" in
     "debian"|"kali"|"ubuntu")
