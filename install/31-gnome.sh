@@ -4,6 +4,7 @@ if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFI
 	sudo systemctl enable gdm.service
 	gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us+dvorak')]"
 	gext -F install paperwm@paperwm.github.com
+	xdg-settings set default-web-browser brave-browser.desktop
 	# Clear existing use for <Meta>+number
 	for i in {1..9}; do
 		gsettings set org.gnome.shell.keybindings switch-to-application-$i "[]";
@@ -68,7 +69,6 @@ if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFI
 	workspaces-only-on-primary=false
 	dynamic-workspaces=false
 	EOF
-	xdg-settings set default-web-browser brave.desktop
 fi
 
 
