@@ -18,7 +18,7 @@ gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 # Download Random background
 mkdir -p "${HOME}/.local/share/backgrounds"
 SHOTID=$(printf "%04d" $((1 + RANDOM % 100)))
-curl "https://raw.githubusercontent.com/snu1v3r/screenshots/main/${SHOTID}.jpg" --output "${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
+curl "https://raw.githubusercontent.com/snu1v3r/backgrounds/main/${SHOTID}.jpg" --output "${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
 
 case "${DISPLAYMANAGER}" in
 	"gnome")
