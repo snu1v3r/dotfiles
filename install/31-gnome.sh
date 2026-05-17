@@ -68,6 +68,7 @@ if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${PROFI
 	workspaces-only-on-primary=false
 	dynamic-workspaces=false
 	EOF
+	xdg-settings set default-web-browser brave.desktop
 fi
 
 
