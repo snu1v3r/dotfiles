@@ -15,6 +15,17 @@ fi
 gsettings set org.gnome.desktop.interface gtk-theme "Adwaita-dark"
 gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"
 
+# Download Random background
+SHOTID=$(printf "%03d" $((1 + RANDOM % 100)))
+curl "https://raw.githubusercontent.com/snu1v3r/screenshots/main/${SHOTID}.jpg" --output "${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
+
+case "${DISPLAYMANAGER}" in
+	"gnome")
+		gsettings set org.gnome.desktop.background picture-uri "file:///${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
+		;;
+esac
+
+
 # Set initial theme
 mkdir -p ~/.config/theme
 ln -snf ~/.local/share/themes/dynamic/tokyo-night ~/.config/theme/current
