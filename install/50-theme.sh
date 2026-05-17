@@ -23,6 +23,7 @@ curl "https://raw.githubusercontent.com/snu1v3r/backgrounds/main/${SHOTID}.jpg" 
 case "${DISPLAYMANAGER}" in
 	"gnome")
 		gsettings set org.gnome.desktop.background picture-uri "file:///${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
+		gsettings set org.gnome.desktop.background picture-uri-dark "file:///${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
 		;;
 esac
 
