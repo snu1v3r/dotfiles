@@ -5,7 +5,7 @@ if ! command -v gum &>/dev/null ; then
 		"debian"|"kali"|"ubuntu")
 			install_packages jq
 			GUMTAG=$(wget -qO- https://api.github.com/repos/charmbracelet/gum/releases/latest | jq -r .tag_name | cut -c2-)
-			wget -q -O /tmp/gum.deb https://github.com/charmbracelet/gum/releases/download/v${GUMTAG}/gum_${GUMTAG}_amd64.deb
+			wget -q -O /tmp/gum.deb "https://github.com/charmbracelet/gum/releases/download/v${GUMTAG}/gum_${GUMTAG}_amd64.deb"
 			sudo dpkg -i /tmp/gum.deb
 			rm /tmp/gum.deb
 			;;
@@ -16,7 +16,9 @@ if ! command -v gum &>/dev/null ; then
 fi
 
 if [ -f "${HOME}/install.conf" ]; then
-    install_info "Continueing from previous install taking settings form install.conf"
+    install_info "Continuing from previous install taking settings form install.conf"
+	# disables message on file doesn't exist
+	# shellcheck disable=SC1091
     source "${HOME}/install.conf"
 else
     # Configure identification
@@ -54,7 +56,7 @@ else
         RESOLUTION=$(gum choose "3440x1440" "2880x1800" "2560x1440" "1920x1080" "MULTI" --header="Select the target resolution:")
         install_info "The following resolution is used: $RESOLUTION"
     fi
-    tee ${HOME}/install.conf &>/dev/null <<- EOF
+    tee "${HOME}/install.conf" &>/dev/null <<- EOF
 	USER_NAME=${USER_NAME}
 	USER_EMAIL=${USER_EMAIL}
 	PROFILE=${PROFILE}

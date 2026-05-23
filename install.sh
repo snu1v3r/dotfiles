@@ -33,7 +33,7 @@ install_warning() {
 }
 
 install_packages() {
-    case "${DISTRO}" in 
+    case "${DISTRO}" in
         "debian"|"kali"|"ubuntu")
             sudo apt-get install -y $@
             ;;
@@ -41,7 +41,7 @@ install_packages() {
             brew install $@
             ;;
         "alpine")
-            sudo pkg install $@
+            sudo apk add $@
             ;;
         "arch")
             if [ -x "$(command -v yay)" ]; then
@@ -49,6 +49,25 @@ install_packages() {
             else
                 sudo pacman --noconfirm --needed -S $@
             fi
+            ;;
+        *)
+            install_warning "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again."
+    esac
+}
+
+update_and_upgrade() {
+    case "${DISTRO}" in
+        "debian"|"kali"|"ubuntu")
+			sudo apt update && sudo apt upgrade -y
+            ;;
+        "macos")
+            brew update && brew upgrade --quiet
+            ;;
+        "alpine")
+            sudo apk -U upgrade
+            ;;
+        "arch")
+			sudo pacman -Syyu --noconfirm
             ;;
         *)
             install_warning "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again."
