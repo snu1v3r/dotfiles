@@ -642,4 +642,4 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
-include optional=true "override.kdl"
+include optional=true "overrides.kdl"
