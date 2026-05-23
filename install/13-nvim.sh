@@ -12,7 +12,10 @@ case "${DISTRO}" in
 
     "arch")
         install_packages nvim \
-		  shellcheck-bin
+		  shellcheck-bin bash-language-server \
+		  lua-language-server \
+		  ruff python-lsp-server python-lsp-ruff \
+		  ansible-language-server \
         ;;
 esac
 
