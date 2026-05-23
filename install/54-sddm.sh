@@ -6,8 +6,9 @@ if [ "${PROFILE}" = "main" ] && [ "${DISTRO}" = "arch" ] && [ ! command -v gdm 2
     sudo cp /usr/lib/sddm/sddm.conf.d/default.conf /etc/sddm.conf
 
 	if [ "${DISPLAYMANAGER}" = "niri" ]; then
-		install_packages sddm-theme-noctalia-git
+		install_packages sddm-theme-noctalia-git xorg-xrandr
 		sudo sed -i "s/^\(Current=\).*/\\1noctalia/" /etc/sddm.conf
+		sudo sed -i "s/^\(DisplayCommand=\).*/\\1xrandr --output Virtual-1 --mode 2560x1440 --rate 60/" /etc/sddm.conf
 
 	else
 		sudo sed -i "s/^\(Current=\).*/\\1mountain/" /etc/sddm.conf
