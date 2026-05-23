@@ -21,33 +21,33 @@ fi
 
 
 install_info() {
-  echo -e "$(date +%T) $BLUE[i]$CLEAR $1" | tee -a ${HOME}/install.log
+  echo -e "$(date +%T) ${BLUE}[i]${CLEAR} $1" | tee -a "${HOME}/install.log"
 }
 
 install_error() {
-  echo -e "$(date +%T) $RED[E]$CLEAR $1" | tee -a ${HOME}/install.log
+  echo -e "$(date +%T) ${RED}[E]${CLEAR} $1" | tee -a "${HOME}/install.log"
 }
 
 install_warning() {
-  echo -e "$(date +%T) $ORANGE[!]$CLEAR $1" | tee -a ${HOME}/install.log
+  echo -e "$(date +%T) ${ORANGE}[!]$CLEAR $1" | tee -a "${HOME}/install.log"
 }
 
 install_packages() {
     case "${DISTRO}" in
         "debian"|"kali"|"ubuntu")
-            sudo apt-get install -y $@
+            sudo apt-get install -y "$@"
             ;;
         "macos")
-            brew install $@
+            brew install "$@"
             ;;
         "alpine")
-            sudo apk add $@
+            sudo apk add "$@"
             ;;
         "arch")
             if [ -x "$(command -v yay)" ]; then
-                yay --noconfirm --needed -S $@
+                yay --noconfirm --needed -S "$@"
             else
-                sudo pacman --noconfirm --needed -S $@
+                sudo pacman --noconfirm --needed -S "$@"
             fi
             ;;
         *)
