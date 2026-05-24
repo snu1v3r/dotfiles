@@ -11,11 +11,11 @@ if [ ! "${PROFILE}" = "headless" ]; then
 	if [ ! "${DISTRO}" = "ubuntu" ]; then
 		update-desktop-database ~/.local/share/applications
 	fi
+	# This ensures that the font cache is updated
+	fc-cache
+	sudo updatedb
 fi
 
-# This ensures that the font cache is updated
-fc-cache
-sudo updatedb
 
 # This removes directory's I never use
 tee -a ${HOME}/first_boot.sh &>/dev/null <<EOF
