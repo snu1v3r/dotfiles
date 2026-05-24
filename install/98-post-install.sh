@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
-# Icons are placed in the correct location using the stow functionality
-# This only ensures that the database is updated
-gtk-update-icon-cache ~/.local/share/icons/hicolor &>/dev/null || true # This catches a possible fail of the command
+if [ ! "${PROFILE}" = "headless" ]; then
 
-# Desktop files are placed in the correct location using the stow functionality
-# This only ensures that the database is updated
-if [ ! "${DISTRO}" = "ubuntu" ]; then
-	update-desktop-database ~/.local/share/applications
+	# Icons are placed in the correct location using the stow functionality
+	# This only ensures that the database is updated
+	gtk-update-icon-cache ~/.local/share/icons/hicolor &>/dev/null || true # This catches a possible fail of the command
+
+	# Desktop files are placed in the correct location using the stow functionality
+	# This only ensures that the database is updated
+	if [ ! "${DISTRO}" = "ubuntu" ]; then
+		update-desktop-database ~/.local/share/applications
+	fi
 fi
 
 # This ensures that the font cache is updated
