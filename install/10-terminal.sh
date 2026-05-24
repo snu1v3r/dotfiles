@@ -61,8 +61,11 @@ case "${DISTRO}" in
         install_packages fd eza zoxide bat bat-extras openssh \
           fastfetch btop \
           yazi fzf \
-          networkmanager-openvpn \
           tldr oh-my-posh-bin
+		if [ "${DISTRO}" = "arch" ] && [ ! "${PROFILE}" = "headless" ]; then
+          # the networkmanager-openvpn requires entire gtk which is not needed otherwise
+		  install_packages networkmanager-openvpn
+		fi
         ;;
 esac
 
