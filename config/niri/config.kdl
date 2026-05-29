@@ -367,7 +367,7 @@ window-rule {
 
 // To find app-id's use `niri msg windows`
 window-rule {
-    math app-id=r#"^brave-browser$"#
+    match app-id=r#"^brave-browser$"#
     open-maximized true
 }
 
