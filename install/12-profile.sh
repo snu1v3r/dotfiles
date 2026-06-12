@@ -24,11 +24,22 @@ export ZDOTDIR=\${HOME}/.config/zsh
 EOF
 
 # Hyprland through the profile is only needed when SDDM is not used and we are on arch
-if [ ! "${PROFILE}" = "main" ] && [ ! "${PROFILE}" = "headless" ] && [ "${DISPLAYMANAGER}" = "hyprland" ]; then
-    tee -a "${HOME}/.zshenv" &>/dev/null <<- EOF
-	# Loading Hyprland on boot
-	if [ -f "/usr/bin/Hyprland" ]; then
-		[[ -z \$DISPLAY && \$(tty) == /dev/tty1 ]] && exec Hyprland &>/dev/null
+if [ ! "${PROFILE}" = "main" ] && [ ! "${PROFILE}" = "headless" ]; then
+	if [ "${DISPLAYMANAGER}" = "hyprland" ]; then
+		tee -a "${HOME}/.zshenv" &>/dev/null <<- EOF
+		# Loading Hyprland on boot
+		if [ -f "/usr/bin/Hyprland" ]; then
+			[[ -z \$DISPLAY && \$(tty) == /dev/tty1 ]] && exec Hyprland &>/dev/null
+		fi
+		EOF
 	fi
-	EOF
+	if [ "${DISPLAYMANAGER}" = "niri" ]; then
+		tee -a "${HOME}/.zshenv" &>/dev/null <<- EOF
+		# Loading Niri on boot
+		if [ -f "/usr/bin/niri" ]; then
+			[[ -z \$DISPLAY && \$(tty) == /dev/tty1 ]] && exec niri-session &>/dev/null
+		fi
+		EOF
+	fi
+
 fi
