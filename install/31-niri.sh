@@ -7,10 +7,10 @@ output "Virtual-1" {
 EOF
     case "${RESOLUTION}" in
     "2880x1800")
-      echo -e "# Resolution selected from install script\n\nmonitor = , ${RESOLUTION}@60.00, auto, 1.6\nenv= GDK_SCALE, 1.6" >>~/.config/niri/overrides.kdl
+      echo -e "// Resolution selected from install script\n\n   mode \"${RESOLUTION}@60.007\"\n   scale 1.6\n\n}" >>~/.config/niri/overrides.kdl
       ;;
     "MULTI")
-      echo -e "# Resolution selected from install script\n\nmonitor = eDP-1, 2880x1800@120.00, auto, 1.6\nmonitor = DP-4, 2560x1440@60.00, auto, 1\nmonitor = DP-5, 2560x1440@60.00, auto, 1" >>~/.config/niri/overrides.kdl
+      echo -e "// Resolution selected from install script\n\n   mode \"${RESOLUTION}@60.007\"\n   scale 1.6\n\n}" >>~/.config/niri/overrides.kdl
       ;;
     *)
       echo -e "// Resolution selected from install script\n\n   mode \"${RESOLUTION}@60.007\"\n   scale 1\n\n}" >>~/.config/niri/overrides.kdl
