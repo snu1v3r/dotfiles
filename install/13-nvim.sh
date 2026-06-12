@@ -14,8 +14,7 @@ case "${DISTRO}" in
         install_packages nvim \
 		  shellcheck-bin bash-language-server \
 		  lua-language-server \
-		  ruff python-lsp-server python-lsp-ruff \
-		  ansible-language-server \
+		  ruff python-lsp-server python-lsp-ruff
         ;;
 esac
 
