@@ -2,7 +2,7 @@
 
 install_packages wget curl unzip ripgrep zoxide bat \
     btop man less whois plocate zsh \
-    tmux luarocks mc npm openvpn direnv
+    tmux luarocks mc openvpn direnv
 
 case "${DISTRO}" in
     "debian"|"kali"|"ubuntu")
@@ -61,16 +61,16 @@ case "${DISTRO}" in
         install_packages fd eza zoxide bat bat-extras openssh \
           fastfetch btop \
           yazi fzf \
-          tldr oh-my-posh-bin
-		if [ "${DISTRO}" = "arch" ] && [ ! "${PROFILE}" = "headless" ]; then
-          # the networkmanager-openvpn requires entire gtk which is not needed otherwise
-		  install_packages networkmanager-openvpn
-		fi
+          oh-my-posh-bin
+		# if [ "${DISTRO}" = "arch" ] && [ ! "${PROFILE}" = "headless" ]; then
+		#         # the networkmanager-openvpn requires entire gtk which is not needed otherwise
+		#   install_packages networkmanager-openvpn
+		# fi
         ;;
 esac
 
 case "${DISTRO}" in
-    "debian"|"ubuntu")
+    "debian"|"ubuntu"|"arch")
         install_packages tldr
         ;;
     "kali")

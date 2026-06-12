@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
 # Use stow to create links in the .local directory for dotfiles
-mkdir -p ${HOME}/.local/bin
-stow --target=${HOME}/.local --dir=${HOME}/.local/share/dotfiles/local .
+mkdir -p "${HOME}/.local/bin"
+stow --target="${HOME}/.local" --dir="${HOME}/.local/share/dotfiles/local" .
 
 # Use stow to create links to config of dotfiles
-mkdir -p ${HOME}/.config
-stow --target=${HOME}/.config --dir=${HOME}/.local/share/dotfiles/config .
+mkdir -p "${HOME}/.config"
+stow --target="${HOME}/.config" --dir="${HOME}/.local/share/dotfiles/config" .
 
 
 if [ ! "${PROFILE}" = "headless" ] && [ ! "${RESOLUTION}" = "MULTI" ]; then
-    tee ${HOME}/.setresolution.sh &>/dev/null <<EOF
+    tee "${HOME}/.setresolution.sh" &>/dev/null <<EOF
 #!/usr/bin/env bash
 RESOLUTION=\$1
 declare -a Res=(\$(/usr/bin/cvt \$(echo \${RESOLUTION}|/usr/bin/awk -Fx '{print \$1 " " \$2 " " 60}')|/usr/bin/tail -n 1| /usr/bin/tr -d \\"))
@@ -24,7 +24,7 @@ fi
 install_packages zsh
 
 # Set zsh as default shell
-sudo chsh -s $(which zsh) $USER
+sudo chsh -s $(which zsh) "${USER}"
 
 
 ##### TODO 
@@ -32,8 +32,8 @@ sudo chsh -s $(which zsh) $USER
 # they might be relevant on other distros/flavors
 # but no real decission has been made
 
-# Login directly as user, rely on hyprlock for security only used on the basevm, main machine uses SDDM
-if [ ! "${PROFILE}" = "basevm" ]; then
+# Login directly as user, rely on hyprlock for security only used on the basevm and headless, main machine uses SDDM
+if [ ! "${PROFILE}" = "main" ]; then
 	sudo mkdir -p /etc/systemd/system/getty@tty1.service.d
     sudo tee /etc/systemd/system/getty@tty1.service.d/override.conf >/dev/null <<- EOF
 	[Service]

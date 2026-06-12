@@ -17,8 +17,10 @@ EOF
       ;;
     esac
     install_packages \
-      niri xwayland-satellite xdg-desktop-portal-gnome xdg-desktop-portal-gtk noctalia-shell \
+      niri xwayland-satellite \
 	  slurp grim wl-clipboard satty
+
+	install_packages dms-shell
 fi
 
-
+# xdg-desktop-portal-gnome xdg-desktop-portal-gtk noctalia-shell 

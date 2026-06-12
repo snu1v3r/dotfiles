@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 if [ ! "${PROFILE}" = "headless" ]; then
+    # install_packages alacritty playerctl pamixer playerctl pavucontrol wireplumber qalculate-gtk \
     install_packages alacritty playerctl pamixer playerctl pavucontrol wireplumber qalculate-gtk \
         vlc nemo evince imv kitty
 
@@ -8,7 +9,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
             install_packages brave-bin \
                 clipse sushi \
                 networkmanager network-manager-applet
-			if [ ! "${DISPLAYMANAGER}" = "gnome" ]; then
+			if [ ! "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${DISPLAYMANAGER}" = "niri" ]; then
                 install_packages fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt
 			fi
             ;;
@@ -17,7 +18,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
             ;;
     esac
 
-    sudo systemctl enable NetworkManager.service
+    # sudo systemctl enable NetworkManager.service
 
     if [ "$PROFILE" = "main" ]; then
         install_packages keepassxc brightnessctl gnome-keyring thunderbird

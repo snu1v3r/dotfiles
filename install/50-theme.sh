@@ -4,7 +4,9 @@
 if [ ! "${PROFILE}" = "headless" ]; then
     case "${DISTRO}" in
         "arch")
-            install_packages kvantum-qt5 gnome-themes-extra
+			if [ ! "${DISPLAYMANAGER}" = "niri" ]; then
+				install_packages kvantum-qt5 gnome-themes-extra
+			fi
             ;;
         "debian"|"ubuntu")
             install_packages qt5-style-kvantum gnome-themes-extra
