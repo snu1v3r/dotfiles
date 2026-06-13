@@ -20,7 +20,7 @@ EOF
       niri xwayland-satellite \
 	  slurp grim wl-clipboard satty
 
-	install_packages dms-shell
+	install_packages dms-shell dms-shell-niri xdg-desktop-portal-gtk
 fi
 
 # xdg-desktop-portal-gnome xdg-desktop-portal-gtk noctalia-shell 
