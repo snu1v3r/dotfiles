@@ -9,8 +9,8 @@ if [ ! "${PROFILE}" = "headless" ] && [ -f /boot/grub/grub.cfg ]; then
 
     # This ensures that grub uses a higher graphix resolution
     if [[ "${RESOLUTION}" =~ "MULTI" ]]; then
-        sudo sed -i "s/^#\?\(GRUB_GFXMODE=\).*$/\\11920x1080/" /etc/default/grub
-        sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash video=1920x1080/" /etc/default/grub
+        sudo sed -i "s/^#\?\(GRUB_GFXMODE=\).*$/\\11920x1200/" /etc/default/grub
+        sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash video=1920x1200,3456x2160,2560x1400,2880x1800/" /etc/default/grub
     else
         sudo sed -i "s/^#\?\(GRUB_GFXMODE=\).*$/\\13456x2160/" /etc/default/grub
         sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash video=3456x2160/" /etc/default/grub

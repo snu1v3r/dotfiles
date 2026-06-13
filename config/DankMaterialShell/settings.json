@@ -1,0 +1,7 @@
+{
+    "weatherEnabled": true,
+    "weatherLocation": "Amsterdam, Noord-Holland",
+    "weatherCoordinates": "52.3730796,4.8924534",
+    "useAutoLocation": false,
+    "useFahrenheit": false
+}
