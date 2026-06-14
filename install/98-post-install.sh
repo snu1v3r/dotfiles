@@ -24,8 +24,8 @@ cd ~ && rm -rf Desktop Documents Music Pictures Public Templates Videos
 systemctl --user disable first_boot.service
 echo "Post install" >> ${HOME}/install.log
 # xdg-settings set default-web-browser brave.desktop
-rm "${HOME}/.config/systemd/user/first_boot.service"
-rm "${HOME}/first_boot.sh"
+# rm "${HOME}/.config/systemd/user/first_boot.service"
+# rm "${HOME}/first_boot.sh"
 EOF
 
 
