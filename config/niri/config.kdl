@@ -648,7 +648,8 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 
-    Mod+B { spawn-sh "brave"; }
+    Mod+B { spawn "brave"; }
+    Mod+F { spawn "nautilus"; }
 
     Mod+Shift+S { spawn-sh "~/.local/bin/toggle_scale.sh"; } 
 }
