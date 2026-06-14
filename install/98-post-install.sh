@@ -19,13 +19,18 @@ fi
 
 # This removes directory's I never use
 tee -a ${HOME}/first_boot.sh &>/dev/null <<EOF
-sleep 2 # Sleep is needed to let the system start
 cd ~ && rm -rf Desktop Documents Music Pictures Public Templates Videos
+EOF
+
+
+# This section enables the first_boot script as a services and ensures that it is removed after first boot
+
+tee -a ${HOME}/first_boot.sh &>/dev/null <<EOF
 systemctl --user disable first_boot.service
-echo "Post install" >> ${HOME}/install.log
+echo -e "$(date +%T) ${BLUE}[i]${CLEAR} Running first_boot script" | tee -a "${HOME}/install.log"
 # xdg-settings set default-web-browser brave.desktop
-# rm "${HOME}/.config/systemd/user/first_boot.service"
-# rm "${HOME}/first_boot.sh"
+rm "${HOME}/.config/systemd/user/first_boot.service"
+rm "${HOME}/first_boot.sh"
 EOF
 
 
