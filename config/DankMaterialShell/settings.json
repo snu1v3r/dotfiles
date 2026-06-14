@@ -1,7 +1,61 @@
 {
     "weatherEnabled": true,
+    "useAutoLocation": false,
     "weatherLocation": "Amsterdam, Noord-Holland",
     "weatherCoordinates": "52.3745403,4.8979755",
-    "useAutoLocation": false,
-    "useFahrenheit": false
+    "useFahrenheit": false,
+    "barConfigs": [
+        {
+            "id": "default",
+            "name": "Main Bar",
+            "enabled": true,
+            "position": 0,
+            "screenPreferences": [
+                "all"
+            ],
+            "showOnLastDisplay": true,
+            "leftWidgets": [
+                "launcherButton",
+                "workspaceSwitcher",
+                "focusedWindow"
+            ],
+            "centerWidgets": [
+                "music",
+                "clock",
+                "weather"
+            ],
+            "rightWidgets": [
+                "systemTray",
+                "clipboard",
+                "cpuUsage",
+                "memUsage",
+                "notificationButton",
+                "battery",
+                "controlCenterButton"
+            ],
+            "spacing": 4,
+            "innerPadding": 4,
+            "bottomGap": 0,
+            "transparency": 1,
+            "widgetTransparency": 1,
+            "squareCorners": false,
+            "noBackground": false,
+            "gothCornersEnabled": false,
+            "gothCornerRadiusOverride": false,
+            "gothCornerRadiusValue": 12,
+            "borderEnabled": false,
+            "borderColor": "surfaceText",
+            "borderOpacity": 1,
+            "borderThickness": 1,
+            "fontScale": 1,
+            "autoHide": false,
+            "autoHideDelay": 250,
+            "openOnOverview": false,
+            "visible": true,
+            "popupGapsAuto": true,
+            "popupGapsManual": 4
+        }
+    ],
+    "configVersion": 5,
+    "desktopWidgetInstances": []
 }
