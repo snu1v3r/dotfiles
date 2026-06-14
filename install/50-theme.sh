@@ -20,6 +20,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
 	mkdir -p "${HOME}/.local/share/backgrounds"
 	SHOTID=$(printf "%04d" $((1 + RANDOM % 100)))
 	curl "https://raw.githubusercontent.com/snu1v3r/backgrounds/main/${SHOTID}.jpg" --output "${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
+	curl "https://raw.githubusercontent.com/snu1v3r/backgrounds/main/${SHOTID}.jpg" --output "${HOME}/.local/share/backgrounds/current.jpg"
 
 	case "${DISPLAYMANAGER}" in
 		"gnome")
