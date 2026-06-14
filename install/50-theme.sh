@@ -18,9 +18,12 @@ if [ ! "${PROFILE}" = "headless" ]; then
 
 	# Download Random background
 	mkdir -p "${HOME}/.local/share/backgrounds"
-	SHOTID=$(printf "%04d" $((1 + RANDOM % 100)))
+	if [ "${DISPLAYMANAGER}" = "niri" ] && [ "${PROFILE}" = "basevm" ]; then
+		SHOTID="0076"
+	else
+		SHOTID=$(printf "%04d" $((1 + RANDOM % 100)))
+	fi
 	curl "https://raw.githubusercontent.com/snu1v3r/backgrounds/main/${SHOTID}.jpg" --output "${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
-	curl "https://raw.githubusercontent.com/snu1v3r/backgrounds/main/${SHOTID}.jpg" --output "${HOME}/.local/share/backgrounds/current.jpg"
 
 	case "${DISPLAYMANAGER}" in
 		"gnome")
@@ -28,7 +31,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
 			gsettings set org.gnome.desktop.background picture-uri-dark "file:///${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
 			;;
 		"niri")
-			tee -a ${HOME}/first_boot.sh &>/dev/null <<- EOF
+			tee -a "${HOME}/first_boot.sh" &>/dev/null <<- EOF
 			dms ipc call wallpaper set "${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
 			EOF
 			;;

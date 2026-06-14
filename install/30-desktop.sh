@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 if [ ! "${PROFILE}" = "headless" ]; then
     # install_packages alacritty playerctl pamixer playerctl pavucontrol wireplumber qalculate-gtk \
+	# nautilus is used because it supports dark mode
     install_packages alacritty playerctl pamixer playerctl pavucontrol wireplumber qalculate-gtk \
-        vlc nemo evince imv kitty
+        vlc nautilus evince imv kitty
 
     case "${DISTRO}" in
         "arch")
