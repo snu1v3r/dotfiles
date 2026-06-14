@@ -39,6 +39,7 @@ After=default.target
 
 [Service]
 Type=oneshot
+ExecStartPre=/bin/sleep 10
 ExecStart=${HOME}/first_boot.sh
 
 [Install]

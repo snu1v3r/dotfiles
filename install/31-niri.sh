@@ -21,6 +21,7 @@ EOF
 	  slurp grim wl-clipboard satty
 
 	install_packages dms-shell dms-shell-niri xdg-desktop-portal-gtk
+	systemctl --user add-wants niri.service dms
 fi
 
 # xdg-desktop-portal-gnome xdg-desktop-portal-gtk noctalia-shell 

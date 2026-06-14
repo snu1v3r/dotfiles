@@ -28,7 +28,9 @@ if [ ! "${PROFILE}" = "headless" ]; then
 			gsettings set org.gnome.desktop.background picture-uri-dark "file:///${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
 			;;
 		"niri")
+			tee -a ${HOME}/first_boot.sh &>/dev/null <<- EOF
 			dms ipc call wallpaper set "${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
+			EOF
 			;;
 	esac
 
