@@ -27,6 +27,9 @@ if [ ! "${PROFILE}" = "headless" ]; then
 			gsettings set org.gnome.desktop.background picture-uri "file:///${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
 			gsettings set org.gnome.desktop.background picture-uri-dark "file:///${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
 			;;
+		"niri")
+			dms ipc call wallpaper set "${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
+			;;
 	esac
 
 fi
