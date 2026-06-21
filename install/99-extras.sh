@@ -5,7 +5,7 @@ if gum confirm "Install extra's?" --default="no";  then
 		TMP="${FILE%.*}"
 		EXTRAS+=("${TMP##*/}")
 	done;
-	RESULT=$(gum choose "${EXTRAS[@]}" --no-limit --header="Choose the desired extras")
+	mapfile -t RESULT < <(gum choose "${EXTRAS[@]}" --no-limit --header="Choose the desired extras")
 	for EXTRA in "${RESULT[@]}"; do
 	    install_info "Starting ${EXTRA}.sh"
 		source "~/.local/share/dotfiles/install/extras/${EXTRA}.sh"
