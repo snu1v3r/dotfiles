@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -e
 
 # First we determine some general settings
 BLACK=$'\033[0;30m'
@@ -28,8 +27,6 @@ install_error() {
   echo -e "$(date +%T) ${RED}[E]${CLEAR} script $0:$1 with code $2" | tee -a "${HOME}/install.log"
 }
 
-# Set trap before sourcing
-trap 'install_error $LINENO $?' ERR
 
 install_warning() {
   echo -e "$(date +%T) ${ORANGE}[!]$CLEAR $1" | tee -a "${HOME}/install.log"
@@ -100,6 +97,8 @@ install_info "Distribution used is: ${DISTRO}"
 # Install everything
 for f in ~/.local/share/dotfiles/install/*.sh; do
   install_info "Starting $f"
+  # Set trap before sourcing
+  trap 'install_error $LINENO $?' ERR
   source "$f"
 done
 
