@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ ! "${PROFILE}" = "headless" ]; then
+if [ ! "${PROFILE}" = "headless" ] && [ ! "${DISPLAYMANAGER}" = "niri" ]; then
     # This enables auto creation of modelines within X11
     tee "${HOME}/.profile" &>/dev/null <<- EOF
 	COMPOSITOR=\$(loginctl show-session -p Type \$(loginctl list-sessions -o json | jq '.[0].session|tonumber') |cut -d= -f2)
