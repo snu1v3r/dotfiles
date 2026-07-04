@@ -13,6 +13,9 @@ EOF
       # echo -e "// Resolution selected from install script\n\n   mode \"3456x2160\"\n   scale 1.6\n\n}" >>~/.config/niri/overrides.kdl
       echo -e "// Resolution selected from install script\n\n   mode \"2880x1800\"\n   scale 1.6\n\n}" >>~/.config/niri/overrides.kdl
       ;;
+	"2560x1400")
+	  echo -e "// Resolution selected from install script\n\n   mode \"${RESOLUTION}\"\n   scale 1\n\n}" >>~/.config/niri/overrides.kdl
+	  ;;
     *)
       echo -e "// Resolution selected from install script\n\n   mode \"${RESOLUTION}\"\n   scale 1\n\n}" >>~/.config/niri/overrides.kdl
       ;;

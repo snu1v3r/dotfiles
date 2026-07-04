@@ -18,10 +18,18 @@ if [ ! "${PROFILE}" = "headless" ]; then
 
 	# Download Random background
 	mkdir -p "${HOME}/.local/share/backgrounds"
-	if [ "${DISPLAYMANAGER}" = "niri" ] && [ "${PROFILE}" = "basevm" ]; then
-		SHOTID="0076"
-	else
-		SHOTID=$(printf "%04d" $((1 + RANDOM % 100)))
+	if [ "${DISPLAYMANAGER}" = "niri" ]; then
+		case "${PROFILE}" in
+			"basevm")
+				SHOTID="0076"
+				;;
+			"main")
+				SHOTID="0052"
+				;;
+			*)
+				SHOTID=$(printf "%04d" $((1 + RANDOM % 100)))
+				;;
+		esac
 	fi
 	curl "https://raw.githubusercontent.com/snu1v3r/backgrounds/main/${SHOTID}.jpg" --output "${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
 
@@ -33,6 +41,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
 		"niri")
 			tee -a "${HOME}/first_boot.sh" &>/dev/null <<- EOF
 			dms ipc call wallpaper set "${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
+			DMS_PRIVESC=sudo dms greeter sync -t
 			EOF
 			;;
 	esac

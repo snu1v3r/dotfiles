@@ -13,8 +13,8 @@ if [ ! "${PROFILE}" = "headless" ] && [ -f /boot/grub/grub.cfg ]; then
         # sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash video=3456x2160/" /etc/default/grub
         sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash video=2880x1800/" /etc/default/grub
     else
-        sudo sed -i "s/^#\?\(GRUB_GFXMODE=\).*$/\\13456x2160/" /etc/default/grub
-        sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash video=3456x2160/" /etc/default/grub
+        sudo sed -i "s/^#\?\(GRUB_GFXMODE=\).*$/\\11920x1200/" /etc/default/grub
+        sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash video=${RESOLUTION}/" /etc/default/grub
         # sudo sed -i "s/^#\?\(GRUB_GFXMODE=\).*$/\\1${RESOLUTION}/" /etc/default/grub
         # sudo sed -i "s/\(GRUB_CMDLINE_LINUX_DEFAULT=\"[^\"]*\)/\\1 splash video=${RESOLUTION}/" /etc/default/grub
     fi
