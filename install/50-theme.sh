@@ -41,8 +41,12 @@ if [ ! "${PROFILE}" = "headless" ]; then
 		"niri")
 			tee -a "${HOME}/first_boot.sh" &>/dev/null <<- EOF
 			dms ipc call wallpaper set "${HOME}/.local/share/backgrounds/${SHOTID}.jpg"
-			DMS_PRIVESC=sudo dms greeter sync -t
 			EOF
+			if [ "${PROFILE}" = "main" ]; then
+				tee -a "${HOME}/first_boot.sh" &>/dev/null <<- EOF
+				DMS_PRIVESC=sudo dms greeter sync -t
+				EOF
+			fi
 			;;
 	esac
 
