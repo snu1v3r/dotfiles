@@ -23,7 +23,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
 
     if [ "$PROFILE" = "main" ]; then
         # install_packages keepassxc brightnessctl gnome-keyring thunderbird
-        install_packages keepassxc brightnessctl 
+        install_packages keepassxc brightnessctl gnome-keyring
         case "${DISTRO}" in
             "arch")
                 install_packages nextcloud-client qt5-wayland
