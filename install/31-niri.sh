@@ -36,14 +36,8 @@ if [ "${DISTRO}" = "arch" ] && [ "${DISPLAYMANAGER}" = "niri" ] && [ ! "${PROFIL
 		user = "greeter"
 		command = "dms-greeter --command niri"
 		EOF
-		sudo rm /etc/pam.d/greetd && sudo tee /etc/pam.d/greetd &>/dev/null <<- EOF
-		#%PAM-1.0
-
-		auth		required	pam_securetty.so
-		auth		requisite	pam_nologin.so
-		auth        include     system-local-login
+		sudo tee -a "/etc/pam.d/greetd" &>/dev/null <<- EOF
 		auth		optional    pam_gnome_keyring.so
-		account     include     system-local-login
 		session		optional    pam_gnome_keyring.so    auto_start
 		EOF
 	fi
