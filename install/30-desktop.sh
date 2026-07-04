@@ -22,7 +22,8 @@ if [ ! "${PROFILE}" = "headless" ]; then
     # sudo systemctl enable NetworkManager.service
 
     if [ "$PROFILE" = "main" ]; then
-        install_packages keepassxc brightnessctl gnome-keyring thunderbird
+        # install_packages keepassxc brightnessctl gnome-keyring thunderbird
+        install_packages keepassxc brightnessctl 
         case "${DISTRO}" in
             "arch")
                 install_packages nextcloud-client qt5-wayland
