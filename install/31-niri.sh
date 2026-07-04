@@ -22,10 +22,18 @@ EOF
 	  slurp grim wl-clipboard satty
 
 	install_packages dms-shell dms-shell-niri xdg-desktop-portal-gtk
-	# if [ "${PROFILE}" = "main" ]; then
-	# 	install_packages greetd-dms-greeter-git
-	# 	sudo systemctl enable greetd
-	# fi
+	if [ "${PROFILE}" = "main" ]; then
+		install_packages greetd-dms-greeter-git
+		sudo systemctl enable greetd
+		sudo tee "/etc/greetd/config.toml" &>/dev/null <<- EOF
+		[terminal]
+		vt = 1
+
+		[default_session]
+		user = "greeter"
+		command = "dms-greeter --command niri"
+		EOF
+	fi
 	systemctl --user add-wants niri.service dms
 fi
 
