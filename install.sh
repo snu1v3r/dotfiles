@@ -9,6 +9,7 @@ else
 		source <(curl -s https://raw.githubusercontent.com/snu1v3r/dotfiles/${REPO}/local/bin/shell-utils.sh)
 	fi
 fi
+env
 log_info "This is a test"
 install_info "Cloning Dotfiles..."
 if ! command -v git &>/dev/null ; then
