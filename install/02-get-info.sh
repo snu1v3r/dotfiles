@@ -23,9 +23,14 @@ if [ -f "${HOME}/install.conf" ]; then
 else
     # Configure identification
     echo -e "\nEnter identification for git and autocomplete..."
-    USER_NAME=$(gum input --placeholder "Enter full name" --prompt "Name> ")
-    USER_EMAIL=$(gum input --placeholder "Enter email address" --prompt "Email> ")
-
+    USER_NAME=$(gum input --placeholder "Enter full name" --prompt "Name [${USER}]> ")
+	if [ "${USER_NAME}" = "" ]; then
+		USER_NAME="${USER}"
+	fi
+    USER_EMAIL=$(gum input --placeholder "Enter email address" --prompt "Email [${USER_NAME}@github.com]> ")
+	if [ "${USER_EMAIL}" = "" ]; then
+		USER_EMAIL="${USER_NAME}@github.com"
+	fi
     install_info "Installing for user: $USER_NAME"
     install_info "Using e-mail: $USER_EMAIL"
 
