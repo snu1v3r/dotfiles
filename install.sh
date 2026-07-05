@@ -1,79 +1,15 @@
 #!/usr/bin/env bash
 
-# First we determine some general settings
-BLACK=$'\033[0;30m'
-RED=$'\033[0;31m'
-GREEN=$'\033[0;32m'
-ORANGE=$'\033[0;33m'
-BLUE=$'\033[0;34m'
-PURPLE=$'\033[0;35m'
-CYAN=$'\033[0;36m'
-WHITE=$'\033[1;37m'
-CLEAR=$'\033[0m'
-
-if [ -f /etc/os-release ]; then
-    source /etc/os-release
-    DISTRO=${ID}
-elif [ -f /etc/debian_version ]; then
-    DISTRO=$(cat /etc/debian_version)
+if [ -f "${HOME}/.local/bin/shell-utils.sh" ]; then
+	source "${HOME}/.local/bin/shell-utils.sh"
+else
+	if [[ -z "${REPO}" ]]; then
+		source <(curl -s https://raw.githubusercontent.com/snu1v3r/dotfiles/main/local/bin/shell-utils.sh)
+	else
+		source <(curl -s https://raw.githubusercontent.com/snu1v3r/dotfiles/${REPO}/local/bin/shell-utils.sh)
+	fi
 fi
-
-
-install_info() {
-  echo -e "$(date +%T) ${BLUE}[i]${CLEAR} $1" | tee -a "${HOME}/install.log"
-}
-
-install_error() {
-  echo -e "$(date +%T) ${RED}[E]${CLEAR} script $0:$1 with code $2" | tee -a "${HOME}/install.log"
-}
-
-
-install_warning() {
-  echo -e "$(date +%T) ${ORANGE}[!]$CLEAR $1" | tee -a "${HOME}/install.log"
-}
-
-install_packages() {
-    case "${DISTRO}" in
-        "debian"|"kali"|"ubuntu")
-            sudo apt-get install -y "$@"
-            ;;
-        "macos")
-            brew install "$@"
-            ;;
-        "alpine")
-            sudo apk add "$@"
-            ;;
-        "arch")
-            if [ -x "$(command -v yay)" ]; then
-                yay --noconfirm --needed -S "$@"
-            else
-                sudo pacman --noconfirm --needed -S "$@"
-            fi
-            ;;
-        *)
-            install_warning "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again."
-    esac
-}
-
-update_and_upgrade() {
-    case "${DISTRO}" in
-        "debian"|"kali"|"ubuntu")
-			sudo apt update && sudo apt upgrade -y
-            ;;
-        "macos")
-            brew update && brew upgrade --quiet
-            ;;
-        "alpine")
-            sudo apk -U upgrade
-            ;;
-        "arch")
-			sudo pacman -Syyu --noconfirm
-            ;;
-        *)
-            install_warning "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again."
-    esac
-}
-
+log_info "This is a test"
 install_info "Cloning Dotfiles..."
 if ! command -v git &>/dev/null ; then
     install_info "Installing git..."
