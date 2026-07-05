@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+is_installer=true
 
 if [ -f "${HOME}/.local/bin/shell-utils.sh" ]; then
 	source "${HOME}/.local/bin/shell-utils.sh"
