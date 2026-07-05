@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 if ! command -v gum &>/dev/null ; then
-    install_info "Installing gum..."
+    log_info "Installing gum..."
 	case "${DISTRO}" in
 		"debian"|"kali"|"ubuntu")
 			install_packages jq
@@ -16,7 +16,7 @@ if ! command -v gum &>/dev/null ; then
 fi
 
 if [ -f "${HOME}/install.conf" ]; then
-    install_info "Continuing from previous install taking settings form install.conf"
+    log_info "Continuing from previous install taking settings form install.conf"
 	# disables message on file doesn't exist
 	# shellcheck disable=SC1091
     source "${HOME}/install.conf"
@@ -31,8 +31,8 @@ else
 	if [ "${USER_EMAIL}" = "" ]; then
 		USER_EMAIL="${USER_NAME}@github.com"
 	fi
-    install_info "Installing for user: $USER_NAME"
-    install_info "Using e-mail: $USER_EMAIL"
+    log_info "Installing for user: $USER_NAME"
+    log_info "Using e-mail: $USER_EMAIL"
 
     # Select profile
     if [ "$PROFILE" = "" ]; then
@@ -43,7 +43,7 @@ else
         PROFILE=${RESULT,,} # This lowercases the argument
       fi
     fi
-    install_info "The following profile is used: $PROFILE"
+    log_info "The following profile is used: $PROFILE"
 
 	# Select DM
 	if [ "${DISTRO}" = "arch" ] && [ ! "${PROFILE}" = "headless" ]; then
@@ -53,13 +53,13 @@ else
 		else
 			DISPLAYMANAGER=${RESULT,,}
 		fi
-		install_info "The following displaymanager is used: $DISPLAYMANAGER"
+		log_info "The following displaymanager is used: $DISPLAYMANAGER"
 	fi
 
     if [ ! "${PROFILE}" = "headless" ]; then
         # Select target resolution
         RESOLUTION=$(gum choose "3440x1440" "2880x1800" "2560x1440" "1920x1080" "MULTI" --header="Select the target resolution:")
-        install_info "The following resolution is used: $RESOLUTION"
+        log_info "The following resolution is used: $RESOLUTION"
     fi
     tee "${HOME}/install.conf" &>/dev/null <<- EOF
 	USER_NAME=${USER_NAME}

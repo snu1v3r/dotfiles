@@ -26,7 +26,7 @@ case "${DISTRO}" in
             sudo mv "/tmp/yazi/yazi-${SUFFIX}/yazi" "/tmp/yazi/yazi-${SUFFIX}/ya" /usr/bin
             rm -rf /tmp/yazi*
         else
-            install_warning "Yazi couldn't be installed because a valid tag was not found"
+            log_warning "Yazi couldn't be installed because a valid tag was not found"
         fi
 
         # Install eza
@@ -48,7 +48,7 @@ case "${DISTRO}" in
             rm -rf /tmp/bat
             rm /tmp/batextra.zip
         else
-            install_warning "bat-extras couldn't be installed because a valid url was not found"
+            log_warning "bat-extras couldn't be installed because a valid url was not found"
         fi
         # Install oh-my-posh
         TAGNAME=$(wget -qO- https://api.github.com/repos/JanDeDobbeleer/oh-my-posh/releases/latest | jq -r .name | cut -c2-)

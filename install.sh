@@ -10,7 +10,7 @@ else
 fi
 log_info "Cloning Dotfiles..."
 if ! command -v git &>/dev/null ; then
-    install_info "Installing git..."
+    log_info "Installing git..."
     install_packages git
 fi
 rm -rf ~/.local/share/dotfiles/
@@ -24,18 +24,18 @@ else
 fi
 
 
-install_info "Installation of individual scripts starting..."
+log_info "Installation of individual scripts starting..."
 
-install_info "Distribution used is: ${DISTRO}"
+log_info "Distribution used is: ${DISTRO}"
 
 # Install everything
 for f in ~/.local/share/dotfiles/install/*.sh; do
-  install_info "Starting $f"
+  log_info "Starting $f"
   # Set trap before sourcing
-  trap 'install_error $LINENO $?' ERR
+  trap 'log_error $LINENO $?' ERR
   source "$f"
 done
 
-install_info "Installation finished."
+log_info "Installation finished."
 
 gum confirm "Reboot to apply all settings?" && sudo reboot
