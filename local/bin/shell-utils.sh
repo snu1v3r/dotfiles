@@ -17,6 +17,8 @@ fi
 
 
 log_info() {
+    echo ${BASH_SOURCE[0]}
+    echo ${BASH_SOURCE[1]}
   echo -e "${BLUE}[i]${CLEAR} $1"
 }
 
