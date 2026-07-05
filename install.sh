@@ -10,7 +10,11 @@ else
 		source <(curl -s https://raw.githubusercontent.com/snu1v3r/dotfiles/${REPO}/local/bin/shell-utils.sh)
 	fi
 fi
-env
+if $is_installer; then
+	echo this is installer
+else
+	echo this is not installer
+fi
 log_info "This is a test"
 install_info "Cloning Dotfiles..."
 if ! command -v git &>/dev/null ; then

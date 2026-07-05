@@ -20,6 +20,11 @@ log_info() {
     echo ${BASH_SOURCE[0]}
     echo test
     echo ${BASH_SOURCE[1]}
+    if $is_installer; then
+        echo is installer
+    else
+        echo is not installer
+    fi
   echo -e "${BLUE}[i]${CLEAR} $1"
 }
 
