@@ -3,7 +3,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
     # install_packages alacritty playerctl pamixer playerctl pavucontrol wireplumber qalculate-gtk \
 	# nautilus is used because it supports dark mode
     install_packages alacritty playerctl pamixer playerctl pavucontrol wireplumber qalculate-gtk \
-        vlc nautilus evince imv kitty
+        vlc nautilus evince imv kitty gvfs gvfs-smb gvfs-nfs
 
     case "${DISTRO}" in
         "arch")
