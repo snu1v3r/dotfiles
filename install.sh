@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-is_installer=true
-
 if [ -f "${HOME}/.local/bin/shell-utils.sh" ]; then
 	source "${HOME}/.local/bin/shell-utils.sh"
 else
@@ -10,13 +8,7 @@ else
 		source <(curl -s https://raw.githubusercontent.com/snu1v3r/dotfiles/${REPO}/local/bin/shell-utils.sh)
 	fi
 fi
-if $is_installer; then
-	echo this is installer
-else
-	echo this is not installer
-fi
-log_info "This is a test"
-install_info "Cloning Dotfiles..."
+log_info "Cloning Dotfiles..."
 if ! command -v git &>/dev/null ; then
     install_info "Installing git..."
     install_packages git

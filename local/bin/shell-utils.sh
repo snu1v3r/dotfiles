@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 # First we determine some general settings
 BLACK=$'\033[0;30m'
 RED=$'\033[0;31m'
@@ -17,27 +17,35 @@ fi
 
 
 log_info() {
-    echo ${BASH_SOURCE[0]}
-    echo test
-    echo ${BASH_SOURCE[1]}
-    if $is_installer; then
-        echo is installer
+    if [[ "${BASH_SOURCE[1]}" =~ "/dev/fd" ]] || [[ "${BASH_SOURCE[1]}" =~ "install.sh" ]]; then 
+        echo -e "$(date +%T) ${BLUE}[i]${CLEAR} $1" | tee -a "${HOME}/install.log"
     else
-        echo is not installer
+        echo -e "${BLUE}[i]${CLEAR} $1"
     fi
-  echo -e "${BLUE}[i]${CLEAR} $1"
 }
 
 log_warning() {
-  echo -e "${ORANGE}[!]${CLEAR} $1"
+    if [[ "${BASH_SOURCE[1]}" =~ "/dev/fd" ]] || [[ "${BASH_SOURCE[1]}" =~ "install.sh" ]]; then 
+        echo -e "$(date +%T) ${ORANGE}[!]${CLEAR} $1" | tee -a "${HOME}/install.log"
+    else
+        echo -e "${ORANGE}[!]${CLEAR} $1"
+    fi
 }
 
 log_success() {
-  echo -e "${GREEN}[*]${CLEAR} $1"
+    if [[ "${BASH_SOURCE[1]}" =~ "/dev/fd" ]] || [[ "${BASH_SOURCE[1]}" =~ "install.sh" ]]; then 
+        echo -e "$(date +%T) ${GREEN}[*]${CLEAR} $1" | tee -a "${HOME}/install.log"
+    else
+        echo -e "${GREEN}[*]${CLEAR} $1"
+    fi
 }
 
 log_error() {
-  echo -e "${RED}[E]${CLEAR} $1"
+    if [[ "${BASH_SOURCE[1]}" =~ "/dev/fd" ]] || [[ "${BASH_SOURCE[1]}" =~ "install.sh" ]]; then 
+        echo -e "$(date +%T) ${RED}[E]${CLEAR} $1" | tee -a "${HOME}/install.log"
+    else
+        echo -e "${RED}[E]${CLEAR} $1"
+    fi
 }
 
 install_packages() {
