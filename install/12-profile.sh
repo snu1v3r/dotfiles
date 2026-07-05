@@ -21,6 +21,7 @@ fi
 
 # Putting zsh in the .config directory
 export ZDOTDIR=\${HOME}/.config/zsh
+export BASH_ENV=\${HOME}/.local/bin/shell-utils.sh
 EOF
 
 # Hyprland through the profile is only needed when SDDM is not used and we are on arch
