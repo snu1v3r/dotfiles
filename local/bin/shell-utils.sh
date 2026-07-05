@@ -51,23 +51,43 @@ log_error() {
 install_packages() {
     case "${DISTRO}" in 
         "debian"|"ubuntu"|"kali")
-            sudo apt-get install -y $@
+            sudo apt-get install -y "$@"
             ;;
         "macos")
-            brew install $@
+            brew install "$@"
             ;;
         "alpine")
-            sudo pkg install $@
+            sudo pkg install "$@"
             ;;
         "arch")
             if [ -x "$(command -v yay)" ]; then
-                yay --noconfirm --needed -S $@
+                yay --noconfirm --needed -S "$@"
             else
-                sudo pacman --noconfirm --needed -S $@
+                sudo pacman --noconfirm --needed -S "$@"
             fi
             ;;
         *)
             install_warning "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again."
     esac
 }
+
+update_and_upgrade() {
+    case "${DISTRO}" in
+        "debian"|"kali"|"ubuntu")
+			sudo apt update && sudo apt upgrade -y
+            ;;
+        "macos")
+            brew update && brew upgrade --quiet
+            ;;
+        "alpine")
+            sudo apk -U upgrade
+            ;;
+        "arch")
+			sudo pacman -Syyu --noconfirm
+            ;;
+        *)
+            install_warning "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again."
+    esac
+}
+
 
