@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-source "${HOME}/.local/bin/shell-utils.sh"
 
 install_packages ansible
 

@@ -1,5 +1,4 @@
-#!/usr/bin/env zsh
-source "${HOME}/.local/bin/shell-utils.sh"
+#!/usr/bin/env bash
 
 case "${DISTRO}" in
     "arch")

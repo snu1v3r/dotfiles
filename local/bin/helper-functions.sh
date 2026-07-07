@@ -223,7 +223,11 @@ install-extras() {
 		TMP="${FILE%.*}"
 		EXTRAS+=("${TMP##*/}")
 	done;
-	mapfile -t RESULT < <(gum choose "${EXTRAS[@]}" --no-limit --header="Choose the desired extras")
+	if [[ "${SHELL}" =~ "zsh" ]]; then
+		RESULT=("${(f)$(gum choose "${EXTRAS[@]}" --no-limit --header="Choose the desired extras")}")
+	else
+		mapfile -t RESULT < <(gum choose "${EXTRAS[@]}" --no-limit --header="Choose the desired extras")
+	fi
 	for EXTRA in "${RESULT[@]}"; do
 	    log_info "Starting ${EXTRA}.sh"
 		source "${HOME}/.local/share/dotfiles/install/extras/${EXTRA}.sh"
