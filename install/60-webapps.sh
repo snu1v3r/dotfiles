@@ -1,4 +1,4 @@
-source ~/.config/zsh/custom-functions.sh
+source "${HOME}/.local/bin/helper-functions.sh"
 # web2app can be used to creat desktop files for web applications this is not used because all .desktop files are available
 # through ~/.local/share/applications
 
