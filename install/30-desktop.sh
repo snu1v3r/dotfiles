@@ -9,9 +9,9 @@ if [ ! "${PROFILE}" = "headless" ]; then
         "arch")
             install_packages brave-bin \
                 clipse sushi \
-                networkmanager network-manager-applet
+                networkmanager
 			if [ ! "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${DISPLAYMANAGER}" = "niri" ]; then
-                install_packages fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt
+                install_packages fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt network-manager-applet
 			fi
             ;;
         "debian"|"ubuntu")
