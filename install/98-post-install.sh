@@ -27,7 +27,7 @@ EOF
 
 tee -a ${HOME}/first_boot.sh &>/dev/null <<EOF
 systemctl --user disable first_boot.service
-echo -e "$(date +%T) ${BLUE}[i]${CLEAR} Running first_boot script" | tee -a "${HOME}/install.log"
+echo -e "$(date +%T) ${BLUE}[i]${CLEAR} Running first_boot script" | tee -a "${HOME}/install_log.txt"
 # xdg-settings set default-web-browser brave.desktop
 rm "${HOME}/.config/systemd/user/first_boot.service"
 rm "${HOME}/first_boot.sh"
@@ -56,3 +56,4 @@ EOF
 
 systemctl --user daemon-reload
 systemctl --user enable first_boot.service
+log_info "Registered first boot script."
