@@ -1,6 +1,105 @@
+#!/usr/bin/env bash
+# First we determine some general settings
+BLACK=$'\033[0;30m'
+RED=$'\033[0;31m'
+GREEN=$'\033[0;32m'
+ORANGE=$'\033[0;33m'
+BLUE=$'\033[0;34m'
+PURPLE=$'\033[0;35m'
+CYAN=$'\033[0;36m'
+WHITE=$'\033[1;37m'
+CLEAR=$'\033[0m'
+
+if [ -f /etc/os-release ]; then
+    source /etc/os-release
+    DISTRO=${ID}
+fi
+
+
+log_info() {
+    if [[ "${BASH_SOURCE[1]}" =~ "/dev/fd" ]] || [[ "${BASH_SOURCE[1]}" =~ "install.sh" ]]; then 
+        echo -e "$(date +%T) ${BLUE}[i]${CLEAR} $1" | tee -a "${HOME}/install_log.txt"
+    else
+        echo -e "${BLUE}[i]${CLEAR} $1"
+    fi
+}
+
+log_warning() {
+    if [[ "${BASH_SOURCE[1]}" =~ "/dev/fd" ]] || [[ "${BASH_SOURCE[1]}" =~ "install.sh" ]]; then 
+        echo -e "$(date +%T) ${ORANGE}[!]${CLEAR} $1" | tee -a "${HOME}/install_log.txt"
+    else
+        echo -e "${ORANGE}[!]${CLEAR} $1"
+    fi
+}
+
+log_success() {
+    if [[ "${BASH_SOURCE[1]}" =~ "/dev/fd" ]] || [[ "${BASH_SOURCE[1]}" =~ "install.sh" ]]; then 
+        echo -e "$(date +%T) ${GREEN}[*]${CLEAR} $1" | tee -a "${HOME}/install_log.txt"
+    else
+        echo -e "${GREEN}[*]${CLEAR} $1"
+    fi
+}
+
+log_error() {
+    if [[ "${BASH_SOURCE[1]}" =~ "/dev/fd" ]] || [[ "${BASH_SOURCE[1]}" =~ "install.sh" ]]; then 
+        echo -e "$(date +%T) ${RED}[E]${CLEAR} $1" | tee -a "${HOME}/install_log.txt"
+    else
+        echo -e "${RED}[E]${CLEAR} $1"
+    fi
+}
+
+install_packages() {
+    case "${DISTRO}" in 
+        "debian"|"ubuntu"|"kali")
+            sudo apt-get install -y "$@"
+            ;;
+        "macos")
+            brew install "$@"
+            ;;
+        "alpine")
+            sudo pkg install "$@"
+            ;;
+        "arch")
+            if [ -x "$(command -v yay)" ]; then
+                yay --noconfirm --needed -S "$@"
+            else
+                sudo pacman --noconfirm --needed -S "$@"
+            fi
+            ;;
+        *)
+            install_warning "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again."
+    esac
+}
+
+update_and_upgrade() {
+    case "${DISTRO}" in
+        "debian"|"kali"|"ubuntu")
+			sudo apt update && sudo apt upgrade -y
+            ;;
+        "macos")
+            brew update && brew upgrade --quiet
+            ;;
+        "alpine")
+            sudo apk -U upgrade
+            ;;
+        "arch")
+			sudo pacman -Syyu --noconfirm
+            ;;
+        *)
+            install_warning "I'm not sure what your package manager is! Please install $1 on your own and run this deploy script again."
+    esac
+}
+
+
+
 # Compression
-compress() { tar -czf "${1%/}.tar.gz" "${1%/}"; }
-alias decompress="tar -xzf"
+compress() {
+	tar -czf "${1%/}.tar.gz" "${1%/}";
+}
+
+decompress() {
+	tar -xzf "$@"
+}
 
 # Write iso file to sd card
 iso2sd() {
@@ -94,38 +193,6 @@ saveclip() {
       return 1
     fi
   fi
-}
-
-colorlog() {
-  BLACK=$'\033[0;30m'
-  RED=$'\033[0;31m'
-  GREEN=$'\033[0;32m'
-  ORANGE=$'\033[0;33m'
-  BLUE=$'\033[0;34m'
-  PURPLE=$'\033[0;35m'
-  CYAN=$'\033[0;36m'
-  WHITE=$'\033[1;37m'
-  CLEAR=$'\033[0m'
-}
-
-log_info() {
-  colorlog
-  echo -e "${BLUE}[i]${CLEAR} $1"
-}
-
-log_warning() {
-  colorlog
-  echo -e "${ORANGE}[!]${CLEAR} $1"
-}
-
-log_success() {
-  colorlog
-  echo -e "${GREEN}[*]${CLEAR} $1"
-}
-
-log_error() {
-  colorlog
-  echo -e "${RED}[E]${CLEAR} $1"
 }
 
 saveclip() {

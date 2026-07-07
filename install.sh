@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
-if [ -f "${HOME}/.local/bin/shell-utils.sh" ]; then
-	source "${HOME}/.local/bin/shell-utils.sh"
+if [ -f "${HOME}/.local/bin/helper-functions.sh" ]; then
+	source "${HOME}/.local/bin/helper-functions.sh"
 else
 	if [[ -z "${REPO}" ]]; then
-		source <(curl -s https://raw.githubusercontent.com/snu1v3r/dotfiles/main/local/bin/shell-utils.sh)
+		source <(curl -s https://raw.githubusercontent.com/snu1v3r/dotfiles/main/local/bin/helper-functions.sh)
 	else
-		source <(curl -s https://raw.githubusercontent.com/snu1v3r/dotfiles/${REPO}/local/bin/shell-utils.sh)
+		source <(curl -s https://raw.githubusercontent.com/snu1v3r/dotfiles/${REPO}/local/bin/helper-functions.sh)
 	fi
 fi
 log_info "Cloning Dotfiles..."

@@ -55,7 +55,7 @@ fi
 source ${ZDOTDIR}/base_config.sh
 source ${ZDOTDIR}/syntax.sh
 source ${ZDOTDIR}/aliases.sh
-source ${ZDOTDIR}/custom-functions.sh
+source ${HOME}/.local/bin/helper-functions.sh
 source ${ZDOTDIR}/zsh-autosuggestions.zsh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
