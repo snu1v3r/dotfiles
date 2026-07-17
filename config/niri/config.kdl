@@ -652,6 +652,7 @@ binds {
     Mod+F { spawn "nautilus"; }
 
     Mod+Shift+S { spawn-sh "~/.local/bin/toggle_scale.sh"; } 
+    Mod+space hotkey-overlay-title="Default Launcher: Toggle" { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
 }
 
 include optional=true "overrides.kdl"
