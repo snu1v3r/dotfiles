@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if [ ! "${PROFILE}" = "headless" ] && [ -f /boot/grub/grub.cfg ]; then
+if [ ! "${PROFILE}" = "headless" ] && [ command -v grub-install ]; then
 	# Only install Grub theme when Grub is used
     install_packages os-prober
     sudo mkdir -p /boot/grub/themes
