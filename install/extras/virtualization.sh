@@ -33,4 +33,4 @@ case "${DISTRO}" in
         ;;
 esac
 sudo systemctl enable --now libvirtd.service
-sudo sed -i 's/^#*\s*\(firewall_backend = \).*/\1iptables/g' /etc/libvirt/network.conf
+sudo sed -i 's/^#*\s*\(firewall_backend = \).*/\1"iptables"/g' /etc/libvirt/network.conf
