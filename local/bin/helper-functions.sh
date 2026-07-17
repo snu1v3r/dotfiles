@@ -229,7 +229,9 @@ install-extras() {
 		mapfile -t RESULT < <(gum choose "${EXTRAS[@]}" --no-limit --header="Choose the desired extras")
 	fi
 	for EXTRA in "${RESULT[@]}"; do
-	    log_info "Starting ${EXTRA}.sh"
-		source "${HOME}/.local/share/dotfiles/install/extras/${EXTRA}.sh"
+	  	if [ ! -z ${EXTRA} ]; then
+			log_info "Starting ${EXTRA}.sh"
+			source "${HOME}/.local/share/dotfiles/install/extras/${EXTRA}.sh"
+		fi
 	done;
 }
