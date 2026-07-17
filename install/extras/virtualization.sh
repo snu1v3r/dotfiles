@@ -32,4 +32,5 @@ case "${DISTRO}" in
             qemu-user qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils
         ;;
 esac
-sudo systemctl enable libvirtd.service
+sudo systemctl enable --now libvirtd.service
+sudo sed -i 's/^#*\s*\(firewall_backend = \).*/\1iptables/g' /etc/libvirt/network.conf
