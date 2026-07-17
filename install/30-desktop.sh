@@ -9,7 +9,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
         "arch")
             install_packages brave-bin \
                 clipse sushi \
-                networkmanager
+                networkmanager wireguard-tools
 			if [ ! "${DISPLAYMANAGER}" = "gnome" ] && [ ! "${DISPLAYMANAGER}" = "niri" ]; then
                 install_packages fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt network-manager-applet
 			fi
@@ -19,7 +19,7 @@ if [ ! "${PROFILE}" = "headless" ]; then
             ;;
     esac
 
-    # sudo systemctl enable NetworkManager.service
+    sudo systemctl enable NetworkManager.service
 
     if [ "$PROFILE" = "main" ]; then
         # install_packages keepassxc brightnessctl gnome-keyring thunderbird
