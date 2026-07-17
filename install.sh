@@ -23,6 +23,8 @@ else
 	git clone -b "${REPO}" --recurse-submodules --shallow-submodules https://github.com/snu1v3r/dotfiles.git ~/.local/share/dotfiles >/dev/null
 fi
 
+git -C "${HOME}/.local/share/dotfiles" remote set-url origin git@github.com:/snu1v3r/dotfiles.git
+
 
 log_info "Installation of individual scripts starting..."
 
