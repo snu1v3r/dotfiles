@@ -5,4 +5,4 @@ install_packages wireshark-qt ida-free ghidra gobuster netexec \
 	rz-cutter
 
 # Needed to ensure interface for ghidra is working
-echo "export _JAVA_AWT_WM_NONREPARENTING=1" >> "${HOME}/.config/zsh/environment_overrides.sh"
+echo "export _JAVA_AWT_WM_NONREPARENTING=1" >> "${HOME}/.config/zsh/environment_overrides.zsh"
