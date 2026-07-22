@@ -614,7 +614,7 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
+    Mod+Ctrl+V       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     // Actions to switch layouts.
@@ -653,6 +653,9 @@ binds {
 
     Mod+Shift+S { spawn-sh "~/.local/bin/toggle_scale.sh"; } 
     Mod+space hotkey-overlay-title="Default Launcher: Toggle" { spawn "dms" "ipc" "call" "spotlight" "toggle"; }
+    Mod+K { spawn "keepassxc"; }
+    Mod+V { spawn "virt-manager"; }
+    
 }
 
 include optional=true "overrides.kdl"
