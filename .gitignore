@@ -24,8 +24,8 @@ local/share/mc/history
 config/qalculate/qalc.history
 
 # This file is used for overrides created on installation and not part of installation
-config/niri/overrides.kdl
-config/zsh/environment_overrides.zsh
+/config/niri/overrides.kdl
+/config/zsh/environment_overrides.zsh
 
 # These belong to DankMaterialShell on install
 /config/DankMaterialShell
