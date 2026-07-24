@@ -371,6 +371,10 @@ window-rule {
     open-maximized true
 }
 
+window-rule {
+    match app-id=r#"^chromium-browser$"#
+    open-maximized true
+}
 
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
@@ -623,6 +627,7 @@ binds {
     // Mod+Shift+Space { switch-layout "prev"; }
 
     Print { spawn-sh "grim -t ppm -g \"$(slurp -d)\" - | satty --filename - --early-exit --copy-command 'wl-copy'"; }
+    Ctrl+Print { spawn-sh "wl-copy </dev/null; wl-paste --type image/png --watch sh -c 'satty --filename - --early-exit --copy-command \"wl-copy\"' & niri msg action screenshot-window --write-to-disk false & sleep 3; pkill \"wl-paste\""; }
     // Print { screenshot; }
     // Ctrl+Print { screenshot-screen; }
     // Alt+Print { screenshot-window; }
