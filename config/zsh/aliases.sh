@@ -1,4 +1,5 @@
 alias cat=bat
+alias catp='cat -pp'
 alias mount_shares='sudo vmhgfs-fuse .host:/ /mnt/hgfs -o allow_other'
 alias fzp="fzf --preview 'bat --style=numbers --colors=always --line-range :500 {}'"
 alias fzv="fzf --print0 | xargs -0 -o nvim"
