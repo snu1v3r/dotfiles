@@ -111,19 +111,21 @@ blocks:
           invert_powerline: true
           template: ' {{ .Env.POSH_VPN }} '
         - foreground: p:text-foreground
-          powerline_symbol: 
+          # powerline_symbol: 
           background: p:path-background
           type: text
-          style: powerline
-          invert_powerline: true
-          template: ' {{ .Env.POSH_IP }} '
-        - trailing_diamond: 
-          template: ' {{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }} '
-          foreground: p:text-foreground
-          background: p:host-background
-          type: session
+          # style: powerline
           style: diamond
           invert_powerline: true
+          template: ' {{ .Env.POSH_IP }} '
+          trailing_diamond: 
+        # - trailing_diamond: 
+        #   template: ' {{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }} '
+        #   foreground: p:text-foreground
+        #   background: p:host-background
+        #   type: session
+        #   style: diamond
+        #   invert_powerline: true
         - properties:
             always_enabled: true
           template: ─╮
@@ -136,7 +138,15 @@ blocks:
           foreground: p:terminal-foreground
           type: text
           style: plain
-        - template: '{{ if .Root }}{{ else }}{{ if gt .Code 0}}✗{{ else }}❯{{ end }}{{ end }}'
+        - trailing_diamond: 
+          leading_diamond: 
+          template: ' {{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }}'
+          foreground: p:text-foreground
+          background: p:host-background
+          type: session
+          style: diamond
+          invert_powerline: true
+        - template: '{{ if .Root }}{{ else }}{{ if gt .Code 0}} ✗{{ else }} ❯{{ end }}{{ end }}'
           foreground: p:success-foreground
           type: text
           style: plain
