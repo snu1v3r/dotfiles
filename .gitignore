@@ -30,3 +30,7 @@ config/qalculate/qalc.history
 # These belong to DankMaterialShell on install
 /config/DankMaterialShell
 /config/niri/dms
+
+# These files are created during installation
+local/share/applications/burp-browser.desktop
+
