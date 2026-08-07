@@ -35,11 +35,12 @@ blocks:
     - type: prompt
       alignment: left
       segments:
-        - leading_diamond: ╭─
+        - type: vimode
+          style: diamond
+          leading_diamond: ╭─
           foreground: p:terminal-background
           background: p:terminal-foreground
-          type: os
-          style: diamond
+          template: ' {{ if eq .Mode "normal" }}{{ else if eq .Mode "visual" }} {{ else }}{{ end }} '
         - template: '  '
           foreground: p:root-foreground
           powerline_symbol: 
@@ -48,23 +49,21 @@ blocks:
           style: powerline
         - properties:
             home_icon: "~"
-            style: full
-          template: '  {{ .Path }} '
+            style: mixed
+          template: '{{ if .Writable }}  {{ else }} 🔒︎ {{ end }}{{ .Path }} '
+          foreground_templates:
+            - '{{ if not .Writable }}p:error-foreground{{ end }}'
           foreground: p:path-foreground
           powerline_symbol: 
           background: p:path-background
           type: path
           style: powerline
-        # - properties:
-        #     command: ssh-add -l | grep -v identities | wc -l
-        #     shell: zsh
-        #     interpret: false
-        #   powerline_symbol: 
-        #   template: '{{ if ne .Output "0" }} 󱕴{{ .Output }}{{ end }}'
-        #   type: command
-        #   style: powerline
-        #   foreground: p:terminal-background
-        #   background: p:keyring-background
+        - powerline_symbol: 
+          template: ' {{ if ne .Env.POSH_SSH "0" }}{{ .Env.POSH_SSH }} 󱕴{{ end }}'
+          type: text
+          style: powerline
+          foreground: p:terminal-background
+          background: p:keyring-background
         - properties:
             branch_icon: '  '
             fetch_status: true
@@ -109,28 +108,20 @@ blocks:
           type: text
           style: powerline
           invert_powerline: true
-          template: ' {{ .Env.POSH_VPN }} '
+          template: '{{ .Env.POSH_VPN }} '
         - foreground: p:text-foreground
-          # powerline_symbol: 
+          powerline_symbol: 
+          invert_powerline: true
           background: p:path-background
           type: text
-          # style: powerline
+          style: powerline
+          template: '{{ .Env.POSH_IP }} '
+        - trailing_diamond: ─╮
+          foreground: p:terminal-background
+          background: p:terminal-foreground
+          type: os
           style: diamond
-          invert_powerline: true
-          template: ' {{ .Env.POSH_IP }} '
-          trailing_diamond: 
-        # - trailing_diamond: 
-        #   template: ' {{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }} '
-        #   foreground: p:text-foreground
-        #   background: p:host-background
-        #   type: session
-        #   style: diamond
-        #   invert_powerline: true
-        - properties:
-            always_enabled: true
-          template: ─╮
-          type: text
-          style: plain
+          template: ""
     - type: prompt
       alignment: left
       segments:
@@ -140,32 +131,28 @@ blocks:
           style: plain
         - trailing_diamond: 
           leading_diamond: 
-          template: ' {{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }}'
-          foreground: p:text-foreground
-          background: p:host-background
-          type: session
-          style: diamond
-          invert_powerline: true
-        - template: '{{ if .Root }}{{ else }}{{ if gt .Code 0}} ✗{{ else }} ❯{{ end }}{{ end }}'
-          foreground: p:success-foreground
-          type: text
-          style: plain
+          properties:
+            always_enabled: true
+          template: '{{ if eq .Code 127 }} {{ else }}{{ if gt .Code 0 }} ✘ {{ else }} ✔{{ end }}{{ end }}'
           foreground_templates:
             - '{{ if gt .Code 0 }}p:error-foreground{{ end }}'
+          foreground: p:success-foreground
+          background: p:status-background
+          type: status
+          style: diamond
+          invert_powerline: true
       newline: true
     - type: rprompt
       segments:
         - properties:
             always_enabled: true
-          template: ' {{ if eq .Code 127 }}{{ .Code }} {{ else }}{{ if gt .Code 0 }}{{ .Code }} ✘ {{ else }}✔ {{ end }}{{ end }} '
-          foreground: p:success-foreground
+          template: '{{ if .SSHSession }} {{ end }}{{ .UserName }}@{{ .HostName }} '
+          foreground: p:terminal-background
           powerline_symbol: 
-          background: p:status-background
-          type: status
+          background: p:host-background
+          type: session
           style: powerline
           leading_powerline_symbol: 
-          foreground_templates:
-            - '{{ if gt .Code 0 }}p:error-foreground{{ end }}'
           invert_powerline: true
         - template: ' {{ .FormattedMs }}  '
           foreground: '#000000'
@@ -186,6 +173,8 @@ blocks:
         - properties:
             always_enabled: true
           template: ─╯
+          foreground: p:terminal-foreground
+          background: p:terminal-background
           type: text
           style: plain
 version: 3

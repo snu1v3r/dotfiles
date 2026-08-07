@@ -91,8 +91,9 @@ esac
 export GDK_BACKEND=wayland,x11
 
 function set_poshcontext() {
-    export POSH_VPN=$(ip route | /usr/bin/grep -E 'dev (tun|tap).*proto kernel scope' | awk '{print $9 " 󱠾  " $3}' )
+    export POSH_VPN=$(ip route | /usr/bin/grep -E 'dev (tun|tap).*proto kernel scope' | awk '{print $9 " 󱠾 " $3}' )
     export POSH_IP=$(ip route | /usr/bin/grep -m1 default | awk '{print $9 " 󰩠 " $5}' || echo '󰩠 ')
+    export POSH_SSH=$(ssh-add -l | grep -v no | wc -l )
 }
 
 eval "$(direnv hook zsh)"
