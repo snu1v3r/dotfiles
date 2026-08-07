@@ -15,7 +15,7 @@ case "${DISTRO}" in
 		  shellcheck-bin bash-language-server \
 		  lua-language-server \
 		  ruff python-lsp-server python-lsp-ruff \
-		  marksman
+		  marksman tree-sitter-cli
         ;;
 esac
 
