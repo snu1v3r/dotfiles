@@ -1,0 +1,26 @@
+{
+  "Header for readme": {
+    "prefix": "hh",
+    "body": [
+"# ${1}",
+"",
+"![${1}](./screenshots/01_${1/(.*)/${1:/downcase}/}.png)",
+"",
+"## Crown Jewels",
+"| Flag | Value |",
+"| --- | --- |",
+"| `user` | `` |",
+"| `root` | `` |",
+"",
+"## Enumeration",
+"### Sensitive information",
+"",
+"| Item / User | Value / Password |",
+"| --- | --- |",
+"| `` | `` |",
+"",
+"### Nmap",
+"${2}"
+    ]
+  }
+}
