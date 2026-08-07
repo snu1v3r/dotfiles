@@ -3,12 +3,8 @@ install_packages wireshark-qt ida-free ghidra gobuster netexec \
 	nmap nmap-netcat python-pwntools pwncat pwndbg checksec ropper wordlists \
 	dirbuster-wordlists hashcat hashcat-utils pocl john metasploit \
 	rz-cutter wxhexeditor feroxbuster-bin hydra ffuf-bin tcpdump \
-	wfuzz
+	wfuzz nfs-utils
 
-# Needed to ensure interface for ghidra is working
-echo "export _JAVA_AWT_WM_NONREPARENTING=1" >> "${HOME}/.config/zsh/environment_overrides.zsh"
-# Needed to ensure scaling of the interface works
-echo "export _JAVA_OPTIONS=\"-Dsun.java2d.uiScale=2\"" >> "${HOME}/.config/zsh/environment_overrides.zsh"
 
 # Desktop file has environment variable to enable proper scaling
 # Desktop file has environment variable to fix empty interface
@@ -41,3 +37,22 @@ Categories=Development;Security
 Terminal=false
 MimeType=application/x-extension-iml;
 EOF
+
+OVERRIDES="${HOME}/.config/zsh/environment_overrides.zsh"
+# Needed to ensure interface for ghidra is working
+if ! grep -Eq '^export _JAVA_AWT_WM_NONREPARENTING' ${OVERRIDES}; then
+	echo "export _JAVA_AWT_WM_NONREPARENTING=1" >> "${OVERRIDES}"
+fi
+# Needed to ensure scaling of the interface works
+if ! grep -Eq '^export _JAVA_OPTIONS' ${OVERRIDES}; then
+	echo "export _JAVA_OPTIONS=\"-Dsun.java2d.uiScale=2\"" >> "${OVERRIDES}"
+fi
+
+if ! grep -Eq '^export HACKING' ${OVERRIDES}; then
+	echo 'export HACKING_TOOLS=${HOME}/tools' >> ${OVERRIDES}
+fi
+if ! grep -Eq '^source \$\{HACKING' ${OVERRIDES}; then
+	echo 'source ${HACKING_TOOLS}/helper-functions.sh' >> ${OVERRIDES}
+fi
+
+
