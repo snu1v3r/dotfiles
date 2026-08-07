@@ -31,6 +31,12 @@ alias toggle_keyboard='test_keyboard=`setxkbmap -print | grep dvorak` ; if [[ $t
 alias tms=tmux-sessionizer.sh
 alias convert-markdown=convert-markdown.py
 
+tmh() {
+	branch=$(pwd)
+	leaf=$(basename "${branch}")
+	tmux new -A -s "${leaf}" -c "${branch}"
+}
+
 alias cd="zd"
 zd() {
   if [ $# -eq 0 ]; then
@@ -68,6 +74,8 @@ alias yayf="yay -Slq | fzf --multi --preview 'yay -Sii {1}' --preview-window=dow
 if command -v fdfind &>/dev/null && ! command -v fd &>/dev/null; then
     alias fd=fdfind
 fi
+
+
 
 if command -v tmuxifier &>/dev/null; then
 	alias tx="tmuxifier"
