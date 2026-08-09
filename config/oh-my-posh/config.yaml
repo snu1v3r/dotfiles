@@ -110,12 +110,13 @@ blocks:
           invert_powerline: true
           template: '{{ .Env.POSH_VPN }} '
         - foreground: p:text-foreground
+          always_enabled: true
           powerline_symbol: 
           invert_powerline: true
           background: p:path-background
           type: text
           style: powerline
-          template: '{{ .Env.POSH_IP }} '
+          template: '{{ if .Env.POSH_IP }}{{ .Env.POSH_IP }} {{ else }}󰩠 {{ end }}'
         - trailing_diamond: ─╮
           foreground: p:terminal-background
           background: p:terminal-foreground
