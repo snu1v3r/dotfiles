@@ -9,6 +9,7 @@ palette:
     git-behind: '#4e9ae6'
     go-background: '#00acd7'
     host-background: '#F4B186'
+    ssh-background: '#eb762d'
     path-background: '#7299E5'
     path-foreground: '#D1D4D4'
     python-background: '#ffd343'
@@ -151,6 +152,8 @@ blocks:
           foreground: p:terminal-background
           powerline_symbol: 
           background: p:host-background
+          background_templates: 
+            - '{{ if .SSHSession }}p:ssh-background{{ end }}'
           type: session
           style: powerline
           leading_powerline_symbol: 
