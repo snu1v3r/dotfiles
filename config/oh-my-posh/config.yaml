@@ -51,7 +51,7 @@ blocks:
         - properties:
             home_icon: "~"
             style: mixed
-          template: '{{ if .Writable }}  {{ else }} 🔒︎ {{ end }}{{ .Path }} '
+          template: '{{ if .Writable }}  {{ else }}  {{ end }}{{ .Path }} '
           foreground_templates:
             - '{{ if not .Writable }}p:error-foreground{{ end }}'
           foreground: p:path-foreground
