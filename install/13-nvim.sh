@@ -14,7 +14,7 @@ case "${DISTRO}" in
         install_packages nvim \
 		  shellcheck-bin bash-language-server \
 		  lua-language-server \
-		  ruff python-lsp-server python-lsp-ruff \
+		  ruff python-lsp-server python-lsp-all \
 		  marksman tree-sitter-cli
         ;;
 esac
