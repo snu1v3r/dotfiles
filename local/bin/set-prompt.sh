@@ -14,7 +14,7 @@ if [ -f "$HOME/.config/zsh/environment_overrides.zsh" ]; then
         echo "export PROMPT_APP=$PROMPT_APP" >> $HOME/.config/zsh/environment_overrides.zsh
     fi
 else
-        echo "#!/usr/bin/env zsh\nexport PROMPT_APP=$PROMPT_APP" >> $HOME/.config/zsh/environment_overrides.zsh
+        echo -e "#!/usr/bin/env zsh\nexport PROMPT_APP=$PROMPT_APP" >> $HOME/.config/zsh/environment_overrides.zsh
 fi
 
 echo -e "\e[32m\n Prompt application is updated to: $PROMPT_APP\e[0m"
