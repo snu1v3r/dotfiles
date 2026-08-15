@@ -178,7 +178,7 @@ blocks:
             always_enabled: true
           template: ─╯
           foreground: p:terminal-foreground
-          background: p:terminal-background
+          background: transparent
           type: text
           style: plain
 version: 3
