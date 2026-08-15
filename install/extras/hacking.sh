@@ -3,7 +3,7 @@ install_packages wireshark-qt ida-free ghidra gobuster netexec \
 	nmap nmap-netcat python-pwntools pwncat pwndbg checksec ropper wordlists \
 	dirbuster-wordlists hashcat hashcat-utils pocl john metasploit \
 	rz-cutter wxhexeditor feroxbuster-bin hydra ffuf-bin tcpdump \
-	wfuzz nfs-utils
+	wfuzz nfs-utils perl-image-exiftool imagemagick
 
 
 # Desktop file has environment variable to enable proper scaling
