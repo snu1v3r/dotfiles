@@ -57,3 +57,5 @@ EOF
 systemctl --user daemon-reload
 systemctl --user enable first_boot.service
 log_info "Registered first boot script."
+
+source "${HOME}/.local/bin/set-prompt.sh"
