@@ -24,6 +24,17 @@ export ZDOTDIR=\${HOME}/.config/zsh
 export BASH_ENV=\${HOME}/.local/bin/helper-functions.sh
 EOF
 
+# Needed to update the agent socket on each ssh connection for tmux
+mkdir "${HOME}/.ssh"
+tee "${HOME}/.ssh/rc" &>/dev/null <<EOF
+#!/bin/bash
+
+# Fix SSH auth socket location so agent forwarding works with tmux.
+if test "$SSH_AUTH_SOCK" ; then
+  ln -sf $SSH_AUTH_SOCK ~/.ssh/ssh_auth_sock
+fi
+EOF
+
 # Hyprland through the profile is only needed when SDDM is not used and we are on arch
 if [ ! "${PROFILE}" = "main" ] && [ ! "${PROFILE}" = "headless" ]; then
 	if [ "${DISPLAYMANAGER}" = "hyprland" ]; then
