@@ -329,6 +329,10 @@ if [[ "$selected" =~ ^\[TMUX\]\ (.+)$ ]]; then
     selected="${BASH_REMATCH[1]}"
 fi
 
+if [[ "$selected" = "." ]]; then
+	selected=$(pwd)
+fi
+
 selected_name=$(basename "$selected" | tr . _)
 
 if ! is_tmux_running; then
